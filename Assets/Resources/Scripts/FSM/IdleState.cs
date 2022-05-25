@@ -249,6 +249,7 @@ public class DeadState :IState
 {
     private FSM manager;
     private Parameter parameter;
+    private GameObject thisObject;
 
     public DeadState(FSM manager)
     {
@@ -258,6 +259,7 @@ public class DeadState :IState
 
     public void OnEnter()
     {
+        parameter.anim.Play("Falling Back Death");
         Debug.Log("Enter Dead");
     }
 

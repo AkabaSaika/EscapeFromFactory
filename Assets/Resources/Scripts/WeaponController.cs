@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using LightJson;
 
 public class WeaponController : MonoBehaviour
 {
@@ -12,14 +13,18 @@ public class WeaponController : MonoBehaviour
     private GameObject weaponTrans;
     private DoubleHandSword dhs = new DoubleHandSword();
     private Animator anim;
+
     private GameObject hitPoint1;
     private GameObject hitPoint2;
+    private GameObject[] hitPoints = new GameObject[5];
     private Vector3[] attacklinePos = new Vector3[2];
-
+    private SkillParameter skillPara;
+    private List<GameObject> hitObject = new List<GameObject>();
 
 
     private void Awake()
     {
+        skillPara=GetComponent<SkillParameter>();
         //rightHand = transform.Find("Character1_RightHand");
         weaponTrans = Instantiate(Resources.Load<GameObject>("Models/Items/Weapons/Sword Two-Hander Purple"));
         weaponTrans.transform.parent = rightHand;
@@ -27,34 +32,46 @@ public class WeaponController : MonoBehaviour
         weaponTrans.transform.localRotation = Quaternion.Euler(dhs.RotateOffset);
         weaponTrans.transform.localScale = dhs.Scale;
 
-        hitPoint1 = new GameObject("Empty");
-        hitPoint1.name = "hitPoint1";
-        hitPoint1.transform.SetParent(weaponTrans.transform);
-        hitPoint1.transform.localPosition = new Vector3(0, 4.54f, 0);
+        hitPoints[0] = new GameObject("Empty");
+        hitPoints[0].name = "hitPoint1";
+        hitPoints[0].transform.SetParent(weaponTrans.transform);
+        hitPoints[0].transform.localPosition = new Vector3(0, 4.54f, 0);
 
-        hitPoint2 = new GameObject("Empty");
-        hitPoint2.name = "hitPoint2";
-        hitPoint2.transform.SetParent(weaponTrans.transform);
-        hitPoint2.transform.localPosition = new Vector3(0.247f, 2.773f, 0);
-        
+        hitPoints[1] = new GameObject("Empty");
+        hitPoints[1].name = "hitPoint2";
+        hitPoints[1].transform.SetParent(weaponTrans.transform);
+        hitPoints[1].transform.localPosition = new Vector3(0.247f, 2.773f, 0);
+
+        hitPoints[2] = new GameObject("Empty");
+        hitPoints[2].name = "hitPoint3";
+        hitPoints[2].transform.SetParent(weaponTrans.transform);
+        hitPoints[2].transform.localPosition = new Vector3(0.261f, 3.615f, 0);
+
+        hitPoints[3] = new GameObject("Empty");
+        hitPoints[3].name = "hitPoint4";
+        hitPoints[3].transform.SetParent(weaponTrans.transform);
+        hitPoints[3].transform.localPosition = new Vector3(0.261f, 2.141f, 0);
+
+        hitPoints[4] = new GameObject("Empty");
+        hitPoints[4].name = "hitPoint5";
+        hitPoints[4].transform.SetParent(weaponTrans.transform);
+        hitPoints[4].transform.localPosition = new Vector3(0.261f, 1.382f, 0);
 
         anim = gameObject.GetComponent<Animator>();
         AddAnimationEvent();
-
     }
 
     private void AddAnimationEvent()
     {
-        DrawHit("great sword slash", "DrawLightHit", 0.02f, 0.24f, hitPoint1);
-        DrawHit("great sword slash (3)", "DrawMediumHit", 0.20f, 1.07f, hitPoint1);
-        DrawHit("great sword slash (4)", "DrawHeavyHit", 0.10f, 1.23f, hitPoint1);
-
-        DrawHit("great sword slash", "DrawLightHit", 0.02f, 0.24f, hitPoint2);
-        DrawHit("great sword slash (3)", "DrawMediumHit", 0.20f, 1.07f, hitPoint2);
-        DrawHit("great sword slash (4)", "DrawHeavyHit", 0.10f, 1.23f, hitPoint2);
+        foreach(GameObject hp in hitPoints)
+        {
+            DrawHit("great sword slash", 0.02f, 0.24f, hp);
+            DrawHit("great sword slash (3)", 0.20f, 1.07f, hp);
+            DrawHit("great sword slash (4)", 0.10f, 1.23f, hp);
+        }
     }
 
-    private void DrawHit(string clipName,string functionName,float startTime,float endTime,GameObject hitPoint)
+    private void DrawHit(string clipName,float startTime,float endTime,GameObject hitPoint)
     {
         AnimationClip[] clips = anim.runtimeAnimatorController.animationClips;
         foreach (var clip in clips)
@@ -72,21 +89,28 @@ public class WeaponController : MonoBehaviour
                 {
                     AnimationEvent events = new AnimationEvent();
                     events.objectReferenceParameter=hitPoint;
-                    events.functionName = functionName;
+                    events.functionName = "CastHitLine";
                     events.time = i;
                     clip.AddEvent(events);
                 }
             }
+            if(string.Equals(clip.name,clipName))
+            {
+                AnimationEvent events = new AnimationEvent();
+                events.functionName="CallResetCanHit";
+                events.time=1.0f;
+                clip.AddEvent(events);
+            }
         }
-            
     }
 
     private void ResetHit()
     {
         attacklinePos[0] = attacklinePos[1] = Vector3.zero;
+        hitObject.Clear();
     }
 
-    private void DrawLightHit(GameObject hitPoint)
+    private void CastHitLine(GameObject hitPoint)
     {
         int layA = LayerMask.NameToLayer("Default");
         attacklinePos[1] = hitPoint.transform.position;
@@ -97,84 +121,25 @@ public class WeaponController : MonoBehaviour
         }
         Debug.DrawLine(attacklinePos[0], attacklinePos[1], Color.red, 60);
         RaycastHit hit;
-        if (Physics.Linecast(attacklinePos[1], attacklinePos[0], out hit, 1 << layA))
+        if (Physics.Linecast(attacklinePos[0], attacklinePos[1], out hit, 1 << layA)||Physics.Linecast(attacklinePos[1], attacklinePos[0], out hit, 1 << layA))
         {
             Debug.Log("hit");
             switch (hit.collider.tag)
             {
                 case "Enemy":
-                    Debug.Log(hit.collider.gameObject.name);
-                    hit.collider.SendMessage("SmallDamage");
-                    hit.collider.SendMessage("Damaged");
-                    anim.speed = 0.3f;
-                    Invoke("AnimPlay", 0.1f);
+                    if(hit.collider.gameObject.GetComponent<FSM>().canHit)
+                    {      
+                        hitObject.Add(hit.collider.gameObject);              
+                        Debug.Log(hit.collider.gameObject.name);
+                        hit.collider.SendMessage("Damaged");
+                        anim.speed = 0.3f;
+                        Invoke("AnimPlay", 0.1f);
+                    }
                     break;
             }
 
         }
         attacklinePos[0] = attacklinePos[1];
-        
-    }
-
-    private void DrawMediumHit(GameObject hitPoint)
-    {
-        int layA = LayerMask.NameToLayer("Default");
-        attacklinePos[1] = hitPoint.transform.position;
-
-        if (attacklinePos[0] == Vector3.zero)
-        {
-            attacklinePos[0] = attacklinePos[1];
-        }
-        Debug.DrawLine(attacklinePos[0], attacklinePos[1], Color.blue, 60);
-        RaycastHit hit;
-        if (Physics.Linecast(attacklinePos[0], attacklinePos[1], out hit, 1 << layA))
-        {
-            Debug.Log("hit");
-            switch (hit.collider.tag)
-            {
-                case "Enemy":
-                    Debug.Log(hit.collider.gameObject.name);
-                    hit.collider.SendMessage("MediumDamage");
-                    hit.collider.SendMessage("Damaged");
-                    anim.speed = 0.3f;
-                    Invoke("AnimPlay", 0.12f);
-
-                    break;
-            }
-
-        }
-        attacklinePos[0] = attacklinePos[1];
-
-    }
-
-    private void DrawHeavyHit(GameObject hitPoint)
-    {
-        int layA = LayerMask.NameToLayer("Default");
-        attacklinePos[1] = hitPoint.transform.position;
-
-        if (attacklinePos[0] == Vector3.zero)
-        {
-            attacklinePos[0] = attacklinePos[1];
-        }
-        Debug.DrawLine(attacklinePos[0], attacklinePos[1], Color.yellow, 60);
-        RaycastHit hit;
-        if (Physics.Linecast(attacklinePos[0], attacklinePos[1], out hit, 1 << layA))
-        {
-            Debug.Log("hit");
-            switch (hit.collider.tag)
-            {
-                case "Enemy":
-                    Debug.Log(hit.collider.gameObject.name);
-                    hit.collider.SendMessage("BigDamage");
-                    hit.collider.SendMessage("Damaged");
-                    anim.speed = 0.1f;
-                    Invoke("AnimPlay", 0.15f);
-                    break;
-            }
-
-        }
-        attacklinePos[0] = attacklinePos[1];
-
     }
 
     private void AnimPlay()
@@ -182,41 +147,11 @@ public class WeaponController : MonoBehaviour
         anim.speed = 1;
     }
 
-    private void DrawAttackTriggerDebugger()
+    private void CallResetCanHit()
     {
-        if(hitPoint1.GetComponent<LineRenderer>())
+        foreach(var i in hitObject)
         {
-            Destroy(hitPoint1.GetComponent<LineRenderer>());
+            i.GetComponent<FSM>().canHit=true;
         }
-
-        Vector3[] pos = new Vector3[2];
-        pos[0] = attacklinePos[0];
-        pos[1] = attacklinePos[1];
-
-        LineRenderer line = new LineRenderer();
-        line = GameObject.Find("RecordPoint").AddComponent<LineRenderer>();
-        line.material = new Material(Shader.Find("Sprites/Default"));
-        line.positionCount = 2;
-        line.startColor = Color.red;
-        line.endColor = Color.blue;
-        line.startWidth = 0.01f;
-        line.endWidth = 0.1f;
-        //line.useWorldSpace = false;
-        line.SetPosition(0, pos[0]);
-        line.SetPosition(1, pos[1]);
-    }
-
-    private string ListToString(List<Vector3> list)
-    {
-        if(list.Count==0)
-        {
-            return null;
-        }
-        string str = "";
-        foreach(Vector3 i in list)
-        {
-            str += i.ToString() + " ";
-        }
-        return str;
     }
 }

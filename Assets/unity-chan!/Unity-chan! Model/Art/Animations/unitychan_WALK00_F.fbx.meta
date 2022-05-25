@@ -1854,7 +1854,7 @@ ModelImporter:
     - serializedVersion: 16
       name: unitychan_WALK00_F
       takeName: Take 001
-      internalID: 8081263488614398833
+      internalID: -1366489661427270489
       firstFrame: -1
       lastFrame: 40
       wrapMode: 0

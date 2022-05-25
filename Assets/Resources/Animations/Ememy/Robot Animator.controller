@@ -20,7 +20,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -7398538730718119356, guid: 36f0100511f804a46b347b91e4a8ebf9,
+  m_Motion: {fileID: -2305774346843622889, guid: 36f0100511f804a46b347b91e4a8ebf9,
     type: 3}
   m_Tag: 
   m_SpeedParameter: 
@@ -51,6 +51,9 @@ AnimatorStateMachine:
   - serializedVersion: 1
     m_State: {fileID: -9094053193593069746}
     m_Position: {x: 570, y: 0, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: 5909522035981188914}
+    m_Position: {x: 570, y: 100, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -81,8 +84,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -1610863427237328480, guid: 575bd8604b5c08545adff6b372652bb6,
-    type: 3}
+  m_Motion: {fileID: 144817775781681053, guid: 575bd8604b5c08545adff6b372652bb6, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -108,7 +110,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -3100369314251171874, guid: be495662d60993b45afc7faa2f071d53,
+  m_Motion: {fileID: -203655887218126122, guid: be495662d60993b45afc7faa2f071d53,
     type: 3}
   m_Tag: 
   m_SpeedParameter: 
@@ -171,7 +173,34 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 5979453045562751576, guid: ea4fec8601e313a42aae7300742edc51,
+  m_Motion: {fileID: 8995800683383746614, guid: ea4fec8601e313a42aae7300742edc51,
+    type: 3}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
+--- !u!1102 &5909522035981188914
+AnimatorState:
+  serializedVersion: 5
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Falling Back Death
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 7177807995908738136, guid: 9633bd05498a7bf489180d5b30a76477,
     type: 3}
   m_Tag: 
   m_SpeedParameter: 

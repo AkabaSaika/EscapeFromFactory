@@ -11,7 +11,9 @@ public class PlayerController : MonoBehaviour
     private float mouseSensiticity;
     private float angleY;
     private float angleX;
-
+    [SerializeField]
+    private bool isAttacking;
+    private Vector3 camFoward;
 
     private float h;
     private float v;
@@ -51,7 +53,7 @@ public class PlayerController : MonoBehaviour
         //Cursor.visible = false;
         //Cursor.lockState = CursorLockMode.Locked;
         isGrounded = pm.GroundState;
-
+        isAttacking = false;
         AddAnimationEvent();
     }
 
@@ -65,11 +67,17 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        Turn();
-        Move();
+        camFoward = Vector3.ProjectOnPlane(mainCamera.forward, Vector3.up);
+        AttackLock();
+        Attack();
+        if(!isAttacking)
+        {
+            Move();
+        }
+
         anim.SetFloat(speedHID,Mathf.Abs(h) * speed);
         anim.SetFloat(speedVID, Mathf.Abs(v) * speed);
-        Attack();
+
 
         //Debug.Log(canCancel);
     }
@@ -79,19 +87,45 @@ public class PlayerController : MonoBehaviour
         Vector3 lookAtPoint = new Vector3(h, 0, v);
         //transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(Vector3.ProjectOnPlane( Camera.main.transform.forward,Vector3.up)), 15f * Time.deltaTime);
         speed = Input.GetButton("Run") ? pm.RunSpeed : pm.WalkSpeed;
-        transform.Translate(transform.forward * v * speed * Time.deltaTime,Space.World);
+        if(Input.GetKey(KeyCode.W))
+        {
+            transform.forward=camFoward;
+        }
+        if(Input.GetKey(KeyCode.S))
+        {
+            transform.forward=-camFoward;
+        }
+        if(Input.GetKey(KeyCode.A))
+        {
+            transform.forward=mainCamera.right*(-1);
+        }
+        if(Input.GetKey(KeyCode.D))
+        {
+            transform.forward=mainCamera.right;
+        }
+        if(Input.GetKey(KeyCode.W)&&Input.GetKey(KeyCode.A))
+        {
+            transform.forward=camFoward-mainCamera.right;
+        }
+        if(Input.GetKey(KeyCode.W)&&Input.GetKey(KeyCode.D))
+        {
+            transform.forward=camFoward+mainCamera.right;
+        }
+        if(Input.GetKey(KeyCode.S)&&Input.GetKey(KeyCode.A))
+        {
+            transform.forward=-camFoward-mainCamera.right;
+        }
+        if(Input.GetKey(KeyCode.S)&&Input.GetKey(KeyCode.D))
+        {
+            transform.forward=-camFoward+mainCamera.right;
+        }
+        transform.Translate(camFoward * v * speed * Time.deltaTime,Space.World);
         //transform.Translate(Vector3.ProjectOnPlane(Camera.main.transform.forward,Vector3.up) * v * speed * Time.deltaTime, Space.World);
-        transform.Translate(transform.right * h * speed * Time.deltaTime,Space.World);
+        transform.Translate(mainCamera.right * h * speed * Time.deltaTime,Space.World);
 
         //transform.LookAt(transform.forward + lookAtPoint);
     }
 
-
-    private void Turn()
-    {
-        Vector3 camFoward = Vector3.ProjectOnPlane(mainCamera.forward, Vector3.up);
-        transform.localRotation = Quaternion.Slerp(transform.rotation,Quaternion.Euler(new Vector3(0,mainCamera.rotation.eulerAngles.y,0)), Time.time*0.1f);
-    }
 
     private void Jump()
     {
@@ -137,7 +171,6 @@ public class PlayerController : MonoBehaviour
             anim.SetTrigger(attack3ID);
             //Debug.Log(anim.GetCurrentAnimatorStateInfo(0).IsName("Attack3"));
         }
-        
     }
 
     private void OnTriggerEnter(Collider other)
@@ -180,6 +213,18 @@ public class PlayerController : MonoBehaviour
                 events.time = 1.0f;
                 clip.AddEvent(events);
             }
+        }
+    }
+
+    private void AttackLock()
+    {
+        if(anim.GetCurrentAnimatorStateInfo(0).IsName("Attack1")||anim.GetCurrentAnimatorStateInfo(0).IsName("Attack2")||anim.GetCurrentAnimatorStateInfo(0).IsName("Attack3"))
+        {
+            isAttacking=true;
+        }
+        else
+        {
+            isAttacking=false;
         }
     }
 }

@@ -43,7 +43,7 @@ ModelImporter:
     - serializedVersion: 16
       name: great sword slash (2)
       takeName: mixamo.com
-      internalID: 8998973334173339337
+      internalID: 8063210055460445847
       firstFrame: 0
       lastFrame: 106
       wrapMode: 0
@@ -55,8 +55,8 @@ ModelImporter:
       loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
-      loopBlendPositionY: 1
-      loopBlendPositionXZ: 1
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
       keepOriginalOrientation: 0
       keepOriginalPositionY: 1
       keepOriginalPositionXZ: 0

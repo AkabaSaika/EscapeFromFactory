@@ -37,13 +37,15 @@
   </PropertyGroup>
   <ItemGroup>
      <Compile Include="Assets\CubeController.cs" />
+     <Compile Include="Assets\GameManager.cs" />
      <Compile Include="Assets\Resources\Scripts\Animator\Attack1Behaviour.cs" />
      <Compile Include="Assets\Resources\Scripts\CameraController.cs" />
      <Compile Include="Assets\Resources\Scripts\FSM\FSM.cs" />
      <Compile Include="Assets\Resources\Scripts\FSM\IState.cs" />
      <Compile Include="Assets\Resources\Scripts\FSM\IdleState.cs" />
-     <Compile Include="Assets\Resources\Scripts\HitPointRecorder.cs" />
      <Compile Include="Assets\Resources\Scripts\Items\Weapons\DoubleHandSword.cs" />
+     <Compile Include="Assets\Resources\Scripts\JsonTest.cs" />
+     <Compile Include="Assets\Resources\Scripts\Parameter\SkillParameter.cs" />
      <Compile Include="Assets\Resources\Scripts\PlayerController.cs" />
      <Compile Include="Assets\Resources\Scripts\PlayerModel.cs" />
      <Compile Include="Assets\Resources\Scripts\WeaponController.cs" />

@@ -1,0 +1,7 @@
+{
+    "skills":[
+        {"name":"great sword slash" , "power":10},
+        {"name":"great sword slash (3)", "power":15},
+        {"name":"great sword slash (4)" , "power":17}
+    ]
+}

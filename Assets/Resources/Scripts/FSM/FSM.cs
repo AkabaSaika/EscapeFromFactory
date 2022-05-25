@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -36,6 +37,10 @@ public class FSM : MonoBehaviour
     public Parameter parameter;
     private IState currentState;
     private Dictionary<StateType, IState> states = new Dictionary<StateType, IState>();
+    private SkillParameter skillParameter;
+    private PlayerController player;
+    private Animator playerAnim;
+    public bool canHit;
     // Start is called before the first frame update
     void Start()
     {
@@ -53,7 +58,10 @@ public class FSM : MonoBehaviour
         parameter.agent = GetComponent<NavMeshAgent>();
         //parameter.rb = GetComponent<Rigidbody>();
         TransitionState(StateType.Idle);
-
+        skillParameter=GameObject.Find("Game").GetComponent<SkillParameter>();
+        player=GetComponent<PlayerController>();
+        playerAnim=GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
+        canHit=true;
         
     }
 
@@ -103,6 +111,37 @@ public class FSM : MonoBehaviour
 
     public void Damaged()
     {
-        TransitionState(StateType.Damage);
+        canHit=false;
+        //string skillName = playerAnim.GetCurrentAnimatorClipInfo(0)[0].clip.name;
+        string skillName;
+        string tempName;
+        Regex skillNamePattern = new Regex("great sword");
+        foreach(var i in playerAnim.GetCurrentAnimatorClipInfo(0))
+        {
+            tempName=i.clip.name;
+            Debug.Log(tempName);
+            if(skillNamePattern.IsMatch(tempName))
+            {
+                skillName=tempName;
+                //Debug.Log(skillName);
+                UpdateHealth(skillParameter.skillDic[skillName]);
+            }
+        }
+        //Debug.Log(skillName);
+        
+        if(parameter.health<=0)
+        {
+            TransitionState(StateType.Dead);
+        }
+        else
+        {
+            TransitionState(StateType.Damage);
+        }
+    }
+
+    public void UpdateHealth(int dmg)
+    {
+        parameter.health-=dmg;
+        Debug.Log(parameter.health);
     }
 }

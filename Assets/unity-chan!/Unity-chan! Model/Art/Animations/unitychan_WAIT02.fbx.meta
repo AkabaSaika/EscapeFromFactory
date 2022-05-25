@@ -1210,7 +1210,7 @@ ModelImporter:
     - serializedVersion: 16
       name: unitychan_WAIT02
       takeName: Take 001
-      internalID: -5807362680931535331
+      internalID: 2605833323570259602
       firstFrame: -1
       lastFrame: 250
       wrapMode: 0
