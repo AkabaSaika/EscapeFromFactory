@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     private float angleY;
     private float angleX;
     [SerializeField]
-    private bool isAttacking;
+    
     private Vector3 camFoward;
 
     private float h;
@@ -32,13 +32,15 @@ public class PlayerController : MonoBehaviour
     private int speedRotateID = Animator.StringToHash("SpeedRotate");
     private int speedHID = Animator.StringToHash("SpeedH");
     private int speedVID = Animator.StringToHash("SpeedV");
-    private int attack1ID = Animator.StringToHash("Attack1");
-    private int attack2ID = Animator.StringToHash("Attack2");
-    private int attack3ID = Animator.StringToHash("Attack3");
-    private int cancelID = Animator.StringToHash("CanCancel");
+    
     private Animator anim;
 
     private AnimationEvent attack1Combo = new AnimationEvent();
+
+    private WeaponBehaviour weaponBehaviour;
+    //private Weapon weapon;
+
+    
 
     void Start()
     {
@@ -50,11 +52,11 @@ public class PlayerController : MonoBehaviour
         angleY = transform.eulerAngles.y;
         mainCamera = Camera.main.transform;
         angleX = mainCamera.eulerAngles.x;
-        //Cursor.visible = false;
+        Cursor.visible = false;
         //Cursor.lockState = CursorLockMode.Locked;
         isGrounded = pm.GroundState;
-        isAttacking = false;
-        AddAnimationEvent();
+        //weapon=GetComponent<GreatSword>();
+        
     }
 
     private void FixedUpdate()
@@ -62,74 +64,67 @@ public class PlayerController : MonoBehaviour
         h = Input.GetAxis("Horizontal");
         v = Input.GetAxis("Vertical");
         Jump();
-        
     }
 
     private void Update()
     {
         camFoward = Vector3.ProjectOnPlane(mainCamera.forward, Vector3.up);
-        AttackLock();
-        Attack();
-        if(!isAttacking)
-        {
+        //if(!weapon.isAttacking)
+        //{
             Move();
-        }
-
+        //}
         anim.SetFloat(speedHID,Mathf.Abs(h) * speed);
         anim.SetFloat(speedVID, Mathf.Abs(v) * speed);
+    }
 
-
-        //Debug.Log(canCancel);
+    private void LateUpdate()
+    {
+        Turn();
     }
 
     private void Move()
     {
         Vector3 lookAtPoint = new Vector3(h, 0, v);
-        //transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(Vector3.ProjectOnPlane( Camera.main.transform.forward,Vector3.up)), 15f * Time.deltaTime);
         speed = Input.GetButton("Run") ? pm.RunSpeed : pm.WalkSpeed;
-        if(Input.GetKey(KeyCode.W))
-        {
-            transform.forward=camFoward;
-        }
-        if(Input.GetKey(KeyCode.S))
-        {
-            transform.forward=-camFoward;
-        }
-        if(Input.GetKey(KeyCode.A))
-        {
-            transform.forward=mainCamera.right*(-1);
-        }
-        if(Input.GetKey(KeyCode.D))
-        {
-            transform.forward=mainCamera.right;
-        }
-        if(Input.GetKey(KeyCode.W)&&Input.GetKey(KeyCode.A))
-        {
-            transform.forward=camFoward-mainCamera.right;
-        }
-        if(Input.GetKey(KeyCode.W)&&Input.GetKey(KeyCode.D))
-        {
-            transform.forward=camFoward+mainCamera.right;
-        }
-        if(Input.GetKey(KeyCode.S)&&Input.GetKey(KeyCode.A))
-        {
-            transform.forward=-camFoward-mainCamera.right;
-        }
-        if(Input.GetKey(KeyCode.S)&&Input.GetKey(KeyCode.D))
-        {
-            transform.forward=-camFoward+mainCamera.right;
-        }
+        //if(Input.GetKey(KeyCode.W))
+        //{
+        //    transform.forward=camFoward;
+        //}
+        //if(Input.GetKey(KeyCode.S))
+        //{
+        //    transform.forward=-camFoward;
+        //}
+        //if(Input.GetKey(KeyCode.A))
+        //{
+        //    transform.forward=mainCamera.right*(-1);
+        //}
+        //if(Input.GetKey(KeyCode.D))
+        //{
+        //    transform.forward=mainCamera.right;
+        //}
+        //if(Input.GetKey(KeyCode.W)&&Input.GetKey(KeyCode.A))
+        //{
+        //    transform.forward=camFoward-mainCamera.right;
+        //}
+        //if(Input.GetKey(KeyCode.W)&&Input.GetKey(KeyCode.D))
+        //{
+        //    transform.forward=camFoward+mainCamera.right;
+        //}
+        //if(Input.GetKey(KeyCode.S)&&Input.GetKey(KeyCode.A))
+        //{
+        //    transform.forward=-camFoward-mainCamera.right;
+        //}
+        //if(Input.GetKey(KeyCode.S)&&Input.GetKey(KeyCode.D))
+        //{
+        //    transform.forward=-camFoward+mainCamera.right;
+        //}
         transform.Translate(camFoward * v * speed * Time.deltaTime,Space.World);
-        //transform.Translate(Vector3.ProjectOnPlane(Camera.main.transform.forward,Vector3.up) * v * speed * Time.deltaTime, Space.World);
         transform.Translate(mainCamera.right * h * speed * Time.deltaTime,Space.World);
-
-        //transform.LookAt(transform.forward + lookAtPoint);
     }
 
 
     private void Jump()
     {
-
         if (Input.GetButton("Jump") && isGrounded)
         {
             Debug.Log(Input.GetButton("Jump"));
@@ -156,22 +151,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void Attack()
-    {
-        if (Input.GetMouseButtonDown(0) && !anim.GetCurrentAnimatorStateInfo(0).IsName("Attack1") && !anim.GetCurrentAnimatorStateInfo(0).IsName("Attack2") && !anim.GetCurrentAnimatorStateInfo(0).IsName("Attack3")) 
-        {
-            anim.SetTrigger(attack1ID);
-        }
-        if(Input.GetMouseButtonDown(0)&&anim.GetCurrentAnimatorStateInfo(0).IsName("Attack1"))
-        {
-            anim.SetTrigger(attack2ID);
-        }
-        if(Input.GetMouseButtonDown(0)&&anim.GetCurrentAnimatorStateInfo(0).IsName("Attack2"))
-        {
-            anim.SetTrigger(attack3ID);
-            //Debug.Log(anim.GetCurrentAnimatorStateInfo(0).IsName("Attack3"));
-        }
-    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -186,45 +165,41 @@ public class PlayerController : MonoBehaviour
         
     }
 
-    private void CancelState()
+    private void Turn()
     {
-        anim.SetBool(cancelID, true);
-    }
-
-    /// <summary>
-    /// キャンセルのタイミングを設置する
-    /// </summary>
-    private void AddAnimationEvent()
-    {
-        AnimationClip[] clips = anim.runtimeAnimatorController.animationClips;
-        foreach(var clip in clips)
+        if (Input.GetKey(KeyCode.W))
         {
-            if(string.Equals(clip.name,"great sword slash"))
-            {
-                AnimationEvent events = new AnimationEvent();
-                events.functionName = "CancelState";
-                events.time = 1.0f;
-                clip.AddEvent(events);
-            }
-            if(string.Equals(clip.name,"great sword slash (3)"))
-            {
-                AnimationEvent events = new AnimationEvent();
-                events.functionName = "CancelState";
-                events.time = 1.0f;
-                clip.AddEvent(events);
-            }
+            transform.forward = camFoward;
+        }
+        if (Input.GetKey(KeyCode.S))
+        {
+            transform.forward = -camFoward;
+        }
+        if (Input.GetKey(KeyCode.A))
+        {
+            transform.forward = mainCamera.right * (-1);
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+            transform.forward = mainCamera.right;
+        }
+        if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.A))
+        {
+            transform.forward = camFoward - mainCamera.right;
+        }
+        if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.D))
+        {
+            transform.forward = camFoward + mainCamera.right;
+        }
+        if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.A))
+        {
+            transform.forward = -camFoward - mainCamera.right;
+        }
+        if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.D))
+        {
+            transform.forward = -camFoward + mainCamera.right;
         }
     }
 
-    private void AttackLock()
-    {
-        if(anim.GetCurrentAnimatorStateInfo(0).IsName("Attack1")||anim.GetCurrentAnimatorStateInfo(0).IsName("Attack2")||anim.GetCurrentAnimatorStateInfo(0).IsName("Attack3"))
-        {
-            isAttacking=true;
-        }
-        else
-        {
-            isAttacking=false;
-        }
-    }
+
 }

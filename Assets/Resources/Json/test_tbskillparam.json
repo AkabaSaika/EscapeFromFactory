@@ -1,0 +1,13 @@
+{
+  "skills":
+  [
+    {
+      "ClipName": "great sword slash",
+      "Power": 10,
+      "AttackPointEndTime": 0.4,
+      "AttackAnimationStartTime": 0.4,
+      "AttackAnimationEndTime": 0.8,
+      "BackswingStartTime": 0.8
+    }
+  ]
+}

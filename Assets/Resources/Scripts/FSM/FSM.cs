@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 
 public enum StateType
 {
@@ -32,7 +33,7 @@ public class Parameter
 
 }
 
-public class FSM : MonoBehaviour
+public class FSM : MonoBehaviour,Observer
 {
     public Parameter parameter;
     private IState currentState;
@@ -40,6 +41,7 @@ public class FSM : MonoBehaviour
     private SkillParameter skillParameter;
     private PlayerController player;
     private Animator playerAnim;
+    private AnimatorStateInfo currAnimInfo, lastAnimInfo;
     public bool canHit;
     // Start is called before the first frame update
     void Start()
@@ -68,7 +70,8 @@ public class FSM : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        currentState.OnUpdate();   
+        currentState.OnUpdate();  
+        
     }
 
     public void TransitionState(StateType type)
@@ -109,25 +112,17 @@ public class FSM : MonoBehaviour
         return false;
     }
 
-    public void Damaged()
+    public void UpdateHitEvent(HitEvent hitEvent)
+    {
+        int damage = hitEvent.Damage;
+    }
+
+    public void Damaged(HitEvent hitEvent)
     {
         canHit=false;
-        //string skillName = playerAnim.GetCurrentAnimatorClipInfo(0)[0].clip.name;
-        string skillName;
-        string tempName;
-        Regex skillNamePattern = new Regex("great sword");
-        foreach(var i in playerAnim.GetCurrentAnimatorClipInfo(0))
-        {
-            tempName=i.clip.name;
-            Debug.Log(tempName);
-            if(skillNamePattern.IsMatch(tempName))
-            {
-                skillName=tempName;
-                //Debug.Log(skillName);
-                UpdateHealth(skillParameter.skillDic[skillName]);
-            }
-        }
-        //Debug.Log(skillName);
+        UpdateHealth(hitEvent.Damage);
+        Debug.Log(hitEvent.SkillName+"hit me!");
+
         
         if(parameter.health<=0)
         {
@@ -143,5 +138,34 @@ public class FSM : MonoBehaviour
     {
         parameter.health-=dmg;
         Debug.Log(parameter.health);
+    }
+
+    public void SetCanHit()
+    {
+        canHit=true;
+    }
+
+    //public void OnAnimationEnd(string stateName, UnityAction<StateType> callback)
+    //{
+    //    currAnimInfo = parameter.anim.GetCurrentAnimatorStateInfo(0);
+
+    //    if (lastAnimInfo.shortNameHash != currAnimInfo.shortNameHash)
+    //    {
+    //        if (lastAnimInfo.IsName(stateName))
+    //        {
+    //            callback.Invoke(StateType.Battle);
+    //        }
+    //        lastAnimInfo = currAnimInfo;
+    //    }
+    //}
+
+    public void OnAnimationEnd(string stateName, UnityAction<StateType> callback)
+    {
+        currAnimInfo = parameter.anim.GetCurrentAnimatorStateInfo(0);
+
+        if (currAnimInfo.IsName(stateName)&&currAnimInfo.normalizedTime>1.0f)
+        {
+            callback.Invoke(StateType.Battle);
+        }
     }
 }

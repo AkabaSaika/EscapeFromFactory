@@ -8,7 +8,7 @@ ModelImporter:
     second: Slash4
   - first:
       74: 4184230502015629453
-    second: great sword slash (4)
+    second: great sword slash 3
   - first:
       74: -3522525666663170899
     second: great sword slash (4)
@@ -41,7 +41,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: great sword slash (4)
+      name: great sword slash 3
       takeName: mixamo.com
       internalID: -3522525666663170899
       firstFrame: 0

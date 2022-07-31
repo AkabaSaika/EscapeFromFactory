@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class IdleState : IState
 {
@@ -21,8 +22,7 @@ public class IdleState : IState
     }
 
     public void OnUpdate()
-    {
-        
+    {      
         Debug.Log("Update Idle");
         if (manager.DetectPlayer())
         {
@@ -34,8 +34,6 @@ public class IdleState : IState
         {
             manager.TransitionState(StateType.Patrol);
         }
-
-
     }
 
     public void OnExit()
@@ -84,11 +82,12 @@ public class PatrolState : IState
     }
 }
 
-public class AttackState : IState
+public class AttackState : MonoBehaviour,IState
 {
     private FSM manager;
     private Parameter parameter;
-
+    private UnityAction<StateType> action;
+ 
     public AttackState(FSM manager)
     {
         this.manager = manager;
@@ -98,11 +97,18 @@ public class AttackState : IState
     public void OnEnter()
     {
         Debug.Log("Enter Attack");
+        parameter.anim.Play("Attack1");
+        action += manager.TransitionState;
     }
 
     public void OnUpdate()
     {
+        
         Debug.Log("Update Attack");
+        manager.OnAnimationEnd("Attack2", action);
+        //StartCoroutine(OnAnimationEnd("Attack2",action));
+        
+
     }
 
     public void OnExit()
@@ -201,6 +207,7 @@ public class BattleState :IState
     {
         Debug.Log("Update Battle");
         parameter.thisTansform.LookAt(parameter.player);
+        manager.TransitionState(StateType.Attack);
     }
 
     public void OnExit()

@@ -8,7 +8,7 @@ ModelImporter:
     second: Slash3
   - first:
       74: -641449378741366837
-    second: great sword slash (3)
+    second: great sword slash 2
   - first:
       74: -396236886405692056
     second: great sword slash (3)
@@ -41,7 +41,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: great sword slash (3)
+      name: great sword slash 2
       takeName: mixamo.com
       internalID: -396236886405692056
       firstFrame: 0
@@ -55,12 +55,12 @@ ModelImporter:
       loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 1
-      loopBlendPositionY: 0
+      loopBlendPositionY: 1
       loopBlendPositionXZ: 0
       keepOriginalOrientation: 0
-      keepOriginalPositionY: 0
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 1
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 1
+      heightFromFeet: 0
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []

@@ -73,7 +73,20 @@ public class CameraController : MonoBehaviour
 
     private void LateUpdate()
     {
-        cam.transform.position = lookAtPoint.position + offsetVector;
+        int layA = LayerMask.NameToLayer("Default");
+        RaycastHit hit;
+        if (Physics.Linecast(lookAtPoint.position, cam.transform.position, out hit))
+        {
+            if (hit.collider.tag == "Environment")
+            {
+                Debug.Log("hitwall");
+                cam.transform.position = hit.point;
+            }
+            else cam.transform.position = lookAtPoint.position + offsetVector;
+        }
+        else cam.transform.position = lookAtPoint.position + offsetVector;
         cam.transform.LookAt(lookAtPoint);
     }
+
+
 }

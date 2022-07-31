@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1001,
+    "skillName": "great sword slash",
+    "power": 10,
+    "attackPointEndTime": 0.4,
+    "attackAnimationStartTime": 0.4,
+    "attackAnimationEndTime": 0.8,
+    "backswingStartTime": 0.8,
+    "owner": "Player"
+  },
+  {
+    "id": 1002,
+    "skillName": "great sword slash 2",
+    "power": 17,
+    "attackPointEndTime": 0.2,
+    "attackAnimationStartTime": 0.2,
+    "attackAnimationEndTime": 1.07,
+    "backswingStartTime": 1.07,
+    "owner": "Player"
+  },
+  {
+    "id": 1003,
+    "skillName": "great sword slash 3",
+    "power": 20,
+    "attackPointEndTime": 0.1,
+    "attackAnimationStartTime": 0.1,
+    "attackAnimationEndTime": 1.23,
+    "backswingStartTime": 1.23,
+    "owner": "Player"
+  }
+]
