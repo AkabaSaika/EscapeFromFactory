@@ -18,8 +18,5 @@ public class GreatSword : Weapon
     /// スキルを初期化する
     /// </summary>
     /// <param name="id"></param>
-    public void GetNextSkill(int id)
-    {
-        Skill.InitSkill(TablesSingLeton.Instance.Tables.TbSkillParam.Get(id), WeaponTrans, TablesSingLeton.Instance.Tables.TbWeapon.Get(1001).HitPointPos);
-    }
+
 }

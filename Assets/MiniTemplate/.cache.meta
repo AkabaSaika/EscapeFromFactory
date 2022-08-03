@@ -17,8 +17,8 @@ D:/Unity/UnityChanAction/Assets/MiniTemplate/Datas/__beans__.xlsx,FC47204C6BC222
 D:/Unity/UnityChanAction/Assets/MiniTemplate/Datas/__enums__.xlsx,3E96958722FD88DD254AF36633F21DE,10645,1654937139000
 D:/Unity/UnityChanAction/Assets/MiniTemplate/Datas/__tables__.xlsx,3BF9C763D8A49910DD11ABB4E121606,9937,1659186178310
 D:/Unity/UnityChanAction/Assets/MiniTemplate/Datas/item.xlsx,3989F18A322E1F5A45D388E93B8AF9F,11693,1654937139000
-D:/Unity/UnityChanAction/Assets/MiniTemplate/Datas/SkillParam.xlsx,78B5EE78AF40F5191B9BE47CAAC1BBC,9329,1658769310880
-D:/Unity/UnityChanAction/Assets/MiniTemplate/Datas/weapon.xlsx,A187CCB7BC6EF93A33BE5EC6290AEC,9279,1659263166390
+D:/Unity/UnityChanAction/Assets/MiniTemplate/Datas/SkillParam.xlsx,BE226DFA01BF1205CCE85C465686E98,9447,1659424855757
+D:/Unity/UnityChanAction/Assets/MiniTemplate/Datas/weapon.xlsx,381915E87730C36A6AFFFD29F96D0BE,9321,1659423596059
 D:/Unity/UnityChanAction/Assets/MiniTemplate/Gen/item/EQuality.cs,D469AF2D604BE28BF39A41F491FC2B9A,763,1655800156471
 D:/Unity/UnityChanAction/Assets/MiniTemplate/Gen/item/Item.cs,4585BD525511706147A88C438BD6BAD3,5822,1655800156482
 D:/Unity/UnityChanAction/Assets/MiniTemplate/Gen/item/ItemExchange.cs,332CE90222CF3FC5C3B60D219BF047,1735,1655800156488
@@ -30,5 +30,5 @@ D:/Unity/UnityChanAction/Assets/MiniTemplate/Gen/test/TbSkillParam.cs,3871105570
 D:/Unity/UnityChanAction/Assets/MiniTemplate/Gen/weapon/TbWeapon.cs,AB4C422B878D7E74ADB90A75B7E5696,1775,1659186846259
 D:/Unity/UnityChanAction/Assets/MiniTemplate/Gen/weapon/Weapon.cs,15DE2B8FF155B89BA9E59DE23E3521EC,4741,1659262458166
 D:/Unity/UnityChanAction/Assets/MiniTemplate/output_json/item_tbitem.json,7352E672FF51B6A814C06A2472DC959D,4798,1655800156455
-D:/Unity/UnityChanAction/Assets/MiniTemplate/output_json/test_tbskillparam.json,5C5E5F21BCB5CF57E7F82E78FC22ED4,749,1658769324651
-D:/Unity/UnityChanAction/Assets/MiniTemplate/output_json/weapon_tbweapon.json,89F58246B92B6D5589BCA2AC9F0444B,1168,1659263171172
+D:/Unity/UnityChanAction/Assets/MiniTemplate/output_json/test_tbskillparam.json,8C6E349D2570D161842F7E9AC1A93FA,1234,1659424875098
+D:/Unity/UnityChanAction/Assets/MiniTemplate/output_json/weapon_tbweapon.json,7D264AD73B83DED3CD6F331440D0B3E7,1560,1659423601869

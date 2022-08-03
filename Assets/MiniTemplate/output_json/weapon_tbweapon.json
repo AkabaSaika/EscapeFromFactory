@@ -72,5 +72,32 @@
         "z": 0
       }
     ]
+  },
+  {
+    "id": 1003,
+    "name": "LeftPunch",
+    "filename": "",
+    "positionOffset": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "rotateOffset": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "scale": {
+      "x": 1,
+      "y": 1,
+      "z": 1
+    },
+    "hitPointPos": [
+      {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      }
+    ]
   }
 ]

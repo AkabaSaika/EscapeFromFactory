@@ -119,7 +119,7 @@ public class FSM : MonoBehaviour,Observer
 
     public void Damaged(HitEvent hitEvent)
     {
-        canHit=false;
+        //canHit=false;
         UpdateHealth(hitEvent.Damage);
         Debug.Log(hitEvent.SkillName+"hit me!");
 
@@ -142,7 +142,7 @@ public class FSM : MonoBehaviour,Observer
 
     public void SetCanHit()
     {
-        canHit=true;
+        //canHit = true;
     }
 
     //public void OnAnimationEnd(string stateName, UnityAction<StateType> callback)
@@ -167,5 +167,13 @@ public class FSM : MonoBehaviour,Observer
         {
             callback.Invoke(StateType.Battle);
         }
+    }
+
+    private void OnAnimatorIK(int layerIndex)
+    {
+        parameter.anim.SetIKPositionWeight(AvatarIKGoal.LeftFoot, 1.0f);
+        parameter.anim.SetIKPositionWeight(AvatarIKGoal.RightFoot, 1.0f);
+        parameter.anim.SetIKRotationWeight(AvatarIKGoal.LeftFoot, 1.0f);
+        parameter.anim.SetIKRotationWeight(AvatarIKGoal.RightFoot, 1.0f);
     }
 }

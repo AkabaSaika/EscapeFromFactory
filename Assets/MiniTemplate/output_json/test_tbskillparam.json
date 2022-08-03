@@ -28,5 +28,25 @@
     "attackAnimationEndTime": 1.23,
     "backswingStartTime": 1.23,
     "owner": "Player"
+  },
+  {
+    "id": 1004,
+    "skillName": "LeftPunching",
+    "power": 10,
+    "attackPointEndTime": 0.3,
+    "attackAnimationStartTime": 0.3,
+    "attackAnimationEndTime": 0.6,
+    "backswingStartTime": 0.6,
+    "owner": "Enemy"
+  },
+  {
+    "id": 1005,
+    "skillName": "RightPunching",
+    "power": 10,
+    "attackPointEndTime": 0.14,
+    "attackAnimationStartTime": 0.14,
+    "attackAnimationEndTime": 0.26,
+    "backswingStartTime": 0.26,
+    "owner": "Enemy"
   }
 ]

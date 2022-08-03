@@ -76,6 +76,9 @@ public class Weapon : MonoBehaviour
         weaponBehaviour.useWeapon();
     }
 
-
+    public void GetNextSkill(int skillId, int weaponId)
+    {
+        Skill.InitSkill(TablesSingLeton.Instance.Tables.TbSkillParam.Get(skillId), WeaponTrans, TablesSingLeton.Instance.Tables.TbWeapon.Get(weaponId).HitPointPos);
+    }
 }
 

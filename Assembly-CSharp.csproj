@@ -62,8 +62,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Attack2Behaviour.cs" />
-    <Compile Include="Assets\Attack3Behaviour.cs" />
     <Compile Include="Assets\CubeController.cs" />
     <Compile Include="Assets\GameManager.cs" />
     <Compile Include="Assets\LubanLib\BeanBase.cs" />
@@ -84,13 +82,18 @@
     <Compile Include="Assets\MiniTemplate\Gen\test\TbSkillParam.cs" />
     <Compile Include="Assets\MiniTemplate\Gen\weapon\TbWeapon.cs" />
     <Compile Include="Assets\MiniTemplate\Gen\weapon\Weapon.cs" />
-    <Compile Include="Assets\Resources\Scripts\Animator\Attack1Behaviour.cs" />
+    <Compile Include="Assets\Resources\Scripts\Animator\Enemy\EnemyAttack1Behaviour.cs" />
+    <Compile Include="Assets\Resources\Scripts\Animator\Enemy\EnemyAttack2Behaviour.cs" />
+    <Compile Include="Assets\Resources\Scripts\Animator\Player\Attack1Behaviour.cs" />
+    <Compile Include="Assets\Resources\Scripts\Animator\Player\Attack2Behaviour.cs" />
+    <Compile Include="Assets\Resources\Scripts\Animator\Player\Attack3Behaviour.cs" />
     <Compile Include="Assets\Resources\Scripts\CameraController.cs" />
     <Compile Include="Assets\Resources\Scripts\FSM\FSM.cs" />
     <Compile Include="Assets\Resources\Scripts\FSM\IState.cs" />
     <Compile Include="Assets\Resources\Scripts\FSM\IdleState.cs" />
     <Compile Include="Assets\Resources\Scripts\Items\Weapons\GreatSword.cs" />
-    <Compile Include="Assets\Resources\Scripts\Items\Weapons\Punch.cs" />
+    <Compile Include="Assets\Resources\Scripts\Items\Weapons\LeftPunch.cs" />
+    <Compile Include="Assets\Resources\Scripts\Items\Weapons\RightPunch.cs" />
     <Compile Include="Assets\Resources\Scripts\JsonTest.cs" />
     <Compile Include="Assets\Resources\Scripts\Parameter\MonoSingleton.cs" />
     <Compile Include="Assets\Resources\Scripts\Parameter\SkillParameter.cs" />

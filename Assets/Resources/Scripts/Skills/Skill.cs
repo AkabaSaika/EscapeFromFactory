@@ -2,39 +2,31 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [Serializable]
 public class SkillParam
 {
-    //private float m_attackPointStartTime;
     [SerializeField]
     private float m_attackPointEndTime;
     [SerializeField]
     private float m_backswingStartTime;
-    //private float m_backswingEndTime;
     [SerializeField]
     private float m_attackAnimationStartTime;
     [SerializeField]
     private float m_attackAnimationEndTime;
     [SerializeField]
     private int m_power;
-    //private Transform m_Parent;
     [SerializeField]
     private GameObject m_Owner;
-    //private Vector3[] m_hitPointPos;
-    
-    
+    [SerializeField]
     private string m_ClipName;
 
 
     public float AttackPointEndTime { get => m_attackPointEndTime; set => m_attackPointEndTime = value; }
     public float BackswingStartTime { get => m_backswingStartTime; set => m_backswingStartTime = value; }
-    //public float BackswingEndTime { get => m_backswingEndTime; set => m_backswingEndTime = value; }
-    //public Vector3[] HitPointPos { get => m_hitPointPos; set => m_hitPointPos = value; }
     public float AttackAnimationStartTime { get => m_attackAnimationStartTime; set => m_attackAnimationStartTime = value; }
     public float AttackAnimationEndTime { get => m_attackAnimationEndTime; set => m_attackAnimationEndTime = value; }
-    //public Transform Parent { get => m_Parent; set => m_Parent = value; }
-    //public Animator Anim { get => m_Anim; set => m_Anim = value; }
     public string ClipName { get => m_ClipName; set => m_ClipName = value; }
     public GameObject Owner { get => m_Owner; set => m_Owner = value; }
     public int Power { get => m_power; set => m_power = value; }
@@ -44,6 +36,7 @@ public class Skill : MonoBehaviour
 {
     public SkillParam sp = new SkillParam();
     private Vector3[] m_attacklinePos = new Vector3[2];
+    [SerializeField]
     private List<GameObject> m_hitObject = new List<GameObject>();
     public bool isAttacking;
     private int cancelID = Animator.StringToHash("CanCancel");
@@ -51,7 +44,16 @@ public class Skill : MonoBehaviour
     private AnimationClip m_clip;
     private Animator m_anim;
     private GameObject[] hps;
+    private AnimatorStateInfo stateInfo;
+    [SerializeField]
+    private UnityAction action;
 
+    public UnityAction Action { get => action; set => action = value; }
+
+    private void Update()
+    {
+        OnAnimationEnd(Action);
+    }
 
     /// <summary>
     /// スキルを兜豚晒する。
@@ -73,6 +75,7 @@ public class Skill : MonoBehaviour
         skill.sp.ClipName = skillParam.SkillName;
         skill.sp.Power = skillParam.Power;
         skill.hps = skill.InitHitPoints(hitPointPos, weapon.transform);
+        skill.Action += skill.ClearHitObjectList;
         skill.AddAnimationEvent(skill.hps, skillParam.SkillName);
     }
 
@@ -156,19 +159,35 @@ public class Skill : MonoBehaviour
             {
                 case "Enemy":
                     if(hit.collider.gameObject.GetComponent<FSM>().canHit)
-                    {    
-                        HitEvent he = new HitEvent(sp.ClipName, sp.Power);
-                        //NotifyObservers();
-                        m_hitObject.Add(hit.collider.gameObject);          
-                        foreach(var ho in m_hitObject)
+                    {   
+                        if(!m_hitObject.Exists(ho => ho == hit.collider.gameObject))
                         {
-                            ho.GetComponent<FSM>().Damaged(he);
+                            HitEvent he = new HitEvent(sp.ClipName, sp.Power);
+                            m_hitObject.Add(hit.collider.gameObject);
+                            foreach (var ho in m_hitObject)
+                            {
+                                ho.GetComponent<FSM>().Damaged(he);
+                            }
+                            Debug.Log(hit.collider.gameObject.name);  
+                            Skill.SetAnimatorSpeed(m_anim, 0.3f);
+                            Invoke("AnimPlay", 0.1f);
+                        }
+                    }
+                    break;
+                case "Player":
+                    if (!m_hitObject.Exists(ho => ho == hit.collider.gameObject))
+                    {
+                        HitEvent he = new HitEvent(sp.ClipName, sp.Power);
+                        m_hitObject.Add(hit.collider.gameObject);
+                        foreach (var ho in m_hitObject)
+                        {
+                            ho.GetComponent<PlayerController>().Damaged(he);
                         }
                         Debug.Log(hit.collider.gameObject.name);
-                        //hit.collider.SendMessage("Damaged");
                         Skill.SetAnimatorSpeed(m_anim, 0.3f);
                         Invoke("AnimPlay", 0.1f);
-                    }
+                        }
+
                     break;
             }
 
@@ -196,10 +215,10 @@ public class Skill : MonoBehaviour
     /// </summary>
     private void CallResetCanHit()
     {
-        foreach(var i in m_hitObject)
-        {
-            i.SendMessage("SetCanHit");
-        }
+        //foreach(var i in m_hitObject)
+        //{
+        //    i.SendMessage("SetCanHit");
+        //}
     }
 
     public void AddAnimationEvent(GameObject[] hitPoints,string clipName)
@@ -247,10 +266,6 @@ public class Skill : MonoBehaviour
         }
     }
 
-    private void NotifyObservers()
-    {
-        
-    }
 
     private void CancelState(Animator anim)
     {
@@ -268,5 +283,20 @@ public class Skill : MonoBehaviour
         Animator anim;
         anim = owner.GetComponent<Animator>();
         return anim;
+    }
+
+    public void ClearHitObjectList()
+    {
+        m_hitObject.Clear();
+    }
+
+    private void OnAnimationEnd(UnityAction callback)
+    {
+        stateInfo = m_anim.GetCurrentAnimatorStateInfo(0);
+
+        if (stateInfo.normalizedTime > 1.0f)
+        {
+            callback.Invoke();
+        }
     }
 }
