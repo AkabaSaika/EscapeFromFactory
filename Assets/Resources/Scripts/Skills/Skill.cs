@@ -21,6 +21,10 @@ public class SkillParam
     private GameObject m_Owner;
     [SerializeField]
     private string m_ClipName;
+    [SerializeField]
+    private string m_EffectPath="Audio/HammerImpact4";
+    [SerializeField]
+    private string m_voicePath;
 
 
     public float AttackPointEndTime { get => m_attackPointEndTime; set => m_attackPointEndTime = value; }
@@ -30,6 +34,8 @@ public class SkillParam
     public string ClipName { get => m_ClipName; set => m_ClipName = value; }
     public GameObject Owner { get => m_Owner; set => m_Owner = value; }
     public int Power { get => m_power; set => m_power = value; }
+    public string EffectPath { get => m_EffectPath; set => m_EffectPath = value; }
+    public string VoicePath { get => m_voicePath; set => m_voicePath = value; }
 }
 
 public class Skill : MonoBehaviour
@@ -47,6 +53,9 @@ public class Skill : MonoBehaviour
     private AnimatorStateInfo stateInfo;
     [SerializeField]
     private UnityAction action;
+    private UnityAction<string> soundAction;
+
+    
 
     public UnityAction Action { get => action; set => action = value; }
 
@@ -62,7 +71,7 @@ public class Skill : MonoBehaviour
     /// <param name="skillParam">¥Ñ¥é¥á©`¥¿¤ò¸ñ¼{¤¹¤ë¥ª¥Ö¥¸¥§¥¯¥È</param>
     /// <param name="weapon">¥¹¥­¥ë¤¬ËùÊô¤¹¤ëÎäÆ÷</param>
     /// <param name="hitPointPos">ÎäÆ÷¹¥“ÄÅÐ¶¨¤Î×ù˜Ë</param>
-    public static void InitSkill(cfg.test.SkillParam skillParam, GameObject weapon, Vector3[] hitPointPos)
+    public static SkillParam InitSkill(cfg.test.SkillParam skillParam, GameObject weapon, Vector3[] hitPointPos)
     {   
         Skill skill = GameObject.FindGameObjectWithTag(skillParam.Owner).AddComponent<Skill>() as Skill;
        
@@ -76,7 +85,11 @@ public class Skill : MonoBehaviour
         skill.sp.Power = skillParam.Power;
         skill.hps = skill.InitHitPoints(hitPointPos, weapon.transform);
         skill.Action += skill.ClearHitObjectList;
+        skill.soundAction += skill.PlayEffect;
+        skill.sp.VoicePath = skillParam.Voice;
         skill.AddAnimationEvent(skill.hps, skillParam.SkillName);
+
+        return skill.sp;
     }
 
 
@@ -166,11 +179,13 @@ public class Skill : MonoBehaviour
                             m_hitObject.Add(hit.collider.gameObject);
                             foreach (var ho in m_hitObject)
                             {
+                                soundAction.Invoke(sp.EffectPath);
                                 ho.GetComponent<FSM>().Damaged(he);
                             }
                             Debug.Log(hit.collider.gameObject.name);  
                             Skill.SetAnimatorSpeed(m_anim, 0.3f);
                             Invoke("AnimPlay", 0.1f);
+                            
                         }
                     }
                     break;
@@ -298,5 +313,10 @@ public class Skill : MonoBehaviour
         {
             callback.Invoke();
         }
+    }
+
+    private void PlayEffect(string path)
+    {
+        AudioManager.EffectPlay(path, false);
     }
 }

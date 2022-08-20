@@ -122,7 +122,7 @@ public class FSM : MonoBehaviour,Observer
         //canHit=false;
         UpdateHealth(hitEvent.Damage);
         Debug.Log(hitEvent.SkillName+"hit me!");
-
+        
         
         if(parameter.health<=0)
         {

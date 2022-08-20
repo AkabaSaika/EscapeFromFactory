@@ -8,6 +8,7 @@ public class EnemyAttack2Behaviour : StateMachineBehaviour
     {
         RightPunch skill = animator.gameObject.GetComponent<RightPunch>();
         skill.GetNextSkill(1005, 1002);
+
     }
 
 

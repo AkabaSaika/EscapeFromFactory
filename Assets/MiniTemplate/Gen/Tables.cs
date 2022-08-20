@@ -16,6 +16,7 @@ public sealed partial class Tables
     public item.TbItem TbItem {get; }
     public test.TbSkillParam TbSkillParam {get; }
     public weapon.TbWeapon TbWeapon {get; }
+    public character.TbCharacter TbCharacter {get; }
 
     public Tables(System.Func<string, JSONNode> loader)
     {
@@ -26,11 +27,14 @@ public sealed partial class Tables
         tables.Add("test.TbSkillParam", TbSkillParam);
         TbWeapon = new weapon.TbWeapon(loader("weapon_tbweapon")); 
         tables.Add("weapon.TbWeapon", TbWeapon);
+        TbCharacter = new character.TbCharacter(loader("character_tbcharacter")); 
+        tables.Add("character.TbCharacter", TbCharacter);
         PostInit();
 
         TbItem.Resolve(tables); 
         TbSkillParam.Resolve(tables); 
         TbWeapon.Resolve(tables); 
+        TbCharacter.Resolve(tables); 
         PostResolve();
     }
 
@@ -39,6 +43,7 @@ public sealed partial class Tables
         TbItem.TranslateText(translator); 
         TbSkillParam.TranslateText(translator); 
         TbWeapon.TranslateText(translator); 
+        TbCharacter.TranslateText(translator); 
     }
     
     partial void PostInit();

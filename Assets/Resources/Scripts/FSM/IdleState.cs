@@ -117,6 +117,10 @@ public class AttackState : MonoBehaviour,IState
     }
 }
 
+
+/// <summary>
+/// 
+/// </summary>
 public class ChaseState : IState
 {
     private FSM manager;
@@ -186,6 +190,9 @@ public class ReactState : IState
     }
 }
 
+/// <summary>
+/// 
+/// </summary>
 public class BattleState :IState
 {
     private FSM manager;
@@ -216,6 +223,9 @@ public class BattleState :IState
     }
 }
 
+/// <summary>
+/// 
+/// </summary>
 public class DamageState :IState
 {
     private FSM manager;
@@ -235,14 +245,18 @@ public class DamageState :IState
 
     public void OnUpdate()
     {
-        if(parameter.health<=0)
+        if(parameter.anim.GetCurrentAnimatorStateInfo(0).normalizedTime>1.0f)
         {
-            manager.TransitionState(StateType.Dead);
+            if (parameter.health <= 0)
+            {
+                manager.TransitionState(StateType.Dead);
+            }
+            else
+            {
+                manager.TransitionState(StateType.Battle);
+            }
         }
-        else
-        {
-            manager.TransitionState(StateType.Battle);
-        }
+
         Debug.Log("Update Damage");
     }
 

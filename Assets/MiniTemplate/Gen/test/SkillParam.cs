@@ -26,10 +26,11 @@ public sealed partial class SkillParam :  Bright.Config.BeanBase
         { if(!_json["attackAnimationEndTime"].IsNumber) { throw new SerializationException(); }  AttackAnimationEndTime = _json["attackAnimationEndTime"]; }
         { if(!_json["backswingStartTime"].IsNumber) { throw new SerializationException(); }  BackswingStartTime = _json["backswingStartTime"]; }
         { if(!_json["owner"].IsString) { throw new SerializationException(); }  Owner = _json["owner"]; }
+        { if(!_json["voice"].IsString) { throw new SerializationException(); }  Voice = _json["voice"]; }
         PostInit();
     }
 
-    public SkillParam(int id, string skillName, int power, float attackPointEndTime, float attackAnimationStartTime, float attackAnimationEndTime, float backswingStartTime, string owner ) 
+    public SkillParam(int id, string skillName, int power, float attackPointEndTime, float attackAnimationStartTime, float attackAnimationEndTime, float backswingStartTime, string owner, string voice ) 
     {
         this.Id = id;
         this.SkillName = skillName;
@@ -39,6 +40,7 @@ public sealed partial class SkillParam :  Bright.Config.BeanBase
         this.AttackAnimationEndTime = attackAnimationEndTime;
         this.BackswingStartTime = backswingStartTime;
         this.Owner = owner;
+        this.Voice = voice;
         PostInit();
     }
 
@@ -70,6 +72,7 @@ public sealed partial class SkillParam :  Bright.Config.BeanBase
     public float AttackAnimationEndTime { get; private set; }
     public float BackswingStartTime { get; private set; }
     public string Owner { get; private set; }
+    public string Voice { get; private set; }
 
     public const int __ID__ = 203861944;
     public override int GetTypeId() => __ID__;
@@ -94,6 +97,7 @@ public sealed partial class SkillParam :  Bright.Config.BeanBase
         + "AttackAnimationEndTime:" + AttackAnimationEndTime + ","
         + "BackswingStartTime:" + BackswingStartTime + ","
         + "Owner:" + Owner + ","
+        + "Voice:" + Voice + ","
         + "}";
     }
     

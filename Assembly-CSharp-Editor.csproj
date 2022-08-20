@@ -63,7 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Editor\MixamoManager.cs" />
-    <Compile Include="Assets\unity-chan!\Unity-chan! Model\Editor\CreateLocatorHere.cs" />
+    <Compile Include="Assets\ThirdPartyAssets\unity-chan!\Unity-chan! Model\Editor\CreateLocatorHere.cs" />
     <Reference Include="UnityEngine">
       <HintPath>E:/Program Files (x86)/2019.4.17f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>

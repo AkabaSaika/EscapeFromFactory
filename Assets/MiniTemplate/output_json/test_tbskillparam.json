@@ -7,7 +7,8 @@
     "attackAnimationStartTime": 0.4,
     "attackAnimationEndTime": 0.8,
     "backswingStartTime": 0.8,
-    "owner": "Player"
+    "owner": "Player",
+    "voice": "univ1101"
   },
   {
     "id": 1002,
@@ -17,7 +18,8 @@
     "attackAnimationStartTime": 0.2,
     "attackAnimationEndTime": 1.07,
     "backswingStartTime": 1.07,
-    "owner": "Player"
+    "owner": "Player",
+    "voice": "univ0002"
   },
   {
     "id": 1003,
@@ -27,7 +29,8 @@
     "attackAnimationStartTime": 0.1,
     "attackAnimationEndTime": 1.23,
     "backswingStartTime": 1.23,
-    "owner": "Player"
+    "owner": "Player",
+    "voice": "univ1102"
   },
   {
     "id": 1004,
@@ -37,7 +40,8 @@
     "attackAnimationStartTime": 0.3,
     "attackAnimationEndTime": 0.6,
     "backswingStartTime": 0.6,
-    "owner": "Enemy"
+    "owner": "Enemy",
+    "voice": ""
   },
   {
     "id": 1005,
@@ -45,8 +49,9 @@
     "power": 10,
     "attackPointEndTime": 0.14,
     "attackAnimationStartTime": 0.14,
-    "attackAnimationEndTime": 0.26,
-    "backswingStartTime": 0.26,
-    "owner": "Enemy"
+    "attackAnimationEndTime": 0.4,
+    "backswingStartTime": 0.4,
+    "owner": "Enemy",
+    "voice": ""
   }
 ]
