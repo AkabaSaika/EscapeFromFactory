@@ -8,7 +8,7 @@ ModelImporter:
     second: mixamo.com
   - first:
       74: 5457560567682724382
-    second: great sword high spin attack
+    second: great sword slash 3
   - first:
       74: 468278018428457601
     second: great sword high spin attack
@@ -41,7 +41,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: great sword high spin attack
+      name: great sword slash 3
       takeName: mixamo.com
       internalID: 468278018428457601
       firstFrame: 0

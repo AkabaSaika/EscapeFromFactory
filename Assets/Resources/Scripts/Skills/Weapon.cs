@@ -5,6 +5,12 @@ using System.IO;
 using UnityEngine;
 using SimpleJSON;
 
+public enum Side
+{
+    Left,
+    Right
+}
+
 public class Weapon : MonoBehaviour
 {
     [SerializeField]
@@ -18,8 +24,19 @@ public class Weapon : MonoBehaviour
     private GameObject weaponTrans;
 
     private TargetSelector ts;
+    [SerializeField]
+    private GameObject[] leftHitPoints;
+    [SerializeField]
+    private GameObject[] rightHitPoints;
+
+    [SerializeField]
+    private GameObject[] hitPoints;
+
+    public Side side;
 
     public GameObject WeaponTrans { get => weaponTrans; set => weaponTrans = value; }
+    public GameObject[] LeftHitPoints { get => leftHitPoints; set => leftHitPoints = value; }
+    public GameObject[] RightHitPoints { get => rightHitPoints; set => rightHitPoints = value; }
 
     protected GameObject InitRightHandWeapon(int id)
     {
@@ -38,6 +55,8 @@ public class Weapon : MonoBehaviour
         weaponTrans.transform.localPosition = weapon.PositionOffset;
         weaponTrans.transform.localRotation = Quaternion.Euler(weapon.RotateOffset);
         weaponTrans.transform.localScale = weapon.Scale;
+        side = Side.Right;
+        hitPoints = InitHitPoints(weapon.HitPointPos, weaponTrans.transform);
         return weaponTrans;
     }
 
@@ -58,6 +77,8 @@ public class Weapon : MonoBehaviour
         weaponTrans.transform.localPosition = weapon.PositionOffset;
         weaponTrans.transform.localRotation = Quaternion.Euler(weapon.RotateOffset);
         weaponTrans.transform.localScale = weapon.Scale;
+        side = Side.Left;
+        hitPoints = InitHitPoints(weapon.HitPointPos, weaponTrans.transform);
         return weaponTrans;
     }
 
@@ -71,6 +92,22 @@ public class Weapon : MonoBehaviour
         //skillBehaviour.ManageSkill();
     }
 
+    private GameObject[] InitHitPoints(Vector3[] hitPointPos, Transform parent)
+    {
+        int length = hitPointPos.Length;
+        GameObject[] hitPoints = new GameObject[length];
+
+
+        for (int i = 0; i < length; i++)
+        {
+            hitPoints[i] = new GameObject("Empty");
+            hitPoints[i].name = gameObject.ToString() + parent.ToString() + "hitPoint" + (i + 1).ToString();
+            hitPoints[i].transform.SetParent(parent);
+            hitPoints[i].transform.localPosition = hitPointPos[i];
+        }
+        return hitPoints;
+    }
+
     public void Attack()
     {
         weaponBehaviour.useWeapon();
@@ -78,8 +115,8 @@ public class Weapon : MonoBehaviour
 
     public SkillParam GetNextSkill(int skillId, int weaponId)
     {
-       SkillParam skillParam = Skill.InitSkill(TablesSingLeton.Instance.Tables.TbSkillParam.Get(skillId), WeaponTrans, TablesSingLeton.Instance.Tables.TbWeapon.Get(weaponId).HitPointPos);
-       return skillParam;
+        SkillParam skillParam = Skill.InitSkill(gameObject, TablesSingLeton.Instance.Tables.TbSkillParam.Get(skillId),  hitPoints);
+        return skillParam;
     }
 }
 

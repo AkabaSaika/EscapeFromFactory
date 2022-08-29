@@ -14,9 +14,9 @@ public class Attack3Behaviour : StateMachineBehaviour
 
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        //int cancelID = Animator.StringToHash("CanCancel");
+        int cancelID = Animator.StringToHash("CanCancel");
         //base.OnStateExit(animator, stateInfo, layerIndex);
-        //animator.SetBool(cancelID, false);
+        animator.SetBool(cancelID, false);
         Destroy(GameObject.FindGameObjectWithTag("Player").GetComponent<Skill>());
 
     }

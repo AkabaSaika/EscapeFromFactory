@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEditor;
 
 [Serializable]
 public class SkillParam
@@ -16,6 +17,10 @@ public class SkillParam
     [SerializeField]
     private float m_attackAnimationEndTime;
     [SerializeField]
+    private float m_attackAnimationNormalizedStartTime;
+    [SerializeField]
+    private float m_attackAnimationNormalizedEndTime;
+    [SerializeField]
     private int m_power;
     [SerializeField]
     private GameObject m_Owner;
@@ -25,6 +30,8 @@ public class SkillParam
     private string m_EffectPath="Audio/HammerImpact4";
     [SerializeField]
     private string m_voicePath;
+    [SerializeField]
+    private GameObject[] hps;
 
 
     public float AttackPointEndTime { get => m_attackPointEndTime; set => m_attackPointEndTime = value; }
@@ -36,11 +43,15 @@ public class SkillParam
     public int Power { get => m_power; set => m_power = value; }
     public string EffectPath { get => m_EffectPath; set => m_EffectPath = value; }
     public string VoicePath { get => m_voicePath; set => m_voicePath = value; }
+    public GameObject[] Hps { get => hps; set => hps = value; }
+    public float AttackAnimationNormalizedStartTime { get => m_attackAnimationNormalizedStartTime; set => m_attackAnimationNormalizedStartTime = value; }
+    public float AttackAnimationNormalizedEndTime { get => m_attackAnimationNormalizedEndTime; set => m_attackAnimationNormalizedEndTime = value; }
 }
 
 public class Skill : MonoBehaviour
 {
     public SkillParam sp = new SkillParam();
+    [SerializeField]
     private Vector3[] m_attacklinePos = new Vector3[2];
     [SerializeField]
     private List<GameObject> m_hitObject = new List<GameObject>();
@@ -49,7 +60,7 @@ public class Skill : MonoBehaviour
     private GameObject weapon;
     private AnimationClip m_clip;
     private Animator m_anim;
-    private GameObject[] hps;
+    private Animation animation;
     private AnimatorStateInfo stateInfo;
     [SerializeField]
     private UnityAction action;
@@ -58,10 +69,29 @@ public class Skill : MonoBehaviour
     
 
     public UnityAction Action { get => action; set => action = value; }
+   
 
     private void Update()
     {
         OnAnimationEnd(Action);
+
+        stateInfo = m_anim.GetCurrentAnimatorStateInfo(0);
+        if(stateInfo.normalizedTime>=sp.AttackAnimationNormalizedStartTime&&stateInfo.normalizedTime<=sp.AttackAnimationNormalizedEndTime)
+        {
+            foreach (var hp in sp.Hps)
+            {
+                StartCoroutine(DrawLineFixed(hp));
+            }
+        }
+        if(stateInfo.normalizedTime>sp.AttackAnimationNormalizedEndTime)
+        {
+
+                //StopCoroutine(DrawLineFixed(hp));
+                StopAllCoroutines();
+
+        }
+   
+
     }
 
     /// <summary>
@@ -69,46 +99,31 @@ public class Skill : MonoBehaviour
     /// 初期化する際にこの関数が外部（武器のクラス）に呼び出される
     /// </summary>
     /// <param name="skillParam">パラメータを格納するオブジェクト</param>
-    /// <param name="weapon">スキルが所属する武器</param>
     /// <param name="hitPointPos">武器攻撃判定の座標</param>
-    public static SkillParam InitSkill(cfg.test.SkillParam skillParam, GameObject weapon, Vector3[] hitPointPos)
-    {   
-        Skill skill = GameObject.FindGameObjectWithTag(skillParam.Owner).AddComponent<Skill>() as Skill;
-       
-        skill.sp.Owner = GameObject.FindGameObjectWithTag(skillParam.Owner);
-        skill.m_anim = skill.sp.Owner.GetComponent<Animator>();
+    public static SkillParam InitSkill(GameObject parent, cfg.test.SkillParam skillParam, GameObject[] hitPoints)
+    {
+        Skill skill = parent.AddComponent<Skill>() as Skill;
+        skill.sp.Owner = parent;
+        skill.m_anim = parent.GetComponent<Animator>();
+        skill.animation = parent.GetComponent<Animation>();
         skill.sp.AttackAnimationEndTime = skillParam.AttackAnimationEndTime;
         skill.sp.AttackAnimationStartTime = skillParam.AttackAnimationStartTime;
         skill.sp.AttackPointEndTime = skillParam.AttackPointEndTime;
         skill.sp.BackswingStartTime = skillParam.BackswingStartTime;
+        skill.sp.AttackAnimationNormalizedStartTime = skillParam.AttackAnimationNormalizedStartTime;
+        skill.sp.AttackAnimationNormalizedEndTime = skillParam.AttackAnimationNormalizedEndTime;
         skill.sp.ClipName = skillParam.SkillName;
         skill.sp.Power = skillParam.Power;
-        skill.hps = skill.InitHitPoints(hitPointPos, weapon.transform);
         skill.Action += skill.ClearHitObjectList;
+        //skill.Action += skill.ClearHitPoint;
         skill.soundAction += skill.PlayEffect;
         skill.sp.VoicePath = skillParam.Voice;
-        skill.AddAnimationEvent(skill.hps, skillParam.SkillName);
-
+        skill.sp.Hps = hitPoints;
+        skill.AddAnimationEvent(hitPoints, skillParam.SkillName);
+        
         return skill.sp;
     }
-
-
-    public GameObject[] InitHitPoints(Vector3[] hitPointPos,Transform parent)
-    {
-
-        int length = hitPointPos.Length;
-        GameObject[] hitPoints = new GameObject[length];
-        for (int i = 0;i<length;i++)
-        {
-            hitPoints[i] = new GameObject("Empty");
-            hitPoints[i].name = "hitPoint"+(i+1).ToString();
-            hitPoints[i].transform.SetParent(parent);
-            hitPoints[i].transform.localPosition = hitPointPos[i];
-        }
-        return hitPoints;
-    }
-
-
+    
     /// <summary>
     /// 攻撃判定を生成する 
     /// </summary>
@@ -119,8 +134,10 @@ public class Skill : MonoBehaviour
     private void DrawHit(string clipName,float startTime,float endTime,GameObject hitPoint,Animator anim)
     {
         AnimationClip[] clips = anim.runtimeAnimatorController.animationClips;
+        
         foreach (var clip in clips)
         {
+            Debug.Log(gameObject.name+ "'s" + clip.name + " id is" + clip.GetInstanceID());
             if (string.Equals(clip.name, clipName))
             {
                 AnimationEvent events = new AnimationEvent();
@@ -128,17 +145,17 @@ public class Skill : MonoBehaviour
                 events.time = 0.01f;
                 clip.AddEvent(events);
             }
-            for (float i = startTime; i <= endTime; i += 0.01f)
-            {
-                if (string.Equals(clip.name, clipName))
-                {
-                    AnimationEvent events = new AnimationEvent();
-                    events.objectReferenceParameter=hitPoint;
-                    events.functionName = "CastHitLine";
-                    events.time = i;
-                    clip.AddEvent(events);
-                }
-            }
+            //for (float i = startTime; i <= endTime; i += 0.01f)
+            //{
+            //    if (string.Equals(clip.name, clipName))
+            //    {
+            //        AnimationEvent events = new AnimationEvent();
+            //        events.objectReferenceParameter=hitPoint;
+            //        events.functionName = "CastHitLine";
+            //        events.time = i;
+            //        clip.AddEvent(events);
+            //    }
+            //}
         }
     }
     /// <summary>
@@ -163,6 +180,10 @@ public class Skill : MonoBehaviour
         {
             m_attacklinePos[0] = m_attacklinePos[1];
         }
+        if(gameObject.name=="Enemy2001")
+        {
+            Debug.Log(hitPoint.gameObject.ToString());
+        }
         Debug.DrawLine(m_attacklinePos[0], m_attacklinePos[1], Color.red, 60);
         RaycastHit hit;
         if (Physics.Linecast(m_attacklinePos[0], m_attacklinePos[1], out hit, 1 << layA)||Physics.Linecast(m_attacklinePos[1], m_attacklinePos[0], out hit, 1 << layA))
@@ -171,23 +192,27 @@ public class Skill : MonoBehaviour
             switch (hit.collider.tag)
             {
                 case "Enemy":
-                    if(hit.collider.gameObject.GetComponent<FSM>().canHit)
-                    {   
-                        if(!m_hitObject.Exists(ho => ho == hit.collider.gameObject))
+                    if(!gameObject.CompareTag("Enemy"))
+                    {
+                        if (hit.collider.gameObject.GetComponent<FSM>().canHit)
                         {
-                            HitEvent he = new HitEvent(sp.ClipName, sp.Power);
-                            m_hitObject.Add(hit.collider.gameObject);
-                            foreach (var ho in m_hitObject)
+                            if (!m_hitObject.Exists(ho => ho == hit.collider.gameObject))
                             {
-                                soundAction.Invoke(sp.EffectPath);
-                                ho.GetComponent<FSM>().Damaged(he);
+                                HitEvent he = new HitEvent(sp.ClipName, sp.Power);
+                                m_hitObject.Add(hit.collider.gameObject);
+                                foreach (var ho in m_hitObject)
+                                {
+                                    soundAction.Invoke(sp.EffectPath);
+                                    ho.GetComponent<FSM>().Damaged(he);
+                                }
+                                Debug.Log(hit.collider.gameObject.name);
+                                Skill.SetAnimatorSpeed(m_anim, 0.3f);
+                                Invoke("AnimPlay", 0.1f);
+
                             }
-                            Debug.Log(hit.collider.gameObject.name);  
-                            Skill.SetAnimatorSpeed(m_anim, 0.3f);
-                            Invoke("AnimPlay", 0.1f);
-                            
                         }
                     }
+
                     break;
                 case "Player":
                     if (!m_hitObject.Exists(ho => ho == hit.collider.gameObject))
@@ -240,8 +265,10 @@ public class Skill : MonoBehaviour
     {
         foreach (var hp in hitPoints)
         {
-            DrawHit(clipName,sp.AttackAnimationStartTime, sp.AttackAnimationEndTime, hp, m_anim);
-         }
+            DrawHit(clipName, sp.AttackAnimationStartTime, sp.AttackAnimationEndTime, hp, m_anim);
+        }
+
+
         SetCancel(sp.BackswingStartTime);
         ResetHit(sp.BackswingStartTime);
     }
@@ -318,5 +345,76 @@ public class Skill : MonoBehaviour
     private void PlayEffect(string path)
     {
         AudioManager.EffectPlay(path, false);
+    }
+
+
+
+    IEnumerator DrawLineFixed(GameObject hitPoint)
+    {
+        int layA = LayerMask.NameToLayer("Default");
+        m_attacklinePos[1] = hitPoint.transform.position;
+
+        if (m_attacklinePos[0] == Vector3.zero)
+        {
+            m_attacklinePos[0] = m_attacklinePos[1];
+        }
+        if (gameObject.name == "Enemy2001")
+        {
+            Debug.Log(hitPoint.gameObject.ToString());
+        }
+        Debug.DrawLine(m_attacklinePos[0], m_attacklinePos[1], Color.red, 60);
+        RaycastHit hit;
+        if (Physics.Linecast(m_attacklinePos[0], m_attacklinePos[1], out hit, 1 << layA) || Physics.Linecast(m_attacklinePos[1], m_attacklinePos[0], out hit, 1 << layA))
+        {
+            Debug.Log("hit");
+            switch (hit.collider.tag)
+            {
+                case "Enemy":
+                    if (!gameObject.CompareTag("Enemy"))
+                    {
+                        if (hit.collider.gameObject.GetComponent<FSM>().canHit)
+                        {
+                            if (!m_hitObject.Exists(ho => ho == hit.collider.gameObject))
+                            {
+                                HitEvent he = new HitEvent(sp.ClipName, sp.Power);
+                                m_hitObject.Add(hit.collider.gameObject);
+                                foreach (var ho in m_hitObject)
+                                {
+                                    soundAction.Invoke(sp.EffectPath);
+                                    ho.GetComponent<FSM>().Damaged(he);
+                                }
+                                Debug.Log(hit.collider.gameObject.name);
+                                Skill.SetAnimatorSpeed(m_anim, 0.3f);
+                                Invoke("AnimPlay", 0.1f);
+
+                            }
+                        }
+                    }
+
+                    break;
+                case "Player":
+                    if(!gameObject.CompareTag("Player"))
+                    {
+                        if (!m_hitObject.Exists(ho => ho == hit.collider.gameObject))
+                        {
+                            HitEvent he = new HitEvent(sp.ClipName, sp.Power);
+                            m_hitObject.Add(hit.collider.gameObject);
+                            foreach (var ho in m_hitObject)
+                            {
+                                ho.GetComponent<PlayerController>().Damaged(he);
+                            }
+                            Debug.Log(hit.collider.gameObject.name);
+                            Skill.SetAnimatorSpeed(m_anim, 0.3f);
+                            Invoke("AnimPlay", 0.1f);
+                        }
+                    }
+
+
+                    break;
+            }
+
+        }
+        m_attacklinePos[0] = m_attacklinePos[1];
+        yield return null;
     }
 }

@@ -1,8 +1,0 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class Global : MonoSingleton<Global>
-{
-    public string loadName;
-}

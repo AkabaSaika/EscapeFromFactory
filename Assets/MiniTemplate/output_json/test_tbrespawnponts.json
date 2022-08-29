@@ -1,0 +1,56 @@
+[
+  {
+    "id": 2001,
+    "prefabName": "Robot Kyle",
+    "respawnPoint": {
+      "x": 5,
+      "y": 0,
+      "z": 0
+    },
+    "rotation": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "patrolPoints": [
+      {
+        "x": 1,
+        "y": 0,
+        "z": 1
+      },
+      {
+        "x": 2,
+        "y": 0,
+        "z": 2
+      }
+    ],
+    "maxChaseDistance": 5
+  },
+  {
+    "id": 2002,
+    "prefabName": "Robot Kyle",
+    "respawnPoint": {
+      "x": 3,
+      "y": 0,
+      "z": 4
+    },
+    "rotation": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "patrolPoints": [
+      {
+        "x": 3,
+        "y": 0,
+        "z": 3
+      },
+      {
+        "x": 4,
+        "y": 0,
+        "z": 4
+      }
+    ],
+    "maxChaseDistance": 5
+  }
+]

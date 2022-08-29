@@ -30,6 +30,7 @@ public class Parameter
     public float MAX_VISION_DISTANCE;
     public Transform player;
     public float MAX_ATTACK_DISTANCE;
+    public float MAX_CHASE_DISTANCE;
 
 }
 

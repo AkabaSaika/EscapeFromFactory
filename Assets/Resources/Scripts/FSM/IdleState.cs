@@ -73,6 +73,10 @@ public class PatrolState : IState
             patrolPointIndex++;
             manager.TransitionState(StateType.Idle);
         }
+        if (manager.DetectPlayer())
+        {
+            manager.TransitionState(StateType.Chase);
+        }
         Debug.Log("Update Patrol");
     }
 
@@ -107,7 +111,10 @@ public class AttackState : MonoBehaviour,IState
         Debug.Log("Update Attack");
         manager.OnAnimationEnd("Attack2", action);
         //StartCoroutine(OnAnimationEnd("Attack2",action));
-        
+        if(parameter.anim.GetCurrentAnimatorStateInfo(0).normalizedTime>1.0f&& !manager.DetectPlayer())
+        {
+            manager.TransitionState(StateType.Chase);
+        }
 
     }
 
@@ -135,14 +142,18 @@ public class ChaseState : IState
     public void OnEnter()
     {
         Debug.Log("Enter Chase");
-        parameter.anim.Play("Walk");
+        parameter.anim.Play("run");
         parameter.agent.speed = parameter.chaseSpeed;
     }
 
     public void OnUpdate()
     {
         Debug.Log("Update Chase");
-        if(Vector3.Distance(parameter.thisTansform.position,parameter.player.position)>parameter.MAX_ATTACK_DISTANCE)
+        if(Vector3.Distance(parameter.thisTansform.position,parameter.player.position)> parameter.MAX_CHASE_DISTANCE)
+        {
+            manager.TransitionState(StateType.Patrol);
+        }
+        else if(Vector3.Distance(parameter.thisTansform.position, parameter.player.position) > parameter.MAX_ATTACK_DISTANCE)
         {
             parameter.agent.SetDestination(parameter.player.position);
         }

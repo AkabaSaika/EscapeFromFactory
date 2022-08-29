@@ -29,7 +29,7 @@ public class PlayerSkillManager : SkillBehaviour
 
         if (currAnimInfo.IsName(stateName) && currAnimInfo.normalizedTime == 0)
         {
-            Skill.InitSkill(tables.TbSkillParam.Get(skillId),greatSword.WeaponTrans,tables.TbWeapon.Get(1001).HitPointPos);
+           // Skill.InitSkill(, tables.TbSkillParam.Get(skillId),greatSword.WeaponTrans,tables.TbWeapon.Get(1001).HitPointPos);
         }
     }
 }

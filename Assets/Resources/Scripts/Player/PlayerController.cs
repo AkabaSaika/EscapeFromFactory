@@ -58,8 +58,11 @@ public class PlayerController : MonoBehaviour
     private int speedVID = Animator.StringToHash("SpeedV");
     private int hitId = Animator.StringToHash("Hit");
     private int deadId = Animator.StringToHash("IsDead");
+    private int JumpId = Animator.StringToHash("Jump");
+    private int LandId = Animator.StringToHash("Land");
     
     private Animator anim;
+    private WarriorAnimsFREE.IKHands IKHands;
 
     public float CurrentHp { get => currentHp; set => currentHp = value; }
 
@@ -77,6 +80,8 @@ public class PlayerController : MonoBehaviour
     {
         anim = gameObject.GetComponent<Animator>();
         cc = GetComponent<CharacterController>();
+        IKHands = GetComponent<WarriorAnimsFREE.IKHands>();
+
         speed = parameter.WalkSpeed;
         mouseSensiticity = 2.4f;
         angleY = transform.eulerAngles.y;
@@ -103,6 +108,18 @@ public class PlayerController : MonoBehaviour
         {
             camFoward = Vector3.ProjectOnPlane(mainCamera.forward, Vector3.up);
             Move();
+            Debug.Log(anim.GetCurrentAnimatorClipInfo(0).ToString());
+
+
+            //特定のアニメションを再生する時にIKの有無を調整する
+            if(anim.GetCurrentAnimatorClipInfo(0)[0].clip.name.Equals("great sword idle (5)"))
+            {
+                IKHands.SetIKOff();
+            }
+            else
+            {
+                IKHands.SetIKOn();
+            }
         }
     }
 
@@ -130,8 +147,8 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log(Input.GetButton("Jump"));
             jumpSpeed = parameter.JumpSpeed;
-            groundState = false;
-            isGrounded = groundState;
+            isGrounded = false;
+            anim.SetTrigger(JumpId);
         }
         if (!isGrounded)
         {
@@ -140,15 +157,14 @@ public class PlayerController : MonoBehaviour
             cf = cc.Move(jump);
             if (cf == CollisionFlags.Below)
             {
+                anim.SetTrigger(LandId);
                 jumpSpeed = 0;
-                groundState = true;
-                isGrounded = groundState;
+                isGrounded = true;   
             }
         }
         if (isGrounded && cf == CollisionFlags.None)
         {
-            groundState = false;
-            isGrounded = groundState;
+            isGrounded = false;
         }
     }
 

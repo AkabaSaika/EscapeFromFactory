@@ -24,7 +24,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>Temp\bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;UNITY_2019_4_17;UNITY_2019_4;UNITY_2019;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_3_OR_NEWER;UNITY_2017_4_OR_NEWER;UNITY_2018_1_OR_NEWER;UNITY_2018_2_OR_NEWER;UNITY_2018_3_OR_NEWER;UNITY_2018_4_OR_NEWER;UNITY_2019_1_OR_NEWER;UNITY_2019_2_OR_NEWER;UNITY_2019_3_OR_NEWER;UNITY_2019_4_OR_NEWER;UNITY_INCLUDE_TESTS;ENABLE_AR;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_EVENT_QUEUE;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_TEXTURE_STREAMING;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_VR;ENABLE_WEBCAM;ENABLE_UNITYWEBREQUEST;ENABLE_WWW;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_COLLAB_SOFTLOCKS;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_DIRECTOR_AUDIO;ENABLE_DIRECTOR_TEXTURE;ENABLE_MANAGED_JOBS;ENABLE_MANAGED_TRANSFORM_JOBS;ENABLE_MANAGED_ANIMATION_JOBS;ENABLE_MANAGED_AUDIO_JOBS;INCLUDE_DYNAMIC_GI;ENABLE_MONO_BDWGC;ENABLE_SCRIPTING_GC_WBARRIERS;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;ENABLE_VIDEO;PLATFORM_STANDALONE;PLATFORM_STANDALONE_WIN;UNITY_STANDALONE_WIN;UNITY_STANDALONE;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_OUT_OF_PROCESS_CRASH_HANDLER;ENABLE_CLUSTER_SYNC;ENABLE_CLUSTERINPUT;GFXDEVICE_WAITFOREVENT_MESSAGEPUMP;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;NET_STANDARD_2_0;ENABLE_PROFILER;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_UNITY_COLLECTIONS_CHECKS;ENABLE_BURST_AOT;UNITY_TEAM_LICENSE;ENABLE_VSTU;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_DIRECTOR;ENABLE_LOCALIZATION;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_TILEMAP;ENABLE_TIMELINE;ENABLE_LEGACY_INPUT_MANAGER;CSHARP_7_OR_LATER;CSHARP_7_3_OR_NEWER</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;UNITY_2019_4_17;UNITY_2019_4;UNITY_2019;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_3_OR_NEWER;UNITY_2017_4_OR_NEWER;UNITY_2018_1_OR_NEWER;UNITY_2018_2_OR_NEWER;UNITY_2018_3_OR_NEWER;UNITY_2018_4_OR_NEWER;UNITY_2019_1_OR_NEWER;UNITY_2019_2_OR_NEWER;UNITY_2019_3_OR_NEWER;UNITY_2019_4_OR_NEWER;PLATFORM_ARCH_64;UNITY_64;UNITY_INCLUDE_TESTS;ENABLE_AR;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_EVENT_QUEUE;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_TEXTURE_STREAMING;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_VR;ENABLE_WEBCAM;ENABLE_UNITYWEBREQUEST;ENABLE_WWW;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_COLLAB_SOFTLOCKS;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_DIRECTOR_AUDIO;ENABLE_DIRECTOR_TEXTURE;ENABLE_MANAGED_JOBS;ENABLE_MANAGED_TRANSFORM_JOBS;ENABLE_MANAGED_ANIMATION_JOBS;ENABLE_MANAGED_AUDIO_JOBS;INCLUDE_DYNAMIC_GI;ENABLE_MONO_BDWGC;ENABLE_SCRIPTING_GC_WBARRIERS;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;ENABLE_VIDEO;PLATFORM_STANDALONE;PLATFORM_STANDALONE_WIN;UNITY_STANDALONE_WIN;UNITY_STANDALONE;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_OUT_OF_PROCESS_CRASH_HANDLER;ENABLE_CLUSTER_SYNC;ENABLE_CLUSTERINPUT;GFXDEVICE_WAITFOREVENT_MESSAGEPUMP;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;NET_STANDARD_2_0;ENABLE_PROFILER;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_UNITY_COLLECTIONS_CHECKS;ENABLE_BURST_AOT;UNITY_TEAM_LICENSE;ENABLE_VSTU;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_DIRECTOR;ENABLE_LOCALIZATION;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_TILEMAP;ENABLE_TIMELINE;ENABLE_LEGACY_INPUT_MANAGER;CSHARP_7_OR_LATER;CSHARP_7_3_OR_NEWER</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169</NoWarn>
@@ -50,7 +50,7 @@
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <UnityProjectGenerator>Unity/VSTU</UnityProjectGenerator>
     <UnityProjectType>Game:1</UnityProjectType>
-    <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
+    <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
     <UnityVersion>2019.4.17f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
@@ -62,9 +62,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\CubeController.cs" />
-    <Compile Include="Assets\DontDestroy.cs" />
-    <Compile Include="Assets\GameManager.cs" />
     <Compile Include="Assets\LubanLib\BeanBase.cs" />
     <Compile Include="Assets\LubanLib\ByteBuf.cs" />
     <Compile Include="Assets\LubanLib\ITypeId.cs" />
@@ -81,7 +78,9 @@
     <Compile Include="Assets\MiniTemplate\Gen\item\ItemExchange.cs" />
     <Compile Include="Assets\MiniTemplate\Gen\item\TbItem.cs" />
     <Compile Include="Assets\MiniTemplate\Gen\test\AccessFlag.cs" />
+    <Compile Include="Assets\MiniTemplate\Gen\test\Respawn.cs" />
     <Compile Include="Assets\MiniTemplate\Gen\test\SkillParam.cs" />
+    <Compile Include="Assets\MiniTemplate\Gen\test\TbRespawnPonts.cs" />
     <Compile Include="Assets\MiniTemplate\Gen\test\TbSkillParam.cs" />
     <Compile Include="Assets\MiniTemplate\Gen\weapon\TbWeapon.cs" />
     <Compile Include="Assets\MiniTemplate\Gen\weapon\Weapon.cs" />
@@ -93,23 +92,24 @@
     <Compile Include="Assets\Resources\Scripts\Animator\Player\Attack3Behaviour.cs" />
     <Compile Include="Assets\Resources\Scripts\Audio\AudioManager.cs" />
     <Compile Include="Assets\Resources\Scripts\Audio\VoiceBehaviour.cs" />
-    <Compile Include="Assets\Resources\Scripts\CameraController.cs" />
+    <Compile Include="Assets\Resources\Scripts\CubeController.cs" />
+    <Compile Include="Assets\Resources\Scripts\DontDestroy.cs" />
     <Compile Include="Assets\Resources\Scripts\FSM\FSM.cs" />
     <Compile Include="Assets\Resources\Scripts\FSM\IState.cs" />
     <Compile Include="Assets\Resources\Scripts\FSM\IdleState.cs" />
-    <Compile Include="Assets\Resources\Scripts\Global.cs" />
     <Compile Include="Assets\Resources\Scripts\Items\Weapons\GreatSword.cs" />
     <Compile Include="Assets\Resources\Scripts\Items\Weapons\LeftPunch.cs" />
     <Compile Include="Assets\Resources\Scripts\Items\Weapons\RightPunch.cs" />
-    <Compile Include="Assets\Resources\Scripts\JsonTest.cs" />
-    <Compile Include="Assets\Resources\Scripts\Loading.cs" />
+    <Compile Include="Assets\Resources\Scripts\Manager\GameManager.cs" />
+    <Compile Include="Assets\Resources\Scripts\Manager\Global.cs" />
+    <Compile Include="Assets\Resources\Scripts\Manager\StageManager.cs" />
     <Compile Include="Assets\Resources\Scripts\Parameter\MonoSingleton.cs" />
     <Compile Include="Assets\Resources\Scripts\Parameter\SkillParameter.cs" />
     <Compile Include="Assets\Resources\Scripts\Parameter\TablesSingLeton.cs" />
+    <Compile Include="Assets\Resources\Scripts\Player\CameraController.cs" />
     <Compile Include="Assets\Resources\Scripts\Player\PlayerController.cs" />
     <Compile Include="Assets\Resources\Scripts\Player\PlayerVoiceBehaviour.cs" />
     <Compile Include="Assets\Resources\Scripts\Player\StepAudioController.cs" />
-    <Compile Include="Assets\Resources\Scripts\PlayerModel.cs" />
     <Compile Include="Assets\Resources\Scripts\Skills\HitEvent.cs" />
     <Compile Include="Assets\Resources\Scripts\Skills\Observer.cs" />
     <Compile Include="Assets\Resources\Scripts\Skills\PlayerSkillManager.cs" />
@@ -118,10 +118,17 @@
     <Compile Include="Assets\Resources\Scripts\Skills\SkillUtility.cs" />
     <Compile Include="Assets\Resources\Scripts\Skills\TargetSelector.cs" />
     <Compile Include="Assets\Resources\Scripts\Skills\Weapon.cs" />
+    <Compile Include="Assets\Resources\Scripts\UI\IPanelBase.cs" />
+    <Compile Include="Assets\Resources\Scripts\UI\JsonTest.cs" />
+    <Compile Include="Assets\Resources\Scripts\UI\Loading.cs" />
+    <Compile Include="Assets\Resources\Scripts\UI\OptionValues.cs" />
+    <Compile Include="Assets\Resources\Scripts\UI\PanelManager.cs" />
+    <Compile Include="Assets\Resources\Scripts\UI\ResolutionChange.cs" />
+    <Compile Include="Assets\Resources\Scripts\UI\UIManager.cs" />
     <Compile Include="Assets\Resources\Scripts\WeaponBehaviour\GreatSwordBehaviour.cs" />
     <Compile Include="Assets\Resources\Scripts\WeaponBehaviour\WeaponBehaviour.cs" />
     <Compile Include="Assets\Resources\Scripts\roundmove.cs" />
-    <Compile Include="Assets\SkillManager.cs" />
+    <Compile Include="Assets\ThirdPartyAssets\ExplosiveLLC\Warrior FREE\Code\IKHands.cs" />
     <Compile Include="Assets\ThirdPartyAssets\Sci-Fi UI\Demo_Assets\scripts\GUI_Demo.cs" />
     <Compile Include="Assets\ThirdPartyAssets\SciFi Warehouse Kit\Demo\Scripts\LightFlicker.cs" />
     <Compile Include="Assets\ThirdPartyAssets\SciFi Warehouse Kit\Demo\Scripts\MouseComponent.cs" />
@@ -140,7 +147,6 @@
     <Compile Include="Assets\ThirdPartyAssets\unity-chan!\Unity-chan! Model\Scripts\ThirdPersonCamera.cs" />
     <Compile Include="Assets\ThirdPartyAssets\unity-chan!\Unity-chan! Model\Scripts\UnityChanControlScriptWithRgidBody.cs" />
     <Compile Include="Assets\ThirdPartyAssets\unity-chan!\Unity-chan! Model\SplashScreen\Scripts\SplashScreen.cs" />
-    <Compile Include="Assets\UIManager.cs" />
     <None Include="Assets\ThirdPartyAssets\unity-chan!\Unity-chan! Model\Art\UnityChanShader\Shader\Unitychan_chara_fuku.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
