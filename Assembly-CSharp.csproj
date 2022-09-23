@@ -77,6 +77,8 @@
     <Compile Include="Assets\MiniTemplate\Gen\item\Item.cs" />
     <Compile Include="Assets\MiniTemplate\Gen\item\ItemExchange.cs" />
     <Compile Include="Assets\MiniTemplate\Gen\item\TbItem.cs" />
+    <Compile Include="Assets\MiniTemplate\Gen\stage\Respawn.cs" />
+    <Compile Include="Assets\MiniTemplate\Gen\stage\TbRespawnPoints.cs" />
     <Compile Include="Assets\MiniTemplate\Gen\test\AccessFlag.cs" />
     <Compile Include="Assets\MiniTemplate\Gen\test\Respawn.cs" />
     <Compile Include="Assets\MiniTemplate\Gen\test\SkillParam.cs" />
@@ -97,6 +99,7 @@
     <Compile Include="Assets\Resources\Scripts\FSM\FSM.cs" />
     <Compile Include="Assets\Resources\Scripts\FSM\IState.cs" />
     <Compile Include="Assets\Resources\Scripts\FSM\IdleState.cs" />
+    <Compile Include="Assets\Resources\Scripts\Items\DoorController.cs" />
     <Compile Include="Assets\Resources\Scripts\Items\Weapons\GreatSword.cs" />
     <Compile Include="Assets\Resources\Scripts\Items\Weapons\LeftPunch.cs" />
     <Compile Include="Assets\Resources\Scripts\Items\Weapons\RightPunch.cs" />
@@ -110,6 +113,7 @@
     <Compile Include="Assets\Resources\Scripts\Player\PlayerController.cs" />
     <Compile Include="Assets\Resources\Scripts\Player\PlayerVoiceBehaviour.cs" />
     <Compile Include="Assets\Resources\Scripts\Player\StepAudioController.cs" />
+    <Compile Include="Assets\Resources\Scripts\Skills\ClearTimer.cs" />
     <Compile Include="Assets\Resources\Scripts\Skills\HitEvent.cs" />
     <Compile Include="Assets\Resources\Scripts\Skills\Observer.cs" />
     <Compile Include="Assets\Resources\Scripts\Skills\PlayerSkillManager.cs" />
@@ -128,6 +132,7 @@
     <Compile Include="Assets\Resources\Scripts\WeaponBehaviour\GreatSwordBehaviour.cs" />
     <Compile Include="Assets\Resources\Scripts\WeaponBehaviour\WeaponBehaviour.cs" />
     <Compile Include="Assets\Resources\Scripts\roundmove.cs" />
+    <Compile Include="Assets\SingletonManager.cs" />
     <Compile Include="Assets\ThirdPartyAssets\ExplosiveLLC\Warrior FREE\Code\IKHands.cs" />
     <Compile Include="Assets\ThirdPartyAssets\Sci-Fi UI\Demo_Assets\scripts\GUI_Demo.cs" />
     <Compile Include="Assets\ThirdPartyAssets\SciFi Warehouse Kit\Demo\Scripts\LightFlicker.cs" />

@@ -8,7 +8,7 @@ using UnityEngine.Events;
 
 public enum StateType
 {
-    Idle,Patrol,Chase,React,Attack,Battle,Damage,Dead
+    Idle,Patrol,Chase,Return,Attack,Battle,Damage,Dead
 }
 
 [Serializable]
@@ -22,6 +22,7 @@ public class Parameter
     public Transform thisTansform;
     public Transform[] chasePoints;
     public Animator anim;
+    public Vector3 respawnPoint;
     //public Rigidbody rb;
 
     public float idleTimer;
@@ -50,7 +51,7 @@ public class FSM : MonoBehaviour,Observer
         states.Add(StateType.Idle, new IdleState(this));
         states.Add(StateType.Patrol, new PatrolState(this));
         states.Add(StateType.Chase, new ChaseState(this));
-        states.Add(StateType.React, new ReactState(this));
+        states.Add(StateType.Return, new ReturnState(this));
         states.Add(StateType.Attack, new AttackState(this));
         states.Add(StateType.Battle, new BattleState(this));
         states.Add(StateType.Damage,new DamageState(this));

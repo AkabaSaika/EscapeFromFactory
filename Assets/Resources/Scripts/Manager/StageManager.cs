@@ -5,19 +5,22 @@ using UnityEngine;
 public class StageManager : MonoSingleton<StageManager>
 {
     private GameObject enemyRoot;
+    private GameObject patrolPointRoot;
 
     public void InitStage()
     {
         
         enemyRoot = new GameObject("Enemy");
+        patrolPointRoot = new GameObject("PatrolRoot");
+        patrolPointRoot.transform.SetParent(enemyRoot.transform);
         enemyRoot.transform.SetParent(GameObject.Find("Character").transform);
-        for(int i=0;i<2;i++)
+        for(int i=0;i<12;i++)
         {
-            InitCharacter(TablesSingLeton.Instance.Tables.TbRespawnPonts.Get(2001+i));
+            InitCharacter(TablesSingLeton.Instance.Tables.TbRespawnPoints.Get(3001+i));
         }
         
     }
-    private void InitCharacter(cfg.test.Respawn respawn)
+    private void InitCharacter(cfg.stage.Respawn respawn)
     {
         string path = "Prefabs/Object/" + respawn.PrefabName;
         GameObject prefab = Resources.Load(path) as GameObject;
@@ -27,12 +30,12 @@ public class StageManager : MonoSingleton<StageManager>
         Transform[] pp = new Transform[respawn.PatrolPoints.Length];
         for(int i=0;i<pp.Length;i++)
         {
-            GameObject patrolPointObject = new GameObject("PatrolPoint"+i.ToString());
-            patrolPointObject.transform.SetParent(enemy.transform);
+            GameObject patrolPointObject = new GameObject(enemy.name + "PatrolPoint" +i.ToString());
+            patrolPointObject.transform.SetParent(patrolPointRoot.transform);
             patrolPointObject.transform.position = respawn.PatrolPoints[i];
             enemy.GetComponent<FSM>().parameter.patrolPoints[i] = patrolPointObject.transform;
         }
         enemy.GetComponent<FSM>().parameter.MAX_CHASE_DISTANCE = respawn.MaxChaseDistance;
-        
+        enemy.GetComponent<FSM>().parameter.respawnPoint = respawn.RespawnPoint;
     }
 }

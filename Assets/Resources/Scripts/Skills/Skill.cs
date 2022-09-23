@@ -137,7 +137,7 @@ public class Skill : MonoBehaviour
         
         foreach (var clip in clips)
         {
-            Debug.Log(gameObject.name+ "'s" + clip.name + " id is" + clip.GetInstanceID());
+            //Debug.Log(gameObject.name+ "'s" + clip.name + " id is" + clip.GetInstanceID());
             if (string.Equals(clip.name, clipName))
             {
                 AnimationEvent events = new AnimationEvent();

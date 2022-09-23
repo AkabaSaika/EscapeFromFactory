@@ -16,15 +16,15 @@ public class IdleState : IState
 
     public void OnEnter()
     {
-        Debug.Log("Enter Idle");
+        Debug.Log(manager.gameObject.name + " Enter Idle");
         parameter.idleTimer = 0;
         parameter.anim.Play("Idle");
     }
 
     public void OnUpdate()
     {      
-        Debug.Log("Update Idle");
-        if (manager.DetectPlayer())
+        Debug.Log(manager.gameObject.name + " Update Idle");
+        if (manager.DetectPlayer())//プレイヤーを検出したらchaseステートに遷移する
         {
             manager.TransitionState(StateType.Chase);
         }
@@ -32,13 +32,16 @@ public class IdleState : IState
         parameter.idleTimer += Time.deltaTime;
         if(parameter.idleTimer>=parameter.idleTime)
         {
-            manager.TransitionState(StateType.Patrol);
+            if (parameter.patrolPoints[0] != null)//パトロールルートがある場合、パトロールステートに遷移する
+            {
+                manager.TransitionState(StateType.Patrol);
+            }
         }
     }
 
     public void OnExit()
     {
-        Debug.Log("Exit Idle");
+        Debug.Log(manager.gameObject.name + " Exit Idle");
     }
 }
 
@@ -56,7 +59,7 @@ public class PatrolState : IState
 
     public void OnEnter()
     {
-        Debug.Log("Enter Patrol");
+        Debug.Log(manager.gameObject.name + " Enter Patrol");
         parameter.anim.Play("Walk");
         parameter.agent.speed = parameter.moveSpeed;
     }
@@ -68,7 +71,7 @@ public class PatrolState : IState
             patrolPointIndex = 0;
         }
         parameter.agent.SetDestination(parameter.patrolPoints[patrolPointIndex].position);
-        if(Vector3.Distance(parameter.patrolPoints[patrolPointIndex].position,parameter.thisTansform.position)<=0.1f)
+        if (Vector3.Distance(parameter.patrolPoints[patrolPointIndex].position,parameter.thisTansform.position)<=0.1f)
         {
             patrolPointIndex++;
             manager.TransitionState(StateType.Idle);
@@ -77,7 +80,8 @@ public class PatrolState : IState
         {
             manager.TransitionState(StateType.Chase);
         }
-        Debug.Log("Update Patrol");
+        
+        Debug.Log(manager.gameObject.name + " Update Patrol");
     }
 
     public void OnExit()
@@ -100,7 +104,7 @@ public class AttackState : MonoBehaviour,IState
 
     public void OnEnter()
     {
-        Debug.Log("Enter Attack");
+        Debug.Log(manager.gameObject.name + " Enter Attack");
         parameter.anim.Play("Attack1");
         action += manager.TransitionState;
     }
@@ -108,7 +112,7 @@ public class AttackState : MonoBehaviour,IState
     public void OnUpdate()
     {
         
-        Debug.Log("Update Attack");
+        Debug.Log(manager.gameObject.name + " Update Attack");
         manager.OnAnimationEnd("Attack2", action);
         //StartCoroutine(OnAnimationEnd("Attack2",action));
         if(parameter.anim.GetCurrentAnimatorStateInfo(0).normalizedTime>1.0f&& !manager.DetectPlayer())
@@ -120,7 +124,7 @@ public class AttackState : MonoBehaviour,IState
 
     public void OnExit()
     {
-        Debug.Log("Exit Attack");
+        Debug.Log(manager.gameObject.name + " Exit Attack");
     }
 }
 
@@ -141,17 +145,21 @@ public class ChaseState : IState
 
     public void OnEnter()
     {
-        Debug.Log("Enter Chase");
+        Debug.Log(manager.gameObject.name + " Enter Chase");
         parameter.anim.Play("run");
         parameter.agent.speed = parameter.chaseSpeed;
     }
 
     public void OnUpdate()
     {
-        Debug.Log("Update Chase");
-        if(Vector3.Distance(parameter.thisTansform.position,parameter.player.position)> parameter.MAX_CHASE_DISTANCE)
+        Debug.Log(manager.gameObject.name + " Update Chase");
+        if(Vector3.Distance(parameter.thisTansform.position,parameter.player.position)> parameter.MAX_CHASE_DISTANCE&&parameter.patrolPoints[0]!=null)
         {
             manager.TransitionState(StateType.Patrol);
+        }
+        else if(Vector3.Distance(parameter.thisTansform.position, parameter.player.position) > parameter.MAX_CHASE_DISTANCE && parameter.patrolPoints[0] == null)
+        {
+            manager.TransitionState(StateType.Return);
         }
         else if(Vector3.Distance(parameter.thisTansform.position, parameter.player.position) > parameter.MAX_ATTACK_DISTANCE)
         {
@@ -170,16 +178,16 @@ public class ChaseState : IState
 
     public void OnExit()
     {
-        Debug.Log("Exit Chase");
+        Debug.Log(manager.gameObject.name + " Exit Chase");
     }
 }
 
-public class ReactState : IState
+public class ReturnState : IState
 {
     private FSM manager;
     private Parameter parameter;
 
-    public ReactState(FSM manager)
+    public ReturnState(FSM manager)
     {
         this.manager = manager;
         this.parameter = manager.parameter;
@@ -187,12 +195,18 @@ public class ReactState : IState
 
     public void OnEnter()
     {
-        Debug.Log("Enter React");
+        parameter.anim.Play("Walk");
+        Debug.Log("Enter Return");
     }
 
     public void OnUpdate()
     {
-        Debug.Log("Update React");
+        Debug.Log("Update Return");
+        parameter.agent.SetDestination(parameter.respawnPoint);
+        if(Vector3.Distance(parameter.thisTansform.position,parameter.respawnPoint)<0.1)
+        {
+            manager.TransitionState(StateType.Idle);
+        }
     }
 
     public void OnExit()
@@ -217,20 +231,20 @@ public class BattleState :IState
 
     public void OnEnter()
     {
-        Debug.Log("Enter Battle");
+        Debug.Log(manager.gameObject.name + " Enter Battle");
         parameter.anim.Play("FightIdle");
     }
 
     public void OnUpdate()
     {
-        Debug.Log("Update Battle");
+        Debug.Log(manager.gameObject.name + " Update Battle");
         parameter.thisTansform.LookAt(parameter.player);
         manager.TransitionState(StateType.Attack);
     }
 
     public void OnExit()
     {
-        Debug.Log("Exit Battle");
+        Debug.Log(manager.gameObject.name + " Exit Battle");
     }
 }
 
@@ -251,7 +265,7 @@ public class DamageState :IState
     public void OnEnter()
     {
         parameter.anim.Play("Big Hit To Head");
-        Debug.Log("Enter Damage");
+        Debug.Log(manager.gameObject.name + " Enter Damage");
     }
 
     public void OnUpdate()
@@ -268,12 +282,12 @@ public class DamageState :IState
             }
         }
 
-        Debug.Log("Update Damage");
+        Debug.Log(manager.gameObject.name + " Update Damage");
     }
 
     public void OnExit()
     {
-        Debug.Log("Exit Damage");
+        Debug.Log(manager.gameObject.name + " Exit Damage");
     }
 }
 
@@ -292,16 +306,16 @@ public class DeadState :IState
     public void OnEnter()
     {
         parameter.anim.Play("Falling Back Death");
-        Debug.Log("Enter Dead");
+        Debug.Log(manager.gameObject.name + " Enter Dead");
     }
 
     public void OnUpdate()
     {
-        Debug.Log("Update Dead");
+        Debug.Log(manager.gameObject.name + " Update Dead");
     }
 
     public void OnExit()
     {
-        Debug.Log("Exit Dead");
+        Debug.Log(manager.gameObject.name + " Exit Dead");
     }
 }

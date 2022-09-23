@@ -13,8 +13,10 @@ public class UIManager : MonoSingleton<UIManager>
     private Button newGame;
     [SerializeField]
     private Button exitGame;
+    [SerializeField]
+    private GameObject canvas;
 
-
+    private Stack<GameObject> panelStack;
     /// <summary>
     /// ポーズパネルのボタン
     /// </summary>
@@ -23,6 +25,9 @@ public class UIManager : MonoSingleton<UIManager>
     public Button restart;//はじめから
     public Button option;//オプション
     public Button exit;//終了
+    public Button backToMainMenu;
+    public Button backToMainMenuGameClear;
+    public Button exitGameClear;
 
 
     [SerializeField]
@@ -60,6 +65,7 @@ public class UIManager : MonoSingleton<UIManager>
         }
         else
         {
+            panelStack = new Stack<GameObject>();
             player = GameObject.FindGameObjectWithTag("Player");
             pc = player.GetComponent<PlayerController>();
             hpBar.fillMethod = Image.FillMethod.Horizontal;
@@ -67,7 +73,13 @@ public class UIManager : MonoSingleton<UIManager>
             restart.onClick.AddListener(Restart);
             option.onClick.AddListener(Option);
             exit.onClick.AddListener(Exit);
-
+            back.onClick.AddListener(delegate { Back(optionPanel); });
+            backToMainMenu.onClick.AddListener(BackToMainMenu);
+            backToMainMenuGameClear.onClick.AddListener(BackToMainMenu);
+            exitGameClear.onClick.AddListener(Exit);
+            canvas = GameObject.Find("Canvas");
+            pausePanel = canvas.transform.Find("PausePanel").gameObject;
+            optionPanel = canvas.transform.Find("OptionPanel").gameObject;
         }
 
     }
@@ -99,6 +111,8 @@ public class UIManager : MonoSingleton<UIManager>
     private void Option()
     {
         optionPanel.SetActive(true);
+        panelStack.Push(pausePanel);
+        pausePanel.SetActive(false);
     }
     private void Exit()
     {
@@ -106,15 +120,19 @@ public class UIManager : MonoSingleton<UIManager>
     }
     private void NewGame()
     {
-        Global.Instance.LoadNextScene("SampleScene");
+        Global.Instance.LoadNextScene("MainStage");
     }
     private void Back(GameObject panel)
     {
         panel.SetActive(false);
+        panelStack.Pop().SetActive(true);
     }
     private void ButtonEffect(Button button,string path)
     {
         button.onClick.AddListener(delegate { AudioManager.EffectPlay(path, false); });
-        
+    }
+    private void BackToMainMenu()
+    {
+        SceneManager.LoadScene(0);
     }
 }

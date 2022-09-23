@@ -98,7 +98,7 @@ public class PlayerController : MonoBehaviour
         {
             h = Input.GetAxis("Horizontal");
             v = Input.GetAxis("Vertical");
-            Jump();
+            //Jump();
         }
     }
 
@@ -108,7 +108,7 @@ public class PlayerController : MonoBehaviour
         {
             camFoward = Vector3.ProjectOnPlane(mainCamera.forward, Vector3.up);
             Move();
-            Debug.Log(anim.GetCurrentAnimatorClipInfo(0).ToString());
+
 
 
             //特定のアニメションを再生する時にIKの有無を調整する
@@ -120,7 +120,20 @@ public class PlayerController : MonoBehaviour
             {
                 IKHands.SetIKOn();
             }
+
+            RaycastHit hit;
+            if(Physics.Linecast(gameObject.transform.position,gameObject.transform.position+new Vector3(0,-0.5f,0),out hit))
+            {
+                if(hit.collider.gameObject.name=="GameClear")
+                {
+                    //GameObject.Find("Game").GetComponent<GameManager>().clear();
+                    GameManager.Instance.gameClearHandler.Invoke();
+                }
+            }
         }
+        
+
+        
     }
 
     private void LateUpdate()
@@ -171,7 +184,16 @@ public class PlayerController : MonoBehaviour
     public void Damaged(HitEvent hitEvent)
     {
         anim.SetTrigger(hitId);
-        if(CurrentHp>0)
+
+        if(CurrentHp<=0)
+        {
+            AudioManager.EffectPlay("Audio/Voice/univ1077",false); //死亡ボイスを再生
+
+            gameObject.GetComponent<CharacterController>().enabled = false;
+            isDead = true;
+            anim.SetTrigger(deadId);
+        }
+        else
         {
             //受撃ボイスを再生
             int i = Random.Range(0, 4);
@@ -180,23 +202,30 @@ public class PlayerController : MonoBehaviour
 
             CurrentHp -= hitEvent.Damage; //ライフポイントを更新
         }
-        else
-        {
-            AudioManager.EffectPlay("Audio/Voice/univ1077",false); //死亡ボイスを再生
 
-            gameObject.GetComponent<CharacterController>().enabled = false;
-            isDead = true;
-            anim.SetTrigger(deadId);
-        }
-        
         Debug.Log("hit by" + hitEvent.SkillName);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("item"))
+        if (other.CompareTag("Door"))
         {
-            SendMessage("PickUp", int.Parse(other.name));
+            DoorController dc = other.GetComponentInParent<DoorController>();
+            dc.doorChange += delegate { DoorController.OpenDoor(dc.door); };
+            dc.doorChange(dc.door);
+            
+        }
+        Debug.Log(other.name);
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Door"))
+        {
+            DoorController dc = other.GetComponentInParent<DoorController>();
+            dc.doorChange += delegate { DoorController.CloseDoor(dc.door); };
+            dc.doorChange(dc.door);
+
         }
     }
 

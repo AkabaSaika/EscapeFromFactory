@@ -89,7 +89,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 0
+  m_StoppingDistance: 0.1
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -125,6 +125,7 @@ MonoBehaviour:
     MAX_VISION_DISTANCE: 5
     player: {fileID: 0}
     MAX_ATTACK_DISTANCE: 0.5
+    MAX_CHASE_DISTANCE: 50
   canHit: 0
 --- !u!114 &8126346257388446268
 MonoBehaviour:
@@ -141,6 +142,10 @@ MonoBehaviour:
   rightHand: {fileID: 0}
   leftHand: {fileID: 0}
   weaponTrans: {fileID: 0}
+  leftHitPoints: []
+  rightHitPoints: []
+  hitPoints: []
+  side: 0
 --- !u!114 &8126346257388446269
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -156,6 +161,10 @@ MonoBehaviour:
   rightHand: {fileID: 0}
   leftHand: {fileID: 0}
   weaponTrans: {fileID: 0}
+  leftHitPoints: []
+  rightHitPoints: []
+  hitPoints: []
+  side: 0
 --- !u!1 &561931310245076957
 GameObject:
   m_ObjectHideFlags: 0

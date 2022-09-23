@@ -1169,14 +1169,20 @@ MonoBehaviour:
   hpBarBackGround: {fileID: 0}
   newGame: {fileID: 992927870}
   exitGame: {fileID: 1311274149}
+  canvas: {fileID: 0}
   pausePanel: {fileID: 0}
   resume: {fileID: 0}
   restart: {fileID: 0}
   option: {fileID: 1849475078}
   exit: {fileID: 1311274149}
+  backToMainMenu: {fileID: 0}
+  backToMainMenuGameClear: {fileID: 0}
+  exitGameClear: {fileID: 0}
   optionPanel: {fileID: 1528578980}
   resolution: {fileID: 48546362}
   back: {fileID: 1527540757}
+  previousPanel: {fileID: 0}
+  currentPanel: {fileID: 0}
 --- !u!1 &2035691451
 GameObject:
   m_ObjectHideFlags: 0
@@ -1319,10 +1325,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1137612910}
     m_Modifications:
+    - target: {fileID: 6379331059630036349, guid: c0a7f47894cc44940aefe36fc23fa454,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6379331059630036349, guid: c0a7f47894cc44940aefe36fc23fa454,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6379331060917196608, guid: c0a7f47894cc44940aefe36fc23fa454,
         type: 3}
       propertyPath: m_Name
       value: OptionPanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 6379331060917196608, guid: c0a7f47894cc44940aefe36fc23fa454,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6379331060917196609, guid: c0a7f47894cc44940aefe36fc23fa454,
         type: 3}
