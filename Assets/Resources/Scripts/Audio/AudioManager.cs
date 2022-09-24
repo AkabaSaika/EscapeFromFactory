@@ -10,9 +10,10 @@ public class AudioManager : MonoSingleton<AudioManager>
 
     public static bool isMusicMute = false;
 
-    private void Start()
+    private void Awake()
     {
         audioRootObject = new GameObject("audioRootObject");
+        DontDestroyOnLoad(audioRootObject);
     }
     public static void MusicPlay(string path,bool isLoop)
     {

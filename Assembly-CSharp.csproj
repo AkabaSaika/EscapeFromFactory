@@ -70,6 +70,7 @@
     <Compile Include="Assets\LubanLib\SimpleJSON\SimpleJSONDotNetTypes.cs" />
     <Compile Include="Assets\LubanLib\SimpleJSON\SimpleJSONUnity.cs" />
     <Compile Include="Assets\LubanLib\StringUtil.cs" />
+    <Compile Include="Assets\MainMenuButton.cs" />
     <Compile Include="Assets\MiniTemplate\Gen\Tables.cs" />
     <Compile Include="Assets\MiniTemplate\Gen\character\Character.cs" />
     <Compile Include="Assets\MiniTemplate\Gen\character\TbCharacter.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="Assets\MiniTemplate\Gen\test\TbSkillParam.cs" />
     <Compile Include="Assets\MiniTemplate\Gen\weapon\TbWeapon.cs" />
     <Compile Include="Assets\MiniTemplate\Gen\weapon\Weapon.cs" />
+    <Compile Include="Assets\ResolutionController.cs" />
     <Compile Include="Assets\Resources\Audio\Audio STEPS\Scene\move.cs" />
     <Compile Include="Assets\Resources\Scripts\Animator\Enemy\EnemyAttack1Behaviour.cs" />
     <Compile Include="Assets\Resources\Scripts\Animator\Enemy\EnemyAttack2Behaviour.cs" />
@@ -122,6 +124,13 @@
     <Compile Include="Assets\Resources\Scripts\Skills\SkillUtility.cs" />
     <Compile Include="Assets\Resources\Scripts\Skills\TargetSelector.cs" />
     <Compile Include="Assets\Resources\Scripts\Skills\Weapon.cs" />
+    <Compile Include="Assets\Resources\Scripts\UI\Button\BackButton.cs" />
+    <Compile Include="Assets\Resources\Scripts\UI\Button\ExitButton.cs" />
+    <Compile Include="Assets\Resources\Scripts\UI\Button\NewGameButton.cs" />
+    <Compile Include="Assets\Resources\Scripts\UI\Button\OptionButton.cs" />
+    <Compile Include="Assets\Resources\Scripts\UI\Button\RestartButton.cs" />
+    <Compile Include="Assets\Resources\Scripts\UI\Button\ResumeButton.cs" />
+    <Compile Include="Assets\Resources\Scripts\UI\ButtonBase.cs" />
     <Compile Include="Assets\Resources\Scripts\UI\IPanelBase.cs" />
     <Compile Include="Assets\Resources\Scripts\UI\JsonTest.cs" />
     <Compile Include="Assets\Resources\Scripts\UI\Loading.cs" />

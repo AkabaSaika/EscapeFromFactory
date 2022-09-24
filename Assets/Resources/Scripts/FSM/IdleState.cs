@@ -16,14 +16,19 @@ public class IdleState : IState
 
     public void OnEnter()
     {
+#if UNITY_EDITOR
         Debug.Log(manager.gameObject.name + " Enter Idle");
+#endif
+
         parameter.idleTimer = 0;
         parameter.anim.Play("Idle");
     }
 
     public void OnUpdate()
-    {      
+    {
+#if UNITY_EDITOR
         Debug.Log(manager.gameObject.name + " Update Idle");
+#endif
         if (manager.DetectPlayer())//プレイヤーを検出したらchaseステートに遷移する
         {
             manager.TransitionState(StateType.Chase);
@@ -41,7 +46,9 @@ public class IdleState : IState
 
     public void OnExit()
     {
+#if UNITY_EDITOR
         Debug.Log(manager.gameObject.name + " Exit Idle");
+#endif
     }
 }
 
@@ -59,7 +66,9 @@ public class PatrolState : IState
 
     public void OnEnter()
     {
+#if UNITY_EDITOR
         Debug.Log(manager.gameObject.name + " Enter Patrol");
+#endif
         parameter.anim.Play("Walk");
         parameter.agent.speed = parameter.moveSpeed;
     }
@@ -80,8 +89,10 @@ public class PatrolState : IState
         {
             manager.TransitionState(StateType.Chase);
         }
-        
+
+#if UNITY_EDITOR
         Debug.Log(manager.gameObject.name + " Update Patrol");
+#endif
     }
 
     public void OnExit()
@@ -104,15 +115,18 @@ public class AttackState : MonoBehaviour,IState
 
     public void OnEnter()
     {
+#if UNITY_EDITOR
         Debug.Log(manager.gameObject.name + " Enter Attack");
+#endif
         parameter.anim.Play("Attack1");
         action += manager.TransitionState;
     }
 
     public void OnUpdate()
     {
-        
+#if UNITY_EDITOR
         Debug.Log(manager.gameObject.name + " Update Attack");
+#endif
         manager.OnAnimationEnd("Attack2", action);
         //StartCoroutine(OnAnimationEnd("Attack2",action));
         if(parameter.anim.GetCurrentAnimatorStateInfo(0).normalizedTime>1.0f&& !manager.DetectPlayer())
@@ -124,7 +138,9 @@ public class AttackState : MonoBehaviour,IState
 
     public void OnExit()
     {
+#if UNITY_EDITOR
         Debug.Log(manager.gameObject.name + " Exit Attack");
+#endif
     }
 }
 
@@ -145,14 +161,18 @@ public class ChaseState : IState
 
     public void OnEnter()
     {
+#if UNITY_EDITOR
         Debug.Log(manager.gameObject.name + " Enter Chase");
+#endif
         parameter.anim.Play("run");
         parameter.agent.speed = parameter.chaseSpeed;
     }
 
     public void OnUpdate()
     {
+#if UNITY_EDITOR
         Debug.Log(manager.gameObject.name + " Update Chase");
+#endif
         if(Vector3.Distance(parameter.thisTansform.position,parameter.player.position)> parameter.MAX_CHASE_DISTANCE&&parameter.patrolPoints[0]!=null)
         {
             manager.TransitionState(StateType.Patrol);
@@ -178,7 +198,9 @@ public class ChaseState : IState
 
     public void OnExit()
     {
+#if UNITY_EDITOR
         Debug.Log(manager.gameObject.name + " Exit Chase");
+#endif
     }
 }
 
@@ -196,12 +218,16 @@ public class ReturnState : IState
     public void OnEnter()
     {
         parameter.anim.Play("Walk");
+#if UNITY_EDITOR
         Debug.Log("Enter Return");
+#endif
     }
 
     public void OnUpdate()
     {
+#if UNITY_EDITOR
         Debug.Log("Update Return");
+#endif
         parameter.agent.SetDestination(parameter.respawnPoint);
         if(Vector3.Distance(parameter.thisTansform.position,parameter.respawnPoint)<0.1)
         {
@@ -231,20 +257,26 @@ public class BattleState :IState
 
     public void OnEnter()
     {
+#if UNITY_EDITOR
         Debug.Log(manager.gameObject.name + " Enter Battle");
+#endif
         parameter.anim.Play("FightIdle");
     }
 
     public void OnUpdate()
     {
+#if UNITY_EDITOR
         Debug.Log(manager.gameObject.name + " Update Battle");
+#endif
         parameter.thisTansform.LookAt(parameter.player);
         manager.TransitionState(StateType.Attack);
     }
 
     public void OnExit()
     {
+#if UNITY_EDITOR
         Debug.Log(manager.gameObject.name + " Exit Battle");
+#endif
     }
 }
 
@@ -265,7 +297,9 @@ public class DamageState :IState
     public void OnEnter()
     {
         parameter.anim.Play("Big Hit To Head");
+#if UNITY_EDITOR
         Debug.Log(manager.gameObject.name + " Enter Damage");
+#endif
     }
 
     public void OnUpdate()
@@ -281,13 +315,16 @@ public class DamageState :IState
                 manager.TransitionState(StateType.Battle);
             }
         }
-
+#if UNITY_EDITOR
         Debug.Log(manager.gameObject.name + " Update Damage");
+#endif
     }
 
     public void OnExit()
     {
+#if UNITY_EDITOR
         Debug.Log(manager.gameObject.name + " Exit Damage");
+#endif
     }
 }
 
@@ -306,16 +343,22 @@ public class DeadState :IState
     public void OnEnter()
     {
         parameter.anim.Play("Falling Back Death");
+#if UNITY_EDITOR
         Debug.Log(manager.gameObject.name + " Enter Dead");
+#endif
     }
 
     public void OnUpdate()
     {
+#if UNITY_EDITOR
         Debug.Log(manager.gameObject.name + " Update Dead");
+#endif
     }
 
     public void OnExit()
     {
+#if UNITY_EDITOR
         Debug.Log(manager.gameObject.name + " Exit Dead");
+#endif
     }
 }

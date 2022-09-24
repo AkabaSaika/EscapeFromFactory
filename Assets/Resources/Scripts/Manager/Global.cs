@@ -11,6 +11,7 @@ public class Global : MonoSingleton<Global>
     {
         loadName = name;
         SceneManager.LoadScene("LoadingScene");
+        
     }
     private void Awake()
     {

@@ -21,6 +21,7 @@ public class Loading : MonoBehaviour
     void Start()
     {
         StartCoroutine("LoadData");
+        SceneManager.sceneLoaded += delegate { GameManager.Instance.OnSceneLoaded(); };
     }
     
 

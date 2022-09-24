@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoSingleton<GameManager>
 {
@@ -29,49 +30,63 @@ public class GameManager : MonoSingleton<GameManager>
     {
         AudioManager.MusicClear();
         AudioManager.EffectClear();
-        StageManager.Instance.InitStage();
+        
 
-        gameClearState = false;
+        
     }
     void Start()
     {
-        canvas = GameObject.Find("Canvas");
-        pausePanel = canvas.transform.Find("PausePanel").gameObject;
-        gameOverPanel = canvas.transform.Find("GameOverPanel").gameObject;
-        gameClearPanel = canvas.transform.Find("GameClearPanel").gameObject;
-        if (pausePanel)
-        {
-            pausePanel.SetActive(false);
-        }
-        if(gameOverPanel)
-        {
-            gameOverPanel.SetActive(false);
-        }
-        if (gameClearPanel)
-        {
-            gameClearPanel.SetActive(false);
-        }
 
-        gameClearHandler += delegate { GameClear(); };
-        player = GameObject.FindGameObjectWithTag("Player");
-
-        AudioManager.MusicPlay("Musics/FutureWorld_Dark_Loop_02", true);
-        AudioManager.MusicVolume("Musics/FutureWorld_Dark_Loop_02", 0.4f);
         
     }
 
+    public void OnSceneLoaded()
+    {
+        if(SceneManager.GetActiveScene().buildIndex>1)
+        {
+            StageManager.Instance.InitStage();
+            gameClearState = false;
+            canvas = GameObject.Find("Canvas");
+            pausePanel = canvas.transform.Find("PausePanel").gameObject;
+            gameOverPanel = canvas.transform.Find("GameOverPanel").gameObject;
+            gameClearPanel = canvas.transform.Find("GameClearPanel").gameObject;
+            if (pausePanel)
+            {
+                pausePanel.SetActive(false);
+            }
+            if (gameOverPanel)
+            {
+                gameOverPanel.SetActive(false);
+            }
+            if (gameClearPanel)
+            {
+                gameClearPanel.SetActive(false);
+            }
+
+            gameClearHandler += delegate { GameClear(); };
+            player = GameObject.FindGameObjectWithTag("Player");
+
+            AudioManager.MusicPlay("Musics/FutureWorld_Dark_Loop_02", true);
+            AudioManager.MusicVolume("Musics/FutureWorld_Dark_Loop_02", 0.4f);
+        }
+
+    }
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if(SceneManager.GetActiveScene().buildIndex>1)
         {
-            Pause();
-            
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                Pause();
+
+            }
+            if (player.GetComponent<PlayerController>().CurrentHp <= 0)
+            {
+                PlayerDeath();
+            }
         }
-        if(player.GetComponent<PlayerController>().CurrentHp<=0)
-        {
-            PlayerDeath();
-        }
+
         
     }
 
