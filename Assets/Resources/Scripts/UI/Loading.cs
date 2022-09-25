@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 public class Loading : MonoBehaviour
 {
     private AsyncOperation async;
-
     [SerializeField]
     private GameObject loadPanel;
     [SerializeField]
@@ -21,7 +20,7 @@ public class Loading : MonoBehaviour
     void Start()
     {
         StartCoroutine("LoadData");
-        SceneManager.sceneLoaded += delegate { GameManager.Instance.OnSceneLoaded(); };
+        SceneManager.sceneLoaded += GameManager.Instance.OnSceneLoaded;
     }
     
 

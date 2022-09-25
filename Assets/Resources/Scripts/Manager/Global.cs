@@ -16,5 +16,6 @@ public class Global : MonoSingleton<Global>
     private void Awake()
     {
         Screen.SetResolution(1699, 900, false);
+        
     }
 }

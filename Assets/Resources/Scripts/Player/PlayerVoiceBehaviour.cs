@@ -6,6 +6,6 @@ public class PlayerVoiceBehaviour : VoiceBehaviour
 {
     public void Play(string path)
     {
-        AudioManager.EffectPlay(path, false);
+        AudioManager.Instance.EffectPlay(path, false);
     }
 }

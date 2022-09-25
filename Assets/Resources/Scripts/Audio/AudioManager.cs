@@ -4,18 +4,27 @@ using UnityEngine;
 
 public class AudioManager : MonoSingleton<AudioManager>
 {
-    public static GameObject audioRootObject;
-    public static Dictionary<string, AudioSource> musicDic = new Dictionary<string, AudioSource>();
-    public static Dictionary<string, AudioSource> effectDic = new Dictionary<string, AudioSource>();
+    //オーディオリソースのルートオブジェクト
+    public GameObject audioRootObject;
+    public GameObject musicRootObject;
+    public GameObject effectRootObject;
+    //BGMを格納する辞書
+    [SerializeField]
+    public Dictionary<string, AudioSource> musicDic = new Dictionary<string, AudioSource>();
+    //エフェクトを格納する辞書
+    public Dictionary<string, AudioSource> effectDic = new Dictionary<string, AudioSource>();
 
-    public static bool isMusicMute = false;
+    public bool isMusicMute = false;
 
-    private void Awake()
+
+    public override void Init()
     {
-        audioRootObject = new GameObject("audioRootObject");
-        DontDestroyOnLoad(audioRootObject);
+        //ルートオブジェクトを初期化する。
+        if (!GameObject.Find("audioRootObject"))
+        { audioRootObject = new GameObject("audioRootObject"); }
+        //DontDestroyOnLoad(audioRootObject);
     }
-    public static void MusicPlay(string path,bool isLoop)
+    public void MusicPlay(string path,bool isLoop)
     {
         AudioSource audio = null;
         if(musicDic.ContainsKey(path))
@@ -24,6 +33,7 @@ public class AudioManager : MonoSingleton<AudioManager>
         }
         else
         {
+            Debug.Log("bug");
             GameObject music = new GameObject(path);
             music.transform.parent = audioRootObject.transform;
             AudioClip clip = Resources.Load<AudioClip>(path);
@@ -39,11 +49,11 @@ public class AudioManager : MonoSingleton<AudioManager>
         audio.enabled = true;
         audio.Play();
     }
-    public static void MusicPause(string path)
+    public void MusicPause(string path)
     {
 
     }
-    public static void MusicStop(string path)
+    public void MusicStop(string path)
     {
         AudioSource audio = null;
         if (!musicDic.ContainsKey(path))
@@ -53,11 +63,11 @@ public class AudioManager : MonoSingleton<AudioManager>
         audio = musicDic[path];
         audio.Stop();
     }
-    public static void MusicMute(string path,bool isMute)
+    public void MusicMute(string path,bool isMute)
     {
 
     }
-    public static void MusicVolume(string path,float volume)
+    public void MusicVolume(string path,float volume)
     {
         AudioSource audio = null;
         if(!musicDic.ContainsKey(path))
@@ -68,7 +78,7 @@ public class AudioManager : MonoSingleton<AudioManager>
         audio.volume = volume;
     }
 
-    public static void MusicClear()
+    public void MusicClear()
     {
         if(musicDic.Count==0)
         {
@@ -80,7 +90,7 @@ public class AudioManager : MonoSingleton<AudioManager>
         }
     }
 
-    public static void EffectPlay(string path,bool isLoop)
+    public void EffectPlay(string path,bool isLoop)
     {
         AudioSource audio = null;
         if (effectDic.ContainsKey(path))
@@ -104,23 +114,23 @@ public class AudioManager : MonoSingleton<AudioManager>
         audio.enabled = true;
         audio.Play();
     }
-    public static void EffectPause(string path)
+    public void EffectPause(string path)
     {
 
     }
-    public static void EffectStop(string path)
+    public void EffectStop(string path)
     {
 
     }
-    public static void EffectMute(string path, bool isMute)
+    public void EffectMute(string path, bool isMute)
     {
 
     }
-    public static void EffectVolume(string path, int volume)
+    public void EffectVolume(string path, int volume)
     {
 
     }
-    public static void EffectClear()
+    public void EffectClear()
     {
         if(effectDic.Count==0)
         {

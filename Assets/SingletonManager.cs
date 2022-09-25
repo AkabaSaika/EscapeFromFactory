@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SingletonManager : MonoBehaviour
 {
@@ -10,11 +11,5 @@ public class SingletonManager : MonoBehaviour
         AudioManager.Instance.Init();
         GameManager.Instance.Init();
         UIManager.Instance.Init();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

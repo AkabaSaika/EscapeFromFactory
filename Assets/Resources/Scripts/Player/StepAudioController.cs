@@ -35,7 +35,7 @@ public class StepAudioController : MonoBehaviour
                         switch (hit.collider.tag)
                         {
                             case "Ground":
-                                AudioManager.EffectPlay("Audio/Audio STEPS/Pasos/FOOT STEPS/TRAINERS - CONCRETE - COTTON/LEFT FOOT/LEFT FOOT CONCRETE COTTON DYN MED 4", false);
+                                AudioManager.Instance.EffectPlay("Audio/Audio STEPS/Pasos/FOOT STEPS/TRAINERS - CONCRETE - COTTON/LEFT FOOT/LEFT FOOT CONCRETE COTTON DYN MED 4", false);
                                 break;
                         }
                     }

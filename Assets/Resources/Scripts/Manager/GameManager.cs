@@ -18,34 +18,25 @@ public class GameManager : MonoSingleton<GameManager>
     private GameObject player;
     [SerializeField]
     private bool gameClearState;
-    
-
+    int count = 0;
 
     public UnityAction gameClearHandler;//ゲームクリアのイベントを受け取る
 
     public bool GameClearState { get => gameClearState;}
 
-    // Start is called before the first frame update
-    private void Awake()
-    {
-        AudioManager.MusicClear();
-        AudioManager.EffectClear();
-        
-
-        
-    }
-    void Start()
-    {
-
-        
-    }
-
-    public void OnSceneLoaded()
+    /// <summary>
+    /// シーンの読み込みが終わったら初期化を行う。
+    /// Loading.csで呼び出される。
+    /// </summary>
+    public void OnSceneLoaded(Scene scene,LoadSceneMode mode)
     {
         if(SceneManager.GetActiveScene().buildIndex>1)
         {
+            //敵を初期化する
             StageManager.Instance.InitStage();
             gameClearState = false;
+
+            //UIの初期化
             canvas = GameObject.Find("Canvas");
             pausePanel = canvas.transform.Find("PausePanel").gameObject;
             gameOverPanel = canvas.transform.Find("GameOverPanel").gameObject;
@@ -66,10 +57,29 @@ public class GameManager : MonoSingleton<GameManager>
             gameClearHandler += delegate { GameClear(); };
             player = GameObject.FindGameObjectWithTag("Player");
 
-            AudioManager.MusicPlay("Musics/FutureWorld_Dark_Loop_02", true);
-            AudioManager.MusicVolume("Musics/FutureWorld_Dark_Loop_02", 0.4f);
-        }
+            //オーディオの初期化
 
+            AudioManager.Instance.MusicClear();
+            AudioManager.Instance.EffectClear();
+            AudioManager.Instance.Init();
+            AudioManager.Instance.MusicPlay("Musics/FutureWorld_Dark_Loop_02", true);
+            AudioManager.Instance.MusicVolume("Musics/FutureWorld_Dark_Loop_02", 0.4f);
+
+            Debug.Log(count);
+            count++;
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+        }
+        else
+        {
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+        }
+        
+
+    }
+
+    private void Start()
+    {
+        
     }
     // Update is called once per frame
     void Update()
@@ -112,6 +122,7 @@ public class GameManager : MonoSingleton<GameManager>
         if (!gameClearState)
         {
             gameClearState = true;
+            //クリアパネルを表示する
             gameClearPanel.SetActive(true);
         }
         else

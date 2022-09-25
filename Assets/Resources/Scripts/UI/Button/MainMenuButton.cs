@@ -7,6 +7,9 @@ public class MainMenuButton : ButtonBase
 {
     protected override void PushDownAction(GameObject currPanel, GameObject nextPanel)
     {
-        SceneManager.LoadScene(0);
+        Time.timeScale = 1.0f;
+        AudioManager.Instance.MusicClear();
+        AudioManager.Instance.EffectClear();
+        Global.Instance.LoadNextScene("StartMenu");
     }
 }

@@ -187,7 +187,7 @@ public class PlayerController : MonoBehaviour
 
         if(CurrentHp<=0)
         {
-            AudioManager.EffectPlay("Audio/Voice/univ1077",false); //死亡ボイスを再生
+            AudioManager.Instance.EffectPlay("Audio/Voice/univ1077",false); //死亡ボイスを再生
 
             gameObject.GetComponent<CharacterController>().enabled = false;
             isDead = true;
@@ -198,7 +198,7 @@ public class PlayerController : MonoBehaviour
             //受撃ボイスを再生
             int i = Random.Range(0, 4);
             string path = "Audio/Voice/univ" + (1091 + i).ToString();
-            AudioManager.EffectPlay(path, false);
+            AudioManager.Instance.EffectPlay(path, false);
 
             CurrentHp -= hitEvent.Damage; //ライフポイントを更新
         }
