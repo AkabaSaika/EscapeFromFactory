@@ -8,7 +8,7 @@ ModelImporter:
     second: mixamo.com
   - first:
       74: 3959689488584879212
-    second: great sword strafe
+    second: great sword strafe walk left
   - first:
       74: -726224484416830862
     second: great sword strafe
@@ -41,7 +41,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: great sword strafe
+      name: great sword strafe walk left
       takeName: mixamo.com
       internalID: -726224484416830862
       firstFrame: 0
@@ -52,10 +52,10 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
-      loopBlendPositionY: 0
+      loopBlendPositionY: 1
       loopBlendPositionXZ: 0
       keepOriginalOrientation: 0
       keepOriginalPositionY: 1
