@@ -17,6 +17,8 @@ public class SkillParam
     [SerializeField]
     private float m_attackAnimationEndTime;
     [SerializeField]
+    private float m_attackPointNormalizedEndTime;
+    [SerializeField]
     private float m_attackAnimationNormalizedStartTime;
     [SerializeField]
     private float m_attackAnimationNormalizedEndTime;
@@ -46,6 +48,7 @@ public class SkillParam
     public GameObject[] Hps { get => hps; set => hps = value; }
     public float AttackAnimationNormalizedStartTime { get => m_attackAnimationNormalizedStartTime; set => m_attackAnimationNormalizedStartTime = value; }
     public float AttackAnimationNormalizedEndTime { get => m_attackAnimationNormalizedEndTime; set => m_attackAnimationNormalizedEndTime = value; }
+    public float AttackPointNormalizedEndTime { get => m_attackPointNormalizedEndTime; set => m_attackPointNormalizedEndTime = value; }
 }
 
 public class Skill : MonoBehaviour
@@ -85,15 +88,26 @@ public class Skill : MonoBehaviour
         }
         if(stateInfo.normalizedTime>sp.AttackAnimationNormalizedEndTime)
         {
-
                 //StopCoroutine(DrawLineFixed(hp));
                 StopAllCoroutines();
-
         }
    
 
     }
 
+
+    private void OnAnimatorMove()
+    {
+        stateInfo = m_anim.GetCurrentAnimatorStateInfo(0);
+        if (stateInfo.normalizedTime>=sp.AttackPointNormalizedEndTime && stateInfo.normalizedTime <= sp.AttackAnimationNormalizedStartTime)
+        {
+            sp.Owner.GetComponent<PlayerController>().Turn();
+        }
+        else
+        {
+            m_anim.ApplyBuiltinRootMotion();
+        }
+    }
     /// <summary>
     /// スキルを初期化する。
     /// 初期化する際にこの関数が外部（武器のクラス）に呼び出される
@@ -110,6 +124,7 @@ public class Skill : MonoBehaviour
         skill.sp.AttackAnimationStartTime = skillParam.AttackAnimationStartTime;
         skill.sp.AttackPointEndTime = skillParam.AttackPointEndTime;
         skill.sp.BackswingStartTime = skillParam.BackswingStartTime;
+        skill.sp.AttackPointNormalizedEndTime = skillParam.AttackPointNormalizedEndTime;
         skill.sp.AttackAnimationNormalizedStartTime = skillParam.AttackAnimationNormalizedStartTime;
         skill.sp.AttackAnimationNormalizedEndTime = skillParam.AttackAnimationNormalizedEndTime;
         skill.sp.ClipName = skillParam.SkillName;

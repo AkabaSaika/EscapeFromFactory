@@ -8,8 +8,8 @@
       "z": 0
     },
     "maxHp": 100,
-    "walkSpeed": 1,
-    "runspeed": 2,
+    "walkSpeed": 3,
+    "runspeed": 10,
     "jumpSpeed": 10
   }
 ]

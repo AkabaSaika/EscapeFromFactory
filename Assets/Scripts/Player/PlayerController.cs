@@ -56,6 +56,9 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded;
     private bool canCancel = false;
 
+    [SerializeField]
+    public bool canTurn;
+
     private int speedZID = Animator.StringToHash("SpeedZ");
     private int speedRotateID = Animator.StringToHash("SpeedRotate");
     private int speedHID = Animator.StringToHash("SpeedH");
@@ -69,6 +72,9 @@ public class PlayerController : MonoBehaviour
     private WarriorAnimsFREE.IKHands IKHands;
 
     public float CurrentHp { get => currentHp; set => currentHp = value; }
+
+    [TextArea]
+    public string currentState;
 
     private void Awake()
     {
@@ -93,6 +99,7 @@ public class PlayerController : MonoBehaviour
         cameraController = mainCamera.GetComponent<CameraController>();
         angleX = mainCamera.eulerAngles.x;
         Cursor.visible = false;
+        canTurn = true;
         //Cursor.lockState = CursorLockMode.Locked;
         isGrounded = groundState;   
     }
@@ -110,6 +117,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        currentState = anim.GetCurrentAnimatorStateInfo(0).IsName("Blend Tree").ToString();
         if(!isDead)
         {
             camFoward = Vector3.ProjectOnPlane(mainCamera.forward, Vector3.up);
@@ -121,10 +129,11 @@ public class PlayerController : MonoBehaviour
             if (cameraController.IsLockOn)
             {
                 MoveWhileLock();
-
             }
             else
             {
+                if(anim.GetCurrentAnimatorStateInfo(0).IsName("Blend Tree"))
+                { Turn(); }
                 Move();
             }
 
@@ -148,18 +157,7 @@ public class PlayerController : MonoBehaviour
                     //GameObject.Find("Game").GetComponent<GameManager>().clear();
                     GameManager.Instance.gameClearHandler.Invoke();
                 }
-            }
-        }
-        
-
-        
-    }
-
-    private void LateUpdate()
-    {
-        if (!isDead && !cameraController.IsLockOn)
-        {
-            Turn();
+            }   
         }
     }
 
@@ -263,7 +261,7 @@ public class PlayerController : MonoBehaviour
     /// <summary>
     /// ロックオンしていない場合
     /// </summary>
-    private void Turn()
+    public void Turn()
     {
         if (Input.GetKey(KeyCode.W))
         {

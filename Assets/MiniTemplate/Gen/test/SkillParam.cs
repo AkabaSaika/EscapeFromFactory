@@ -22,6 +22,7 @@ public sealed partial class SkillParam :  Bright.Config.BeanBase
         { if(!_json["skillName"].IsString) { throw new SerializationException(); }  SkillName = _json["skillName"]; }
         { if(!_json["power"].IsNumber) { throw new SerializationException(); }  Power = _json["power"]; }
         { if(!_json["attackPointEndTime"].IsNumber) { throw new SerializationException(); }  AttackPointEndTime = _json["attackPointEndTime"]; }
+        { if(!_json["attackPointNormalizedEndTime"].IsNumber) { throw new SerializationException(); }  AttackPointNormalizedEndTime = _json["attackPointNormalizedEndTime"]; }
         { if(!_json["attackAnimationStartTime"].IsNumber) { throw new SerializationException(); }  AttackAnimationStartTime = _json["attackAnimationStartTime"]; }
         { if(!_json["attackAnimationNormalizedStartTime"].IsNumber) { throw new SerializationException(); }  AttackAnimationNormalizedStartTime = _json["attackAnimationNormalizedStartTime"]; }
         { if(!_json["attackAnimationEndTime"].IsNumber) { throw new SerializationException(); }  AttackAnimationEndTime = _json["attackAnimationEndTime"]; }
@@ -32,12 +33,13 @@ public sealed partial class SkillParam :  Bright.Config.BeanBase
         PostInit();
     }
 
-    public SkillParam(int id, string skillName, int power, float attackPointEndTime, float attackAnimationStartTime, float attackAnimationNormalizedStartTime, float attackAnimationEndTime, float attackAnimationNormalizedEndTime, float backswingStartTime, string owner, string voice ) 
+    public SkillParam(int id, string skillName, int power, float attackPointEndTime, float attackPointNormalizedEndTime, float attackAnimationStartTime, float attackAnimationNormalizedStartTime, float attackAnimationEndTime, float attackAnimationNormalizedEndTime, float backswingStartTime, string owner, string voice ) 
     {
         this.Id = id;
         this.SkillName = skillName;
         this.Power = power;
         this.AttackPointEndTime = attackPointEndTime;
+        this.AttackPointNormalizedEndTime = attackPointNormalizedEndTime;
         this.AttackAnimationStartTime = attackAnimationStartTime;
         this.AttackAnimationNormalizedStartTime = attackAnimationNormalizedStartTime;
         this.AttackAnimationEndTime = attackAnimationEndTime;
@@ -66,6 +68,7 @@ public sealed partial class SkillParam :  Bright.Config.BeanBase
     /// 準備モーションの終了時間
     /// </summary>
     public float AttackPointEndTime { get; private set; }
+    public float AttackPointNormalizedEndTime { get; private set; }
     /// <summary>
     /// アタックモーションの開始時間
     /// </summary>
@@ -99,6 +102,7 @@ public sealed partial class SkillParam :  Bright.Config.BeanBase
         + "SkillName:" + SkillName + ","
         + "Power:" + Power + ","
         + "AttackPointEndTime:" + AttackPointEndTime + ","
+        + "AttackPointNormalizedEndTime:" + AttackPointNormalizedEndTime + ","
         + "AttackAnimationStartTime:" + AttackAnimationStartTime + ","
         + "AttackAnimationNormalizedStartTime:" + AttackAnimationNormalizedStartTime + ","
         + "AttackAnimationEndTime:" + AttackAnimationEndTime + ","

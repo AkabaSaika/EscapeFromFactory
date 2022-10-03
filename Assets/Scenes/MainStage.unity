@@ -14785,6 +14785,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1116909551944606528, guid: 1aafb58b1e548364d86c06080dd370b3,
+        type: 3}
+      propertyPath: m_UpdateMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1116909551944606532, guid: 1aafb58b1e548364d86c06080dd370b3,
         type: 3}
       propertyPath: m_StepOffset
