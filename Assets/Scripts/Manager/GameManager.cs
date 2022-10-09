@@ -1,10 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
+public enum GameState
+{
+    running,pause,over,clear
+}
+ 
 public class GameManager : MonoSingleton<GameManager>
 {
     [SerializeField]
@@ -19,9 +25,11 @@ public class GameManager : MonoSingleton<GameManager>
     [SerializeField]
     private bool gameClearState;
     int count = 0;
+    public GameState gameState;
 
     public UnityAction gameClearHandler;//ゲームクリアのイベントを受け取る
 
+    private string screenshotDirPath = "Screenshots\\";
     public bool GameClearState { get => gameClearState;}
 
     /// <summary>
@@ -73,7 +81,7 @@ public class GameManager : MonoSingleton<GameManager>
         {
             SceneManager.sceneLoaded -= OnSceneLoaded;
         }
-        
+        gameState = GameState.running;
 
     }
 
@@ -95,13 +103,18 @@ public class GameManager : MonoSingleton<GameManager>
             {
                 PlayerDeath();
             }
+            
         }
-
+        if(Input.GetKeyDown(KeyCode.SysReq))
+        {
+            ScreenShot();
+        }
         
     }
 
     private void Pause()
     {
+        gameState = GameState.pause;
         Cursor.visible = true;
         Time.timeScale = 0;
         pausePanel.SetActive(true);
@@ -111,6 +124,7 @@ public class GameManager : MonoSingleton<GameManager>
 
     private void PlayerDeath()
     {
+        gameState = GameState.over;
         Cursor.visible = true;
         gameOverPanel.SetActive(true);
         Camera.main.GetComponent<CameraController>().enabled = false;
@@ -136,4 +150,18 @@ public class GameManager : MonoSingleton<GameManager>
         return pausePanel.activeSelf;
     }
 
+    private void ScreenShot()
+    {
+        DirectoryInfo screenshotDirInfo = new DirectoryInfo(screenshotDirPath);
+        if(!screenshotDirInfo.Exists)
+        {
+            Directory.CreateDirectory(screenshotDirPath);
+            ScreenCapture.CaptureScreenshot(screenshotDirPath + "screenshot" + System.DateTime.Now.ToString("yyyymmddhhmmss") + ".png");
+        }
+        else
+        {
+            ScreenCapture.CaptureScreenshot(screenshotDirPath + "screenshot" + System.DateTime.Now.ToString("yyyymmddhhmmss") + ".png");
+        }
+        
+    }
 }

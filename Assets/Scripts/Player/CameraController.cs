@@ -100,7 +100,7 @@ public class CameraController : MonoBehaviour
         {
             lockOnIcon.rectTransform.position = cam.WorldToScreenPoint(lockTarget.transform.position+new Vector3(0,1.25f,0));
             Vector3 camPos = cam.transform.position;
-            camPos.y = 0;
+            camPos.y = lockTarget.transform.position.y;
             LockonTargetCameraDistance = Vector3.Distance(lockTarget.transform.position, camPos);
             cameraHeightWhileLockon = MAX_LOCKON_CAMERA_HEIGHT * (1- (LockonTargetCameraDistance / MAX_LOCKON_DINSTANCE));
             cameraHeightWhileLockon = cameraHeightWhileLockon > MAX_LOCKON_CAMERA_HEIGHT ? MAX_LOCKON_CAMERA_HEIGHT : cameraHeightWhileLockon;

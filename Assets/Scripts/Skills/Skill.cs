@@ -98,14 +98,17 @@ public class Skill : MonoBehaviour
 
     private void OnAnimatorMove()
     {
-        stateInfo = m_anim.GetCurrentAnimatorStateInfo(0);
-        if (stateInfo.normalizedTime>=sp.AttackPointNormalizedEndTime && stateInfo.normalizedTime <= sp.AttackAnimationNormalizedStartTime)
+        if (sp.Owner.tag == "Player")
         {
-            sp.Owner.GetComponent<PlayerController>().Turn();
-        }
-        else
-        {
-            m_anim.ApplyBuiltinRootMotion();
+            stateInfo = m_anim.GetCurrentAnimatorStateInfo(0);
+            if (stateInfo.normalizedTime >= sp.AttackPointNormalizedEndTime && stateInfo.normalizedTime <= sp.AttackAnimationNormalizedStartTime)
+            {
+                sp.Owner.GetComponent<PlayerController>().Turn();
+            }
+            else
+            {
+                m_anim.ApplyBuiltinRootMotion();
+            }
         }
     }
     /// <summary>

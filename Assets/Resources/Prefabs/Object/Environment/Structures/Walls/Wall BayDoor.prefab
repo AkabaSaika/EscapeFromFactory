@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7133350039895356201}
   m_Layer: 0
   m_Name: LP_Bay_Door_Frame_snaps
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 947160189641831596}
   m_Layer: 0
   m_Name: LP_Bay_Door_Wall_snaps
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -263,6 +263,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   door: {fileID: 0}
+  doorSpeed: 1
 --- !u!1 &4975399993979019661
 GameObject:
   m_ObjectHideFlags: 0
@@ -276,7 +277,7 @@ GameObject:
   - component: {fileID: 9041195004258538045}
   m_Layer: 0
   m_Name: LP_Bay_Door_snaps
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -25,7 +25,7 @@ public class PlayerParameter
 
 public class PlayerController : MonoBehaviour
 {
-    private PlayerParameter parameter = new PlayerParameter();
+    public PlayerParameter parameter = new PlayerParameter();
     private cfg.character.Character playerParameterData;
     [SerializeField]
     private float speed;
@@ -67,6 +67,7 @@ public class PlayerController : MonoBehaviour
     private int deadId = Animator.StringToHash("IsDead");
     private int JumpId = Animator.StringToHash("Jump");
     private int LandId = Animator.StringToHash("Land");
+    private int blowId = Animator.StringToHash("Blow");
     
     private Animator anim;
     private WarriorAnimsFREE.IKHands IKHands;
@@ -207,9 +208,9 @@ public class PlayerController : MonoBehaviour
 
     public void Damaged(HitEvent hitEvent)
     {
-        anim.SetTrigger(hitId);
-
-        if(CurrentHp<=0)
+        
+        CurrentHp -= hitEvent.Damage; //ライフポイントを更新
+        if (CurrentHp<=0)
         {
             AudioManager.Instance.EffectPlay("Audio/Voice/univ1077",false); //死亡ボイスを再生
 
@@ -223,8 +224,14 @@ public class PlayerController : MonoBehaviour
             int i = UnityEngine.Random.Range(0, 4);
             string path = "Audio/Voice/univ" + (1091 + i).ToString();
             AudioManager.Instance.EffectPlay(path, false);
-
-            CurrentHp -= hitEvent.Damage; //ライフポイントを更新
+            if(hitEvent.SkillName=="Explosion")
+            {
+                anim.SetTrigger(blowId);
+            }
+            else
+            {
+                anim.SetTrigger(hitId);
+            }
         }
 
         Debug.Log("hit by" + hitEvent.SkillName);
@@ -239,7 +246,7 @@ public class PlayerController : MonoBehaviour
             dc.doorChange(dc.door);
             
         }
-        Debug.Log(other.name);
+        //Debug.Log(other.name);
     }
 
     private void OnTriggerExit(Collider other)

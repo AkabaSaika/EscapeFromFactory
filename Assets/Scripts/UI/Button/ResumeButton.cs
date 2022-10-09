@@ -9,5 +9,6 @@ public class ResumeButton : ButtonBase
         currPanel.SetActive(false);
         Time.timeScale = 1;
         Camera.main.GetComponent<CameraController>().enabled = true;
+        GameManager.Instance.gameState = GameState.running;
     }
 }

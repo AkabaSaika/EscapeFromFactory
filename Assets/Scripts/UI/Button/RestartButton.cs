@@ -12,5 +12,6 @@ public class RestartButton : ButtonBase
         AudioManager.Instance.EffectClear();
         Time.timeScale = 1.0f;
         Global.Instance.LoadNextScene(SceneManager.GetActiveScene().name);
+        GameManager.Instance.gameState = GameState.running;
     }
 }

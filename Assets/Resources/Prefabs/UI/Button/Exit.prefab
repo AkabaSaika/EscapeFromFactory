@@ -38,7 +38,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 2.0000103, y: -287.6032}
-  m_SizeDelta: {x: 158.1795, y: 54.650146}
+  m_SizeDelta: {x: 160, y: 55}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &950456248438462419
 CanvasRenderer:
@@ -132,6 +132,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cf78ae0913aa3c4eb8ae9a6365fa2f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nextPanel: {fileID: 0}
+  currentPanel: {fileID: 0}
+  canvas: {fileID: 0}
+  audioEffectPath: 
 --- !u!1 &950456249982612593
 GameObject:
   m_ObjectHideFlags: 0
@@ -198,8 +202,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: Exit
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: e9da9bb454519bb44a526274accccd89, type: 2}
+  m_sharedMaterial: {fileID: 3536319452235871714, guid: e9da9bb454519bb44a526274accccd89,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -223,8 +228,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 17
-  m_fontSizeBase: 17
+  m_fontSize: 24
+  m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
