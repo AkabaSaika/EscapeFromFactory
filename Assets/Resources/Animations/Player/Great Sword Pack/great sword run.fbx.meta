@@ -8,7 +8,7 @@ ModelImporter:
     second: mixamo.com
   - first:
       74: 8354119412265358750
-    second: great sword run
+    second: great sword run back
   - first:
       74: -8174352779806449347
     second: great sword run
@@ -41,7 +41,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: great sword run
+      name: great sword run back
       takeName: mixamo.com
       internalID: -8174352779806449347
       firstFrame: 0
@@ -52,7 +52,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 1

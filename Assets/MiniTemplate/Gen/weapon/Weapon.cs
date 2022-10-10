@@ -25,10 +25,11 @@ public sealed partial class Weapon :  Bright.Config.BeanBase
         { var _json2 = _json["rotateOffset"]; if(!_json2.IsObject) { throw new SerializationException(); } float __x; { if(!_json2["x"].IsNumber) { throw new SerializationException(); }  __x = _json2["x"]; } float __y; { if(!_json2["y"].IsNumber) { throw new SerializationException(); }  __y = _json2["y"]; } float __z; { if(!_json2["z"].IsNumber) { throw new SerializationException(); }  __z = _json2["z"]; }  RotateOffset = new UnityEngine.Vector3(__x, __y,__z); }
         { var _json2 = _json["scale"]; if(!_json2.IsObject) { throw new SerializationException(); } float __x; { if(!_json2["x"].IsNumber) { throw new SerializationException(); }  __x = _json2["x"]; } float __y; { if(!_json2["y"].IsNumber) { throw new SerializationException(); }  __y = _json2["y"]; } float __z; { if(!_json2["z"].IsNumber) { throw new SerializationException(); }  __z = _json2["z"]; }  Scale = new UnityEngine.Vector3(__x, __y,__z); }
         { var _json1 = _json["hitPointPos"]; if(!_json1.IsArray) { throw new SerializationException(); } int _n = _json1.Count; HitPointPos = new UnityEngine.Vector3[_n]; int _index=0; foreach(JSONNode __e in _json1.Children) { UnityEngine.Vector3 __v;  { var _json2 = __e; if(!_json2.IsObject) { throw new SerializationException(); } float __x; { if(!_json2["x"].IsNumber) { throw new SerializationException(); }  __x = _json2["x"]; } float __y; { if(!_json2["y"].IsNumber) { throw new SerializationException(); }  __y = _json2["y"]; } float __z; { if(!_json2["z"].IsNumber) { throw new SerializationException(); }  __z = _json2["z"]; }  __v = new UnityEngine.Vector3(__x, __y,__z); }  HitPointPos[_index++] = __v; }   }
+        { var _json1 = _json["hitLinePos"]; if(!_json1.IsArray) { throw new SerializationException(); } int _n = _json1.Count; HitLinePos = new UnityEngine.Vector3[_n]; int _index=0; foreach(JSONNode __e in _json1.Children) { UnityEngine.Vector3 __v;  { var _json2 = __e; if(!_json2.IsObject) { throw new SerializationException(); } float __x; { if(!_json2["x"].IsNumber) { throw new SerializationException(); }  __x = _json2["x"]; } float __y; { if(!_json2["y"].IsNumber) { throw new SerializationException(); }  __y = _json2["y"]; } float __z; { if(!_json2["z"].IsNumber) { throw new SerializationException(); }  __z = _json2["z"]; }  __v = new UnityEngine.Vector3(__x, __y,__z); }  HitLinePos[_index++] = __v; }   }
         PostInit();
     }
 
-    public Weapon(int id, string name, string filename, UnityEngine.Vector3 positionOffset, UnityEngine.Vector3 rotateOffset, UnityEngine.Vector3 scale, UnityEngine.Vector3[] hitPointPos ) 
+    public Weapon(int id, string name, string filename, UnityEngine.Vector3 positionOffset, UnityEngine.Vector3 rotateOffset, UnityEngine.Vector3 scale, UnityEngine.Vector3[] hitPointPos, UnityEngine.Vector3[] hitLinePos ) 
     {
         this.Id = id;
         this.Name = name;
@@ -37,6 +38,7 @@ public sealed partial class Weapon :  Bright.Config.BeanBase
         this.RotateOffset = rotateOffset;
         this.Scale = scale;
         this.HitPointPos = hitPointPos;
+        this.HitLinePos = hitLinePos;
         PostInit();
     }
 
@@ -52,6 +54,7 @@ public sealed partial class Weapon :  Bright.Config.BeanBase
     public UnityEngine.Vector3 RotateOffset { get; private set; }
     public UnityEngine.Vector3 Scale { get; private set; }
     public UnityEngine.Vector3[] HitPointPos { get; private set; }
+    public UnityEngine.Vector3[] HitLinePos { get; private set; }
 
     public const int __ID__ = 986069582;
     public override int GetTypeId() => __ID__;
@@ -75,6 +78,7 @@ public sealed partial class Weapon :  Bright.Config.BeanBase
         + "RotateOffset:" + RotateOffset + ","
         + "Scale:" + Scale + ","
         + "HitPointPos:" + Bright.Common.StringUtil.CollectionToString(HitPointPos) + ","
+        + "HitLinePos:" + Bright.Common.StringUtil.CollectionToString(HitLinePos) + ","
         + "}";
     }
     

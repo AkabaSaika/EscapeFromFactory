@@ -32,6 +32,7 @@ public class Weapon : MonoBehaviour
     [SerializeField]
     private GameObject[] hitPoints;
 
+
     public Side side;
 
     public GameObject WeaponTrans { get => weaponTrans; set => weaponTrans = value; }
@@ -56,7 +57,7 @@ public class Weapon : MonoBehaviour
         weaponTrans.transform.localRotation = Quaternion.Euler(weapon.RotateOffset);
         weaponTrans.transform.localScale = weapon.Scale;
         side = Side.Right;
-        hitPoints = InitHitPoints(weapon.HitPointPos, weaponTrans.transform);
+        hitPoints = InitHitPoints(weapon.HitLinePos, weaponTrans.transform);
         return weaponTrans;
     }
 
@@ -78,7 +79,7 @@ public class Weapon : MonoBehaviour
         weaponTrans.transform.localRotation = Quaternion.Euler(weapon.RotateOffset);
         weaponTrans.transform.localScale = weapon.Scale;
         side = Side.Left;
-        hitPoints = InitHitPoints(weapon.HitPointPos, weaponTrans.transform);
+        hitPoints = InitHitPoints(weapon.HitLinePos, weaponTrans.transform);
         return weaponTrans;
     }
 

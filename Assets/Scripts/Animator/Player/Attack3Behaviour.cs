@@ -6,7 +6,7 @@ public class Attack3Behaviour : StateMachineBehaviour
 {
     public override void OnStateEnter(Animator animator, AnimatorStateInfo animatorStateInfo, int layerIndex)
     {
-        GreatSword sm = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<GreatSword>();
+        HeavyFullMetalSword sm = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<HeavyFullMetalSword>();
         SkillParam skillParam = sm.GetNextSkill(1003,1001);
         VoiceBehaviour voice = new PlayerVoiceBehaviour();
         voice.Play("Audio/Voice/" + skillParam.VoicePath);

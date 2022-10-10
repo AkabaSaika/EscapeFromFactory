@@ -13,5 +13,6 @@ public class ExplosionTriggerController : MonoBehaviour
     {
         Debug.Log(other.name);
         explosionController.GetComponent<ExplosionController>().SendMessage("ExplosionCountDown");
+        Destroy(gameObject);
     }
 }

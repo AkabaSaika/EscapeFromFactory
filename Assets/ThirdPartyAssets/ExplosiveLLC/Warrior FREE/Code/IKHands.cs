@@ -19,7 +19,7 @@ namespace WarriorAnimsFREE
 
         private void Start()
         {
-            leftHandObj = GameObject.Find("LeftHandIK").transform;
+            leftHandObj = GameObject.Find("Character1_LeftHand").transform;
             attachLeft = GameObject.Find("LeftHandIK").transform;
         }
 

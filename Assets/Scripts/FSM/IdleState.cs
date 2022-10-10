@@ -129,7 +129,7 @@ public class AttackState : MonoBehaviour,IState
 #endif
         manager.OnAnimationEnd("Attack2", action);
         //StartCoroutine(OnAnimationEnd("Attack2",action));
-        if(parameter.anim.GetCurrentAnimatorStateInfo(0).normalizedTime>1.0f&& !manager.DetectPlayer())
+        if(parameter.anim.GetCurrentAnimatorStateInfo(0).normalizedTime>1.0f&& Vector3.Distance(parameter.thisTansform.position,parameter.player.position)>parameter.MAX_ATTACK_DISTANCE)
         {
             manager.TransitionState(StateType.Chase);
         }
@@ -187,9 +187,7 @@ public class ChaseState : IState
         }
         else
         {
-            parameter.agent.speed = 0;
-            //parameter.rb.angularVelocity = Vector3.zero;
-            //parameter.rb.velocity = Vector3.zero;
+            parameter.agent.isStopped = true;
             parameter.anim.Play("Idle");
             manager.TransitionState(StateType.Battle);
         }
@@ -343,6 +341,7 @@ public class DeadState :IState
     public void OnEnter()
     {
         parameter.anim.Play("Falling Back Death");
+        parameter.thisTansform.gameObject.GetComponent<CharacterController>().enabled = false;
 #if UNITY_EDITOR
         Debug.Log(manager.gameObject.name + " Enter Dead");
 #endif

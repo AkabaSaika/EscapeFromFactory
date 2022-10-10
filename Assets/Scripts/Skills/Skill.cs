@@ -5,25 +5,26 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEditor;
 
+
 [Serializable]
 public class SkillParam
 {
     [SerializeField]
-    private float m_attackPointEndTime;
+    private float m_attackPointEndTime;//アタックモーションの準備モーションの終了時間
     [SerializeField]
-    private float m_backswingStartTime;
+    private float m_backswingStartTime;//アタックモーションのバックスイングの開始時間
     [SerializeField]
-    private float m_attackAnimationStartTime;
+    private float m_attackAnimationStartTime;//アタックモーションの開始時間
     [SerializeField]
-    private float m_attackAnimationEndTime;
+    private float m_attackAnimationEndTime;//アタックモーションの終了時間
     [SerializeField]
-    private float m_attackPointNormalizedEndTime;
+    private float m_attackPointNormalizedEndTime;//アタックモーションの準備モーションの正規化終了時間
     [SerializeField]
-    private float m_attackAnimationNormalizedStartTime;
+    private float m_attackAnimationNormalizedStartTime;//アタックモーションの正規化開始時間
     [SerializeField]
-    private float m_attackAnimationNormalizedEndTime;
+    private float m_attackAnimationNormalizedEndTime;//アタックモーションの正規化終了時間
     [SerializeField]
-    private int m_power;
+    private int m_power;//攻撃力
     [SerializeField]
     private GameObject m_Owner;
     [SerializeField]
@@ -34,7 +35,7 @@ public class SkillParam
     private string m_voicePath;
     [SerializeField]
     private GameObject[] hps;
-
+    
 
     public float AttackPointEndTime { get => m_attackPointEndTime; set => m_attackPointEndTime = value; }
     public float BackswingStartTime { get => m_backswingStartTime; set => m_backswingStartTime = value; }
@@ -49,13 +50,12 @@ public class SkillParam
     public float AttackAnimationNormalizedStartTime { get => m_attackAnimationNormalizedStartTime; set => m_attackAnimationNormalizedStartTime = value; }
     public float AttackAnimationNormalizedEndTime { get => m_attackAnimationNormalizedEndTime; set => m_attackAnimationNormalizedEndTime = value; }
     public float AttackPointNormalizedEndTime { get => m_attackPointNormalizedEndTime; set => m_attackPointNormalizedEndTime = value; }
+    
 }
 
 public class Skill : MonoBehaviour
 {
     public SkillParam sp = new SkillParam();
-    [SerializeField]
-    private Vector3[] m_attacklinePos = new Vector3[2];
     [SerializeField]
     private List<GameObject> m_hitObject = new List<GameObject>();
     public bool isAttacking;
@@ -69,7 +69,6 @@ public class Skill : MonoBehaviour
     private UnityAction action;
     private UnityAction<string> soundAction;
 
-    
 
     public UnityAction Action { get => action; set => action = value; }
    
@@ -91,8 +90,6 @@ public class Skill : MonoBehaviour
                 //StopCoroutine(DrawLineFixed(hp));
                 StopAllCoroutines();
         }
-   
-
     }
 
 
@@ -165,14 +162,12 @@ public class Skill : MonoBehaviour
         }
     }
     /// <summary>
-    /// 
+    /// 攻撃モーション修了後に攻撃したオブジェクトをクリアする
     /// </summary>
     private void ResetHit()
     {
-        m_attacklinePos[0] = m_attacklinePos[1] = Vector3.zero;
         m_hitObject.Clear();
     }
-
 
     /// <summary>
     /// 動画の再生速度を調整する
@@ -247,12 +242,10 @@ public class Skill : MonoBehaviour
         }
     }
 
-
     private void CancelState(Animator anim)
     {
         anim.SetBool(cancelID, true);
     }
-
 
     private void DisableRootMotion()
     {
@@ -286,26 +279,20 @@ public class Skill : MonoBehaviour
         AudioManager.Instance.EffectPlay(path, false);
     }
 
-
-
     IEnumerator DrawLineFixed(GameObject hitPoint)
     {
         int layerMask = (1 << 11) | (1 << 12);
-        m_attacklinePos[1] = hitPoint.transform.position;
 
-        if (m_attacklinePos[0] == Vector3.zero)
-        {
-            m_attacklinePos[0] = m_attacklinePos[1];
-        }
-        if (gameObject.name == "Enemy2001")
-        {
-            Debug.Log(hitPoint.gameObject.ToString());
-        }
-        Debug.DrawLine(m_attacklinePos[0], m_attacklinePos[1], Color.red, 60);
+        //Debug.DrawLine(sp.Hps[0].transform.position, sp.Hps[1].transform.position, Color.red, 60);
         RaycastHit hit;
-        if (Physics.Linecast(m_attacklinePos[0], m_attacklinePos[1], out hit, layerMask) || Physics.Linecast(m_attacklinePos[1], m_attacklinePos[0], out hit, layerMask))
+        Debug.Log(sp.Hps[0].transform.localPosition + "\n" + sp.Hps[1].transform.localPosition);
+        Ray ray = new Ray(sp.Hps[0].transform.position, sp.Hps[1].transform.position);
+//#if UNITY_EDITOR
+        if (RotaryHeart.Lib.PhysicsExtension.Physics.SphereCast(sp.Hps[0].transform.position, 0.1f, (sp.Hps[1].transform.position-sp.Hps[0].transform.position).normalized,  out hit, Vector3.Distance(sp.Hps[0].transform.position, sp.Hps[1].transform.position), layerMask, RotaryHeart.Lib.PhysicsExtension.PreviewCondition.Both)/* || Physics.SphereCast(sp.Hps[1].transform.position, 0.1f, sp.Hps[0].transform.position,  out hit, Vector3.Distance(sp.Hps[1].transform.position, sp.Hps[0].transform.position), layerMask)*/)
+//#else
+//        if(Physics.SphereCast(ray,0.1f,out hit,Vector3.Distance(sp.Hps[0].transform.position,sp.Hps[1].transform.position),layerMask)|| Physics.SphereCast(ray, 0.1f, out hit, Vector3.Distance(sp.Hps[1].transform.position, sp.Hps[0].transform.position), layerMask))
+//#endif
         {
-            Debug.Log("hit");
             switch (hit.collider.tag)
             {
                 case "Enemy":
@@ -329,7 +316,6 @@ public class Skill : MonoBehaviour
                             }
                         }
                     }
-
                     break;
                 case "Player":
                     if(!gameObject.CompareTag("Player"))
@@ -347,13 +333,9 @@ public class Skill : MonoBehaviour
                             Invoke("AnimPlay", 0.1f);
                         }
                     }
-
-
                     break;
             }
-
         }
-        m_attacklinePos[0] = m_attacklinePos[1];
         yield return null;
     }
 }

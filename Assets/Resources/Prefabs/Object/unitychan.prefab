@@ -1316,7 +1316,6 @@ GameObject:
   - component: {fileID: 1116909551944219042}
   - component: {fileID: 1116909551944606532}
   - component: {fileID: 1116909551944606528}
-  - component: {fileID: 1116909551944606534}
   - component: {fileID: 1116909551944606533}
   - component: {fileID: 1116909551944606539}
   m_Layer: 8
@@ -1381,25 +1380,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1116909551944606534
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1116909551944705090}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75dadb908e94cf44aa6dd198b0680753, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_attackPointEndTime: 0
-  m_backswingStartTime: 0
-  m_attackAnimationStartTime: 0
-  m_attackAnimationEndTime: 0
-  m_hitPointPos: []
-  isAttacking: 0
-  m_Anim: {fileID: 0}
 --- !u!114 &1116909551944606533
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1413,9 +1393,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0
+  currentHp: 0
   jumpSpeed: 0
-  camFoward: {x: 0, y: 0, z: 0}
+  groundState: 0
   isGrounded: 0
+  canTurn: 0
+  currentState: 
 --- !u!114 &1116909551944606539
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1429,7 +1412,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rightHand: {fileID: 1116909551944218736}
+  leftHand: {fileID: 0}
   weaponTrans: {fileID: 0}
+  leftHitPoints: []
+  rightHitPoints: []
+  hitPoints: []
+  side: 0
 --- !u!1 &1116909551944705092
 GameObject:
   m_ObjectHideFlags: 0
