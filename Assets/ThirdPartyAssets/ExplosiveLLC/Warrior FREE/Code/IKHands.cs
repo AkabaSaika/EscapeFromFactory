@@ -23,6 +23,11 @@ namespace WarriorAnimsFREE
             attachLeft = GameObject.Find("LeftHandIK").transform;
         }
 
+        private void Update()
+        {
+            attachLeft = GameObject.Find("LeftHandIK").transform;
+        }
+
         /// <summary>
         /// If there is movement and/or rotation data in the animation for the Left Hand, use IK to 
         /// set the position of the Left Hand of the character.

@@ -11,15 +11,15 @@ public class GreatSwordBehaviour : WeaponBehaviour
 
     public void useWeapon()
     {
-        if(Input.GetMouseButtonDown(0)&&anim.GetCurrentAnimatorStateInfo(0).IsName("Blend Tree"))
+        if(Input.GetMouseButtonDown(0)&&anim.GetCurrentAnimatorStateInfo(0).IsName("Great Sword"))
         {
             anim.SetTrigger(attack1ID);
         }
-        if(Input.GetMouseButtonDown(0)&&anim.GetCurrentAnimatorStateInfo(0).IsName("Attack1"))
+        if(Input.GetMouseButtonDown(0)&&anim.GetCurrentAnimatorStateInfo(0).IsName("Attack1")&& !anim.GetCurrentAnimatorStateInfo(0).IsName("Attack3"))
         {
             anim.SetTrigger(attack2ID);
         }
-        if(Input.GetMouseButtonDown(0)&&anim.GetCurrentAnimatorStateInfo(0).IsName("Attack2"))
+        if(Input.GetMouseButtonDown(0)&&anim.GetCurrentAnimatorStateInfo(0).IsName("Attack2") && !anim.GetCurrentAnimatorStateInfo(0).IsName("Attack3"))
         {
             anim.SetTrigger(attack3ID);
         }

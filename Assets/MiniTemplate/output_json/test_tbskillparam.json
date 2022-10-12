@@ -68,5 +68,47 @@
     "backswingStartTime": 0.4,
     "owner": "Enemy",
     "voice": ""
+  },
+  {
+    "id": 1006,
+    "skillName": "KatanaAttack1",
+    "power": 7,
+    "attackPointEndTime": 0.36,
+    "attackPointNormalizedEndTime": 0.298,
+    "attackAnimationStartTime": 0.37,
+    "attackAnimationNormalizedStartTime": 0.31,
+    "attackAnimationEndTime": 0.59,
+    "attackAnimationNormalizedEndTime": 0.49,
+    "backswingStartTime": 1,
+    "owner": "Player",
+    "voice": "univ1101"
+  },
+  {
+    "id": 1007,
+    "skillName": "KatanaAttack2",
+    "power": 10,
+    "attackPointEndTime": 0.59,
+    "attackPointNormalizedEndTime": 0.449,
+    "attackAnimationStartTime": 0.6,
+    "attackAnimationNormalizedStartTime": 0.457,
+    "attackAnimationEndTime": 1.3,
+    "attackAnimationNormalizedEndTime": 0.686,
+    "backswingStartTime": 1.31,
+    "owner": "Player",
+    "voice": "univ0002"
+  },
+  {
+    "id": 1008,
+    "skillName": "KatanaAttack3",
+    "power": 12,
+    "attackPointEndTime": 0.29,
+    "attackPointNormalizedEndTime": 0.347,
+    "attackAnimationStartTime": 0.3,
+    "attackAnimationNormalizedStartTime": 0.359,
+    "attackAnimationEndTime": 0.38,
+    "attackAnimationNormalizedEndTime": 0.539,
+    "backswingStartTime": 0.551,
+    "owner": "Player",
+    "voice": "univ1102"
   }
 ]

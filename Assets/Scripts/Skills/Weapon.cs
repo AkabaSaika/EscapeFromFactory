@@ -119,5 +119,10 @@ public class Weapon : MonoBehaviour
         SkillParam skillParam = Skill.InitSkill(gameObject, TablesSingLeton.Instance.Tables.TbSkillParam.Get(skillId),  hitPoints);
         return skillParam;
     }
+
+    private void OnDestroy()
+    {
+        Destroy(weaponTrans);
+    }
 }
 

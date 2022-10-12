@@ -68,8 +68,13 @@ public class PlayerController : MonoBehaviour
     private int JumpId = Animator.StringToHash("Jump");
     private int LandId = Animator.StringToHash("Land");
     private int blowId = Animator.StringToHash("Blow");
+    private int normalId = Animator.StringToHash("Normal");
+    private int greatSwordId = Animator.StringToHash("GreatSword");
+    private int katanaId = Animator.StringToHash("Katana");
+    private int sheathingId = Animator.StringToHash("Sheathing");
     
     private Animator anim;
+    [SerializeField]
     private WarriorAnimsFREE.IKHands IKHands;
 
     public float CurrentHp { get => currentHp; set => currentHp = value; }
@@ -91,7 +96,7 @@ public class PlayerController : MonoBehaviour
     {
         anim = gameObject.GetComponent<Animator>();
         cc = GetComponent<CharacterController>();
-        IKHands = GetComponent<WarriorAnimsFREE.IKHands>();
+        
 
         speed = parameter.WalkSpeed;
         mouseSensiticity = 2.4f;
@@ -118,9 +123,10 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        currentState = anim.GetCurrentAnimatorStateInfo(0).IsName("Blend Tree").ToString();
+        currentState = anim.GetCurrentAnimatorStateInfo(0).IsName("Great Sword").ToString();
         if(!isDead)
         {
+            SwitchWeapon();
             camFoward = Vector3.ProjectOnPlane(mainCamera.forward, Vector3.up);
             
             if(Input.GetKeyDown(KeyCode.Space))
@@ -133,20 +139,22 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                if(anim.GetCurrentAnimatorStateInfo(0).IsName("Blend Tree"))
+                if(anim.GetCurrentAnimatorStateInfo(0).IsName("Great Sword")||anim.GetCurrentAnimatorStateInfo(0).IsName("Normal")||anim.GetCurrentAnimatorStateInfo(0).IsName("Katana"))
                 { Turn(); }
                 Move();
             }
 
-
-            //特定のアニメションを再生する時にIKの適用状態を調整する
-            if (anim.GetCurrentAnimatorClipInfo(0)[0].clip.name.Equals("great sword idle (5)"))
-            {
-                IKHands.SetIKOff();
-            }
-            else
-            {
-                IKHands.SetIKOn();
+            if (gameObject.GetComponent<WarriorAnimsFREE.IKHands>())
+            {//特定のアニメションを再生する時にIKの適用状態を調整する
+                
+                if (anim.GetCurrentAnimatorClipInfo(0)[0].clip.name.Equals("great sword idle (5)"))
+                {
+                    IKHands.SetIKOff();
+                }
+                else
+                {
+                    IKHands.SetIKOn();
+                }
             }
 
             //ゲームクリアの判定処理
@@ -310,5 +318,40 @@ public class PlayerController : MonoBehaviour
         anim.SetIKPositionWeight(AvatarIKGoal.RightFoot, 1.0f);
         anim.SetIKRotationWeight(AvatarIKGoal.LeftFoot, 1.0f);
         anim.SetIKRotationWeight(AvatarIKGoal.RightFoot, 1.0f);
+    }
+
+    private void SwitchWeapon()
+    {
+        if(Input.GetKeyDown(KeyCode.Alpha1) && !gameObject.GetComponent<HeavyFullMetalSword>()&&!gameObject.GetComponent<WarriorAnimsFREE.IKHands>())
+        {
+            IKHands = gameObject.AddComponent<WarriorAnimsFREE.IKHands>();
+            IKHands.canBeUsed = true;
+            gameObject.AddComponent<HeavyFullMetalSword>();
+            Destroy(gameObject.GetComponent<Katana>());
+            anim.SetTrigger(sheathingId);
+            anim.SetBool(greatSwordId,true);
+            anim.SetBool(katanaId, false);
+            anim.SetBool(normalId, false);
+        }
+        if(Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            Destroy(gameObject.GetComponent<WarriorAnimsFREE.IKHands>());
+            Destroy(gameObject.GetComponent<HeavyFullMetalSword>());
+            Destroy(gameObject.GetComponent<Katana>());
+            anim.SetTrigger(sheathingId);
+            anim.SetBool(greatSwordId, false);
+            anim.SetBool(katanaId, false);
+            anim.SetBool(normalId, true);
+        }
+        if(Input.GetKeyDown(KeyCode.Alpha2)&&!gameObject.GetComponent<Katana>())
+        {
+            Destroy(gameObject.GetComponent<WarriorAnimsFREE.IKHands>());
+            Destroy(gameObject.GetComponent<HeavyFullMetalSword>());
+            gameObject.AddComponent<Katana>();
+            anim.SetTrigger(sheathingId);
+            anim.SetBool(greatSwordId, false);
+            anim.SetBool(normalId, false);
+            anim.SetBool(katanaId, true);
+        }
     }
 }

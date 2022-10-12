@@ -28,7 +28,7 @@ public class StepAudioController : MonoBehaviour
             mTimer = 0;
             if(Physics.Linecast(transform.position,transform.position+new Vector3(0,-1,0),out hit))
             {
-                if(anim.GetCurrentAnimatorStateInfo(0).IsName("Blend Tree"))
+                if(anim.GetCurrentAnimatorStateInfo(0).IsName("Great Sword")|| anim.GetCurrentAnimatorStateInfo(0).IsName("Normal") || anim.GetCurrentAnimatorStateInfo(0).IsName("Katana"))
                 {
                     if (Input.GetAxis("Horizontal") > 0 || Input.GetAxis("Horizontal") < 0 || Input.GetAxis("Vertical") > 0 || Input.GetAxis("Vertical") < 0)
                     {
