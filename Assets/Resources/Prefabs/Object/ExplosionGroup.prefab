@@ -277,8 +277,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   explosionEffect: {fileID: 3276488655964575578}
   countdown: {fileID: 3277460079711668552}
-  damageRadius: 3
-  countdownTime: 1
+  damageRadius: 5
+  countdownTime: 1.5
+  particleObject: {fileID: 3276488655964575578}
 --- !u!1 &3277460078520050449
 GameObject:
   m_ObjectHideFlags: 0
@@ -358,8 +359,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   explosionEffect: {fileID: 3276488656811679234}
   countdown: {fileID: 3277460078140667025}
-  damageRadius: 3
-  countdownTime: 1
+  damageRadius: 5
+  countdownTime: 1.5
+  particleObject: {fileID: 3276488656811679234}
 --- !u!1 &3277460078816909124
 GameObject:
   m_ObjectHideFlags: 0
@@ -604,8 +606,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   explosionEffect: {fileID: 3276488656275204657}
   countdown: {fileID: 3277460078816909124}
-  damageRadius: 3
-  countdownTime: 1
+  damageRadius: 5
+  countdownTime: 1.5
+  particleObject: {fileID: 3276488656275204657}
 --- !u!1 &3277460079478921515
 GameObject:
   m_ObjectHideFlags: 0

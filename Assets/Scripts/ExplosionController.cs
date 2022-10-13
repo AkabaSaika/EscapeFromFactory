@@ -12,17 +12,20 @@ public class ExplosionController : MonoBehaviour
 
     private int damage = 30;
     [SerializeField]
-    private float damageRadius = 1.5f;
+    private float damageRadius = 3;
     private string damageName = "Explosion";
     [SerializeField]
     private float countdownTime = 0.5f;
     private string soundEffectPath = "Audio/Grenade1Short";
 
+    [SerializeField]
+    private GameObject particleObject;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        particleObject.transform.localScale = new Vector3(damageRadius / 2, damageRadius / 2, damageRadius / 2);
     }
 
     // Update is called once per frame

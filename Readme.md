@@ -7,28 +7,29 @@
 ===
 - [x] 攻撃判定
 - [x] フィードバック
-- [ ] 敵処理
+- [x] 敵処理
 
 敵AI
 ===
-- [ ] Idle
-- [ ] Chase
-- [ ] Battle
-- [ ] Attack
-- [ ] Damaged
-- [ ] Dead
+- [x] Idle
+- [x] Chase
+- [x] Battle
+- [x] Attack
+- [x] Damaged
+- [x] Dead
 
 UI
 ===
-- [ ] Status Bar
-- [ ] Start Menu
+- [x] Status Bar
+- [x] Start Menu
 
 音
 ===
-- [ ] 走行音
-- [ ] 打撃音
-- [ ] かけ声
-- [ ] UI音
+- [x] 走行音
+- [x] 打撃音
+- [x] かけ声
+- [x] UI音
 
-qwertyuioooop[]]asdfghjkl;'
-zxcvbnm,./      ·1111234567890-=qwertyuiop[asdfghjkl;''zxcvbnmm,./]
+次のタスク
+- [] クリア判定
+- [] AIのバグ
