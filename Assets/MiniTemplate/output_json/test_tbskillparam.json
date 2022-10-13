@@ -11,7 +11,10 @@
     "attackAnimationNormalizedEndTime": 0.596,
     "backswingStartTime": 0.8,
     "owner": "Player",
-    "voice": "univ1101"
+    "voice": "univ1101",
+    "motionSpeedBeforeAttack": 0.8,
+    "motionSpeedDuringAttack": 1.5,
+    "motionSpeedWhileHit": 0.3
   },
   {
     "id": 1002,
@@ -25,7 +28,10 @@
     "attackAnimationNormalizedEndTime": 0.679,
     "backswingStartTime": 1.07,
     "owner": "Player",
-    "voice": "univ0002"
+    "voice": "univ0002",
+    "motionSpeedBeforeAttack": 0.8,
+    "motionSpeedDuringAttack": 1.4,
+    "motionSpeedWhileHit": 0.2
   },
   {
     "id": 1003,
@@ -39,7 +45,10 @@
     "attackAnimationNormalizedEndTime": 0.663,
     "backswingStartTime": 1.23,
     "owner": "Player",
-    "voice": "univ1102"
+    "voice": "univ1102",
+    "motionSpeedBeforeAttack": 0.7,
+    "motionSpeedDuringAttack": 1.2,
+    "motionSpeedWhileHit": 0.2
   },
   {
     "id": 1004,
@@ -53,7 +62,10 @@
     "attackAnimationNormalizedEndTime": 0.483,
     "backswingStartTime": 0.6,
     "owner": "Enemy",
-    "voice": ""
+    "voice": "",
+    "motionSpeedBeforeAttack": 0.7,
+    "motionSpeedDuringAttack": 1.2,
+    "motionSpeedWhileHit": 1
   },
   {
     "id": 1005,
@@ -67,7 +79,10 @@
     "attackAnimationNormalizedEndTime": 0.488,
     "backswingStartTime": 0.4,
     "owner": "Enemy",
-    "voice": ""
+    "voice": "",
+    "motionSpeedBeforeAttack": 0.7,
+    "motionSpeedDuringAttack": 1.2,
+    "motionSpeedWhileHit": 1
   },
   {
     "id": 1006,
@@ -81,7 +96,10 @@
     "attackAnimationNormalizedEndTime": 0.49,
     "backswingStartTime": 1,
     "owner": "Player",
-    "voice": "univ1101"
+    "voice": "univ1101",
+    "motionSpeedBeforeAttack": 1,
+    "motionSpeedDuringAttack": 1.5,
+    "motionSpeedWhileHit": 1
   },
   {
     "id": 1007,
@@ -95,7 +113,10 @@
     "attackAnimationNormalizedEndTime": 0.686,
     "backswingStartTime": 1.31,
     "owner": "Player",
-    "voice": "univ0002"
+    "voice": "univ0002",
+    "motionSpeedBeforeAttack": 1,
+    "motionSpeedDuringAttack": 1.5,
+    "motionSpeedWhileHit": 1
   },
   {
     "id": 1008,
@@ -109,6 +130,9 @@
     "attackAnimationNormalizedEndTime": 0.539,
     "backswingStartTime": 0.551,
     "owner": "Player",
-    "voice": "univ1102"
+    "voice": "univ1102",
+    "motionSpeedBeforeAttack": 1,
+    "motionSpeedDuringAttack": 1.7,
+    "motionSpeedWhileHit": 0.5
   }
 ]

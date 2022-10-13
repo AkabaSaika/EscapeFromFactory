@@ -367,4 +367,9 @@ public class PlayerController : MonoBehaviour
         currentTenacity += 0.01f;
         yield return new WaitForSeconds(0.1f);
     }
+
+    private void OnGUI()
+    {
+        GUI.Box(new Rect(100, 100, 50, 30), anim.speed.ToString());
+    }
 }

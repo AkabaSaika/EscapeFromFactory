@@ -30,10 +30,13 @@ public sealed partial class SkillParam :  Bright.Config.BeanBase
         { if(!_json["backswingStartTime"].IsNumber) { throw new SerializationException(); }  BackswingStartTime = _json["backswingStartTime"]; }
         { if(!_json["owner"].IsString) { throw new SerializationException(); }  Owner = _json["owner"]; }
         { if(!_json["voice"].IsString) { throw new SerializationException(); }  Voice = _json["voice"]; }
+        { if(!_json["motionSpeedBeforeAttack"].IsNumber) { throw new SerializationException(); }  MotionSpeedBeforeAttack = _json["motionSpeedBeforeAttack"]; }
+        { if(!_json["motionSpeedDuringAttack"].IsNumber) { throw new SerializationException(); }  MotionSpeedDuringAttack = _json["motionSpeedDuringAttack"]; }
+        { if(!_json["motionSpeedWhileHit"].IsNumber) { throw new SerializationException(); }  MotionSpeedWhileHit = _json["motionSpeedWhileHit"]; }
         PostInit();
     }
 
-    public SkillParam(int id, string skillName, int power, float attackPointEndTime, float attackPointNormalizedEndTime, float attackAnimationStartTime, float attackAnimationNormalizedStartTime, float attackAnimationEndTime, float attackAnimationNormalizedEndTime, float backswingStartTime, string owner, string voice ) 
+    public SkillParam(int id, string skillName, int power, float attackPointEndTime, float attackPointNormalizedEndTime, float attackAnimationStartTime, float attackAnimationNormalizedStartTime, float attackAnimationEndTime, float attackAnimationNormalizedEndTime, float backswingStartTime, string owner, string voice, float motionSpeedBeforeAttack, float motionSpeedDuringAttack, float motionSpeedWhileHit ) 
     {
         this.Id = id;
         this.SkillName = skillName;
@@ -47,6 +50,9 @@ public sealed partial class SkillParam :  Bright.Config.BeanBase
         this.BackswingStartTime = backswingStartTime;
         this.Owner = owner;
         this.Voice = voice;
+        this.MotionSpeedBeforeAttack = motionSpeedBeforeAttack;
+        this.MotionSpeedDuringAttack = motionSpeedDuringAttack;
+        this.MotionSpeedWhileHit = motionSpeedWhileHit;
         PostInit();
     }
 
@@ -82,6 +88,9 @@ public sealed partial class SkillParam :  Bright.Config.BeanBase
     public float BackswingStartTime { get; private set; }
     public string Owner { get; private set; }
     public string Voice { get; private set; }
+    public float MotionSpeedBeforeAttack { get; private set; }
+    public float MotionSpeedDuringAttack { get; private set; }
+    public float MotionSpeedWhileHit { get; private set; }
 
     public const int __ID__ = 203861944;
     public override int GetTypeId() => __ID__;
@@ -110,6 +119,9 @@ public sealed partial class SkillParam :  Bright.Config.BeanBase
         + "BackswingStartTime:" + BackswingStartTime + ","
         + "Owner:" + Owner + ","
         + "Voice:" + Voice + ","
+        + "MotionSpeedBeforeAttack:" + MotionSpeedBeforeAttack + ","
+        + "MotionSpeedDuringAttack:" + MotionSpeedDuringAttack + ","
+        + "MotionSpeedWhileHit:" + MotionSpeedWhileHit + ","
         + "}";
     }
     

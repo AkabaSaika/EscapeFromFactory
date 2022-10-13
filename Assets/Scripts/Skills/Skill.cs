@@ -24,6 +24,12 @@ public class SkillParam
     [SerializeField]
     private float m_attackAnimationNormalizedEndTime;//アタックモーションの正規化終了時間
     [SerializeField]
+    private float m_motionSpeedBeforeAttack;
+    [SerializeField]
+    private float m_motionSpeedDuringAttack;
+    [SerializeField]
+    private float m_motionSpeedWhileHit;
+    [SerializeField]
     private int m_power;//攻撃力
     [SerializeField]
     private GameObject m_Owner;
@@ -50,7 +56,9 @@ public class SkillParam
     public float AttackAnimationNormalizedStartTime { get => m_attackAnimationNormalizedStartTime; set => m_attackAnimationNormalizedStartTime = value; }
     public float AttackAnimationNormalizedEndTime { get => m_attackAnimationNormalizedEndTime; set => m_attackAnimationNormalizedEndTime = value; }
     public float AttackPointNormalizedEndTime { get => m_attackPointNormalizedEndTime; set => m_attackPointNormalizedEndTime = value; }
-    
+    public float MotionSpeedBeforeAttack { get => m_motionSpeedBeforeAttack; set => m_motionSpeedBeforeAttack = value; }
+    public float MotionSpeedDuringAttack { get => m_motionSpeedDuringAttack; set => m_motionSpeedDuringAttack = value; }
+    public float MotionSpeedWhileHit { get => m_motionSpeedWhileHit; set => m_motionSpeedWhileHit = value; }
 }
 
 public class Skill : MonoBehaviour
@@ -68,6 +76,7 @@ public class Skill : MonoBehaviour
     [SerializeField]
     private UnityAction action;
     private UnityAction<string> soundAction;
+    private int speedMultiplierId = Animator.StringToHash("SpeedMultiplier");
 
 
     public UnityAction Action { get => action; set => action = value; }
@@ -76,7 +85,7 @@ public class Skill : MonoBehaviour
     private void Update()
     {
         OnAnimationEnd(Action);
-
+        
         stateInfo = m_anim.GetCurrentAnimatorStateInfo(0);
         if(stateInfo.normalizedTime>=sp.AttackAnimationNormalizedStartTime&&stateInfo.normalizedTime<=sp.AttackAnimationNormalizedEndTime)
         {
@@ -100,6 +109,7 @@ public class Skill : MonoBehaviour
             stateInfo = m_anim.GetCurrentAnimatorStateInfo(0);
             if (stateInfo.normalizedTime >= sp.AttackPointNormalizedEndTime && stateInfo.normalizedTime <= sp.AttackAnimationNormalizedStartTime)
             {
+                m_anim.SetFloat(speedMultiplierId, sp.MotionSpeedDuringAttack);
                 sp.Owner.GetComponent<PlayerController>().Turn();
             }
             else
@@ -127,6 +137,9 @@ public class Skill : MonoBehaviour
         skill.sp.AttackPointNormalizedEndTime = skillParam.AttackPointNormalizedEndTime;
         skill.sp.AttackAnimationNormalizedStartTime = skillParam.AttackAnimationNormalizedStartTime;
         skill.sp.AttackAnimationNormalizedEndTime = skillParam.AttackAnimationNormalizedEndTime;
+        skill.sp.MotionSpeedBeforeAttack = skillParam.MotionSpeedBeforeAttack;
+        skill.sp.MotionSpeedDuringAttack = skillParam.MotionSpeedDuringAttack;
+        skill.sp.MotionSpeedWhileHit = skillParam.MotionSpeedWhileHit;
         skill.sp.ClipName = skillParam.SkillName;
         skill.sp.Power = skillParam.Power;
         skill.Action += skill.ClearHitObjectList;
@@ -135,7 +148,9 @@ public class Skill : MonoBehaviour
         skill.sp.VoicePath = skillParam.Voice;
         skill.sp.Hps = hitPoints;
         skill.AddAnimationEvent(hitPoints, skillParam.SkillName);
-        
+
+        skill.m_anim.SetFloat(skill.speedMultiplierId,skill.sp.MotionSpeedBeforeAttack);
+
         return skill.sp;
     }
     
@@ -152,6 +167,7 @@ public class Skill : MonoBehaviour
         
         foreach (var clip in clips)
         {
+            
             if (string.Equals(clip.name, clipName))
             {
                 AnimationEvent events = new AnimationEvent();
@@ -279,6 +295,11 @@ public class Skill : MonoBehaviour
         AudioManager.Instance.EffectPlay(path, false);
     }
 
+    private void ResetSpeedMultipiler()
+    {
+        m_anim.SetFloat(speedMultiplierId, 1);
+    }
+
     IEnumerator DrawLineFixed(GameObject hitPoint)
     {
         int layerMask = (1 << 11) | (1 << 12);
@@ -310,8 +331,8 @@ public class Skill : MonoBehaviour
                                     ho.GetComponent<FSM>().Damaged(he);
                                 }
                                 Debug.Log(hit.collider.gameObject.name);
-                                Skill.SetAnimatorSpeed(m_anim, 0.3f);
-                                Invoke("AnimPlay", 0.1f);
+                                m_anim.SetFloat(speedMultiplierId, sp.MotionSpeedWhileHit);
+                                Invoke("ResetSpeedMultipiler", 0.2f);
 
                             }
                         }
@@ -329,8 +350,8 @@ public class Skill : MonoBehaviour
                                 ho.GetComponent<PlayerController>().Damaged(he);
                             }
                             Debug.Log(hit.collider.gameObject.name);
-                            Skill.SetAnimatorSpeed(m_anim, 0.3f);
-                            Invoke("AnimPlay", 0.1f);
+                            m_anim.SetFloat(speedMultiplierId, sp.MotionSpeedWhileHit);
+                            Invoke("ResetSpeedMultipiler", 0.2f);
                         }
                     }
                     break;
