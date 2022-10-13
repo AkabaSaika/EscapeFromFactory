@@ -359,4 +359,12 @@ public class Skill : MonoBehaviour
         }
         yield return null;
     }
+
+    private void AutoLockOn(bool isAutoLockOn)
+    {
+        if(isAutoLockOn)
+        {
+
+        }
+    }
 }
