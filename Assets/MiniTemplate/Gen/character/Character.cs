@@ -25,10 +25,11 @@ public sealed partial class Character :  Bright.Config.BeanBase
         { if(!_json["walkSpeed"].IsNumber) { throw new SerializationException(); }  WalkSpeed = _json["walkSpeed"]; }
         { if(!_json["runspeed"].IsNumber) { throw new SerializationException(); }  Runspeed = _json["runspeed"]; }
         { if(!_json["jumpSpeed"].IsNumber) { throw new SerializationException(); }  JumpSpeed = _json["jumpSpeed"]; }
+        { if(!_json["maxTenacity"].IsNumber) { throw new SerializationException(); }  MaxTenacity = _json["maxTenacity"]; }
         PostInit();
     }
 
-    public Character(int id, string name, UnityEngine.Vector3 respawnPos, float maxHp, float walkSpeed, float runspeed, float jumpSpeed ) 
+    public Character(int id, string name, UnityEngine.Vector3 respawnPos, float maxHp, float walkSpeed, float runspeed, float jumpSpeed, float maxTenacity ) 
     {
         this.Id = id;
         this.Name = name;
@@ -37,6 +38,7 @@ public sealed partial class Character :  Bright.Config.BeanBase
         this.WalkSpeed = walkSpeed;
         this.Runspeed = runspeed;
         this.JumpSpeed = jumpSpeed;
+        this.MaxTenacity = maxTenacity;
         PostInit();
     }
 
@@ -52,6 +54,7 @@ public sealed partial class Character :  Bright.Config.BeanBase
     public float WalkSpeed { get; private set; }
     public float Runspeed { get; private set; }
     public float JumpSpeed { get; private set; }
+    public float MaxTenacity { get; private set; }
 
     public const int __ID__ = -259077500;
     public override int GetTypeId() => __ID__;
@@ -75,6 +78,7 @@ public sealed partial class Character :  Bright.Config.BeanBase
         + "WalkSpeed:" + WalkSpeed + ","
         + "Runspeed:" + Runspeed + ","
         + "JumpSpeed:" + JumpSpeed + ","
+        + "MaxTenacity:" + MaxTenacity + ","
         + "}";
     }
     

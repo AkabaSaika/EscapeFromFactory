@@ -13,6 +13,7 @@ public class PlayerParameter
     private float walkSpeed;
     private float runSpeed;
     private float jumpSpeed;
+    private float maxTenacity;
     
 
     public float MaxHp { get => maxHp; set => maxHp = value; }
@@ -21,6 +22,7 @@ public class PlayerParameter
     public float WalkSpeed { get => walkSpeed; set => walkSpeed = value; }
     public float RunSpeed { get => runSpeed; set => runSpeed = value; }
     public float JumpSpeed { get => jumpSpeed; set => jumpSpeed = value; }
+    public float MaxTenacity { get => maxTenacity; set => maxTenacity = value; }
 }
 
 public class PlayerController : MonoBehaviour
@@ -33,6 +35,8 @@ public class PlayerController : MonoBehaviour
     private float currentHp;
     [SerializeField]
     private float jumpSpeed;
+    [SerializeField]
+    private float currentTenacity;
     private float mouseSensiticity;
     private float angleY;
     private float angleX;
@@ -56,8 +60,6 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded;
     private bool canCancel = false;
 
-    [SerializeField]
-    public bool canTurn;
 
     private int speedZID = Animator.StringToHash("SpeedZ");
     private int speedRotateID = Animator.StringToHash("SpeedRotate");
@@ -89,14 +91,15 @@ public class PlayerController : MonoBehaviour
         parameter.WalkSpeed = playerParameterData.WalkSpeed;
         parameter.RunSpeed = playerParameterData.Runspeed;
         parameter.JumpSpeed = playerParameterData.JumpSpeed;
+        parameter.MaxTenacity = playerParameterData.MaxTenacity;
         CurrentHp = parameter.MaxHp;
+        currentTenacity = parameter.MaxTenacity;
     }
 
     void Start()
     {
         anim = gameObject.GetComponent<Animator>();
         cc = GetComponent<CharacterController>();
-        
 
         speed = parameter.WalkSpeed;
         mouseSensiticity = 2.4f;
@@ -105,7 +108,6 @@ public class PlayerController : MonoBehaviour
         cameraController = mainCamera.GetComponent<CameraController>();
         angleX = mainCamera.eulerAngles.x;
         Cursor.visible = false;
-        canTurn = true;
         //Cursor.lockState = CursorLockMode.Locked;
         isGrounded = groundState;   
     }
@@ -116,7 +118,6 @@ public class PlayerController : MonoBehaviour
         {
             h = Input.GetAxis("Horizontal");
             v = Input.GetAxis("Vertical");
-            //Jump();
             isMoving = Mathf.Abs(h) > 0 || Mathf.Abs(v) > 0;
         }
     }
@@ -163,10 +164,17 @@ public class PlayerController : MonoBehaviour
             {
                 if(hit.collider.gameObject.name=="GameClear")
                 {
-                    //GameObject.Find("Game").GetComponent<GameManager>().clear();
                     GameManager.Instance.gameClearHandler.Invoke();
                 }
             }   
+            if(currentTenacity<parameter.MaxTenacity)
+            {
+                StartCoroutine("RecoverTenacity");
+            }
+            else
+            {
+                StopCoroutine("RecoverTenacity");
+            }
         }
     }
 
@@ -174,9 +182,6 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 lookAtPoint = new Vector3(h, 0, v);
         speed = Input.GetButton("Run") ? parameter.RunSpeed : parameter.WalkSpeed;
-        //transform.Translate(camFoward * v * speed * Time.deltaTime,Space.World);
-        //transform.Translate(mainCamera.right * h * speed * Time.deltaTime,Space.World);
-        
         anim.SetFloat(speedVID, Convert.ToSingle(isMoving) * speed);
     }
 
@@ -218,6 +223,7 @@ public class PlayerController : MonoBehaviour
     {
         
         CurrentHp -= hitEvent.Damage; //ライフポイントを更新
+        currentTenacity -= 15;
         if (CurrentHp<=0)
         {
             AudioManager.Instance.EffectPlay("Audio/Voice/univ1077",false); //死亡ボイスを再生
@@ -236,9 +242,10 @@ public class PlayerController : MonoBehaviour
             {
                 anim.SetTrigger(blowId);
             }
-            else
+            else if(currentTenacity<=0)
             {
                 anim.SetTrigger(hitId);
+                currentTenacity = parameter.MaxTenacity;
             }
         }
 
@@ -353,5 +360,11 @@ public class PlayerController : MonoBehaviour
             anim.SetBool(normalId, false);
             anim.SetBool(katanaId, true);
         }
+    }
+
+    private IEnumerator RecoverTenacity()
+    {
+        currentTenacity += 0.01f;
+        yield return new WaitForSeconds(0.1f);
     }
 }

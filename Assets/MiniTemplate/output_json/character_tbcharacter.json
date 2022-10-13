@@ -10,6 +10,7 @@
     "maxHp": 100,
     "walkSpeed": 1,
     "runspeed": 2,
-    "jumpSpeed": 10
+    "jumpSpeed": 10,
+    "maxTenacity": 30
   }
 ]

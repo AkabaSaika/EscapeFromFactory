@@ -90,7 +90,6 @@ public class CameraController : MonoBehaviour
         offsetVector.x = newRadius * Mathf.Sin(offsetAngleX * ANGLE_CONVERTER);
         offsetVector.z = -newRadius * Mathf.Cos(offsetAngleX * ANGLE_CONVERTER);
 
-       
 
         cam.fieldOfView -= Input.GetAxis("Mouse ScrollWheel") * mouseScroll;
         cam.fieldOfView = cam.fieldOfView > MAX_CAMERA_DISTANCE ? MAX_CAMERA_DISTANCE : cam.fieldOfView;
@@ -106,12 +105,6 @@ public class CameraController : MonoBehaviour
             cameraHeightWhileLockon = cameraHeightWhileLockon > MAX_LOCKON_CAMERA_HEIGHT ? MAX_LOCKON_CAMERA_HEIGHT : cameraHeightWhileLockon;
             cameraHeightWhileLockon = cameraHeightWhileLockon < MIN_LOCKON_CAMERA_HEIGHT ? MIN_LOCKON_CAMERA_HEIGHT : cameraHeightWhileLockon;
         }
-        //if(lockTarget)
-        //{
-        //    Vector3 tmpFoward = Vector3.ProjectOnPlane(lockTarget.transform.position - player.transform.position, Vector3.up);
-        //    tmpFoward.y = 0;
-        //    player.transform.forward = tmpFoward;
-        //}
     }
 
     private void LateUpdate()
@@ -125,14 +118,10 @@ public class CameraController : MonoBehaviour
             RaycastHit hit;
             Ray ray = new Ray(lookAtPoint.position, offsetVector);
             //if (Physics.Linecast(lookAtPoint.position, lookAtPoint.position + offsetVector, out hit))
-            if(RotaryHeart.Lib.PhysicsExtension.Physics.SphereCast(ray,0.1f, out hit,10,RotaryHeart.Lib.PhysicsExtension.PreviewCondition.Both))
+            if(RotaryHeart.Lib.PhysicsExtension.Physics.SphereCast(ray,0.1f, out hit,10,1<<10,RotaryHeart.Lib.PhysicsExtension.PreviewCondition.Both))
             {
-                if (hit.collider.tag == "Environment")
-                {
-                    targetPos = hit.point;
-                    targetPos += new Vector3(0, 0, 0.1f);
-                }
-                else targetPos = lookAtPoint.position + offsetVector;
+                targetPos = hit.point;
+                targetPos += new Vector3(0, 0, 0.1f);
             }
             else targetPos = lookAtPoint.position + offsetVector;
             cam.transform.position = Vector3.SmoothDamp(cam.transform.position, targetPos, ref velocity, soothtime);
@@ -151,18 +140,12 @@ public class CameraController : MonoBehaviour
             Ray ray = new Ray(lockTarget.transform.position, targetPos- lockTarget.transform.position);
             if (RotaryHeart.Lib.PhysicsExtension.Physics.SphereCast(ray, 0.1f, out hit, 10, 1<<10,RotaryHeart.Lib.PhysicsExtension.PreviewCondition.Both))
             {
-                if (hit.collider.tag == "Environment")
-                {
-                    targetPos = hit.point;
-                    targetPos += new Vector3(0, 0, 0.1f);
-                }
+                 targetPos = hit.point;
+                 targetPos += new Vector3(0, 0, 0.1f);
             }
             cam.transform.position = Vector3.SmoothDamp(cam.transform.position, targetPos, ref velocity, soothtime);
             cam.transform.LookAt(lockTarget.transform.position);
-        }
-
-        
-        
+        }      
     }
 
     public void LockOn()

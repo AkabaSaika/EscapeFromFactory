@@ -1201,7 +1201,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: KatanaAttack3
-  m_Speed: 2
+  m_Speed: 1.3
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -1443464457698551010}
@@ -1502,7 +1502,7 @@ AnimatorStateMachine:
     m_Position: {x: 350, y: 260, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 605138637483674807}
-    m_Position: {x: 620, y: 260, z: 0}
+    m_Position: {x: 630, y: 260, z: 0}
   m_ChildStateMachines:
   - serializedVersion: 1
     m_StateMachine: {fileID: -1508731027726078395}
