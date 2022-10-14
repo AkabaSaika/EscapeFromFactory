@@ -118,7 +118,7 @@ public class CameraController : MonoBehaviour
             RaycastHit hit;
             Ray ray = new Ray(lookAtPoint.position, offsetVector);
             //if (Physics.Linecast(lookAtPoint.position, lookAtPoint.position + offsetVector, out hit))
-            if(RotaryHeart.Lib.PhysicsExtension.Physics.SphereCast(ray,0.1f, out hit,10,1<<10,RotaryHeart.Lib.PhysicsExtension.PreviewCondition.Both))
+            if(RotaryHeart.Lib.PhysicsExtension.Physics.SphereCast(ray,0.1f, out hit,10,1<<10,RotaryHeart.Lib.PhysicsExtension.PreviewCondition.Editor))
             {
                 targetPos = hit.point;
                 targetPos += new Vector3(0, 0, 0.1f);
@@ -138,7 +138,7 @@ public class CameraController : MonoBehaviour
             targetPos = player.transform.position + player.transform.forward * (-3) + player.transform.up * cameraHeightWhileLockon;
             RaycastHit hit;
             Ray ray = new Ray(lockTarget.transform.position, targetPos- lockTarget.transform.position);
-            if (RotaryHeart.Lib.PhysicsExtension.Physics.SphereCast(ray, 0.1f, out hit, 10, 1<<10,RotaryHeart.Lib.PhysicsExtension.PreviewCondition.Both))
+            if (RotaryHeart.Lib.PhysicsExtension.Physics.SphereCast(ray, 0.1f, out hit, 10, 1<<10,RotaryHeart.Lib.PhysicsExtension.PreviewCondition.Editor))
             {
                  targetPos = hit.point;
                  targetPos += new Vector3(0, 0, 0.1f);

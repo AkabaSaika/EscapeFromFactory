@@ -159,14 +159,14 @@ public class PlayerController : MonoBehaviour
             }
 
             //ゲームクリアの判定処理
-            RaycastHit hit;
-            if(Physics.Linecast(gameObject.transform.position,gameObject.transform.position+new Vector3(0,-0.5f,0),out hit,1<<10))
-            {
-                if(hit.collider.gameObject.name=="GameClear")
-                {
-                    GameManager.Instance.gameClearHandler.Invoke();
-                }
-            }   
+            //RaycastHit hit;
+            //if(Physics.Linecast(gameObject.transform.position,gameObject.transform.position+new Vector3(0,-0.5f,0),out hit,1<<10))
+            //{
+            //    if(hit.collider.gameObject.name=="GameClear")
+            //    {
+            //        GameManager.Instance.gameClearHandler.Invoke();
+            //    }
+            //}   
             if(currentTenacity<parameter.MaxTenacity)
             {
                 StartCoroutine("RecoverTenacity");
@@ -333,8 +333,8 @@ public class PlayerController : MonoBehaviour
         {
             IKHands = gameObject.AddComponent<WarriorAnimsFREE.IKHands>();
             IKHands.canBeUsed = true;
-            gameObject.AddComponent<HeavyFullMetalSword>();
-            Destroy(gameObject.GetComponent<Katana>());
+            //gameObject.AddComponent<HeavyFullMetalSword>();
+            //Destroy(gameObject.GetComponent<Katana>());
             anim.SetTrigger(sheathingId);
             anim.SetBool(greatSwordId,true);
             anim.SetBool(katanaId, false);
@@ -343,8 +343,8 @@ public class PlayerController : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Alpha3))
         {
             Destroy(gameObject.GetComponent<WarriorAnimsFREE.IKHands>());
-            Destroy(gameObject.GetComponent<HeavyFullMetalSword>());
-            Destroy(gameObject.GetComponent<Katana>());
+            //Destroy(gameObject.GetComponent<HeavyFullMetalSword>());
+            //Destroy(gameObject.GetComponent<Katana>());
             anim.SetTrigger(sheathingId);
             anim.SetBool(greatSwordId, false);
             anim.SetBool(katanaId, false);
@@ -353,8 +353,8 @@ public class PlayerController : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Alpha2)&&!gameObject.GetComponent<Katana>())
         {
             Destroy(gameObject.GetComponent<WarriorAnimsFREE.IKHands>());
-            Destroy(gameObject.GetComponent<HeavyFullMetalSword>());
-            gameObject.AddComponent<Katana>();
+            //Destroy(gameObject.GetComponent<HeavyFullMetalSword>());
+            //gameObject.AddComponent<Katana>();
             anim.SetTrigger(sheathingId);
             anim.SetBool(greatSwordId, false);
             anim.SetBool(normalId, false);
@@ -368,8 +368,12 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
     }
 
+
     private void OnGUI()
     {
+#if UNITY_EDITOR
         GUI.Box(new Rect(100, 100, 50, 30), anim.speed.ToString());
+#endif
     }
+
 }

@@ -138,6 +138,7 @@ public class GameManager : MonoSingleton<GameManager>
             gameClearState = true;
             //クリアパネルを表示する
             gameClearPanel.SetActive(true);
+            Time.timeScale = 0;
         }
         else
         {

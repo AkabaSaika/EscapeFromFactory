@@ -161,8 +161,12 @@ public class FSM : MonoBehaviour,Observer
         parameter.anim.SetIKRotationWeight(AvatarIKGoal.RightFoot, 1.0f);
     }
 
+
     private void OnGUI()
     {
+#if UNITY_EDITOR
         GUI.Box(new Rect(Camera.main.WorldToScreenPoint(transform.position).x, Camera.main.WorldToScreenPoint(transform.position).y, 100, 30), currentState.ToString());
+#endif
     }
+
 }
