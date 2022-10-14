@@ -22,7 +22,7 @@ public class Parameter
     public Transform thisTansform;
     public Transform[] chasePoints;
     public Animator anim;
-    public Vector3 respawnPoint;
+    public Transform respawnPoint;
     //public Rigidbody rb;
 
     public float idleTimer;
@@ -38,7 +38,7 @@ public class Parameter
 public class FSM : MonoBehaviour,Observer
 {
     public Parameter parameter;
-    private IState currentState;
+    public IState currentState;
     private Dictionary<StateType, IState> states = new Dictionary<StateType, IState>();
     private SkillParameter skillParameter;
     private PlayerController player;
@@ -142,24 +142,6 @@ public class FSM : MonoBehaviour,Observer
         Debug.Log(parameter.health);
     }
 
-    public void SetCanHit()
-    {
-        //canHit = true;
-    }
-
-    //public void OnAnimationEnd(string stateName, UnityAction<StateType> callback)
-    //{
-    //    currAnimInfo = parameter.anim.GetCurrentAnimatorStateInfo(0);
-
-    //    if (lastAnimInfo.shortNameHash != currAnimInfo.shortNameHash)
-    //    {
-    //        if (lastAnimInfo.IsName(stateName))
-    //        {
-    //            callback.Invoke(StateType.Battle);
-    //        }
-    //        lastAnimInfo = currAnimInfo;
-    //    }
-    //}
 
     public void OnAnimationEnd(string stateName, UnityAction<StateType> callback)
     {
@@ -177,5 +159,10 @@ public class FSM : MonoBehaviour,Observer
         parameter.anim.SetIKPositionWeight(AvatarIKGoal.RightFoot, 1.0f);
         parameter.anim.SetIKRotationWeight(AvatarIKGoal.LeftFoot, 1.0f);
         parameter.anim.SetIKRotationWeight(AvatarIKGoal.RightFoot, 1.0f);
+    }
+
+    private void OnGUI()
+    {
+        GUI.Box(new Rect(Camera.main.WorldToScreenPoint(transform.position).x, Camera.main.WorldToScreenPoint(transform.position).y, 100, 30), currentState.ToString());
     }
 }

@@ -49,6 +49,7 @@ public class IdleState : IState
 #if UNITY_EDITOR
         Debug.Log(manager.gameObject.name + " Exit Idle");
 #endif
+        
     }
 }
 
@@ -141,6 +142,9 @@ public class AttackState : MonoBehaviour,IState
 #if UNITY_EDITOR
         Debug.Log(manager.gameObject.name + " Exit Attack");
 #endif
+
+
+        parameter.thisTansform.LookAt(parameter.player.transform);
     }
 }
 
@@ -165,7 +169,9 @@ public class ChaseState : IState
         Debug.Log(manager.gameObject.name + " Enter Chase");
 #endif
         parameter.anim.Play("run");
-        parameter.agent.speed = parameter.chaseSpeed;
+        parameter.agent.ResetPath();
+        
+        
     }
 
     public void OnUpdate()
@@ -173,17 +179,19 @@ public class ChaseState : IState
 #if UNITY_EDITOR
         Debug.Log(manager.gameObject.name + " Update Chase");
 #endif
-        if(Vector3.Distance(parameter.thisTansform.position,parameter.player.position)> parameter.MAX_CHASE_DISTANCE&&parameter.patrolPoints[0]!=null)
+        if (Vector3.Distance(parameter.thisTansform.position, parameter.player.position) > parameter.MAX_CHASE_DISTANCE && parameter.patrolPoints[0] != null)
         {
             manager.TransitionState(StateType.Patrol);
         }
-        else if(Vector3.Distance(parameter.thisTansform.position, parameter.player.position) > parameter.MAX_CHASE_DISTANCE && parameter.patrolPoints[0] == null)
+        else if (Vector3.Distance(parameter.thisTansform.position, parameter.player.position) > parameter.MAX_CHASE_DISTANCE && parameter.patrolPoints[0] == null)
         {
             manager.TransitionState(StateType.Return);
         }
-        else if(Vector3.Distance(parameter.thisTansform.position, parameter.player.position) > parameter.MAX_ATTACK_DISTANCE)
+        else if (Vector3.Distance(parameter.thisTansform.position, parameter.player.position) > parameter.MAX_ATTACK_DISTANCE)
         {
             parameter.agent.SetDestination(parameter.player.position);
+           
+            
         }
         else
         {
@@ -191,7 +199,9 @@ public class ChaseState : IState
             parameter.anim.Play("Idle");
             manager.TransitionState(StateType.Battle);
         }
-        
+
+
+
     }
 
     public void OnExit()
@@ -216,6 +226,8 @@ public class ReturnState : IState
     public void OnEnter()
     {
         parameter.anim.Play("Walk");
+        parameter.agent.ResetPath();
+        parameter.agent.speed = parameter.moveSpeed;
 #if UNITY_EDITOR
         Debug.Log("Enter Return");
 #endif
@@ -226,8 +238,9 @@ public class ReturnState : IState
 #if UNITY_EDITOR
         Debug.Log("Update Return");
 #endif
-        parameter.agent.SetDestination(parameter.respawnPoint);
-        if(Vector3.Distance(parameter.thisTansform.position,parameter.respawnPoint)<0.1)
+        //parameter.agent.SetDestination(parameter.respawnPoint);
+        parameter.agent.SetDestination(parameter.respawnPoint.position);
+        if(Vector3.Distance(parameter.thisTansform.position,parameter.respawnPoint.position)<0.1f)
         {
             manager.TransitionState(StateType.Idle);
         }
