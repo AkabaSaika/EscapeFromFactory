@@ -97,9 +97,9 @@
     "backswingStartTime": 1,
     "owner": "Player",
     "voice": "univ1101",
-    "motionSpeedBeforeAttack": 1.3,
+    "motionSpeedBeforeAttack": 1.5,
     "motionSpeedDuringAttack": 1.5,
-    "motionSpeedWhileHit": 1
+    "motionSpeedWhileHit": 0.8
   },
   {
     "id": 1007,
@@ -114,24 +114,24 @@
     "backswingStartTime": 1.31,
     "owner": "Player",
     "voice": "univ0002",
-    "motionSpeedBeforeAttack": 1.3,
+    "motionSpeedBeforeAttack": 1.5,
     "motionSpeedDuringAttack": 1.5,
-    "motionSpeedWhileHit": 1
+    "motionSpeedWhileHit": 0.8
   },
   {
     "id": 1008,
     "skillName": "KatanaAttack3",
     "power": 12,
     "attackPointEndTime": 0.29,
-    "attackPointNormalizedEndTime": 0.347,
+    "attackPointNormalizedEndTime": 0.247,
     "attackAnimationStartTime": 0.3,
-    "attackAnimationNormalizedStartTime": 0.359,
+    "attackAnimationNormalizedStartTime": 0.259,
     "attackAnimationEndTime": 0.38,
     "attackAnimationNormalizedEndTime": 0.539,
     "backswingStartTime": 0.551,
     "owner": "Player",
     "voice": "univ1102",
-    "motionSpeedBeforeAttack": 1.4,
+    "motionSpeedBeforeAttack": 1.7,
     "motionSpeedDuringAttack": 1.7,
     "motionSpeedWhileHit": 0.5
   }

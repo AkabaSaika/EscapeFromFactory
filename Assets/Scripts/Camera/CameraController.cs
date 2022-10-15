@@ -71,7 +71,7 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CullWhileOcclude();
+        
 
         mouseStartPos = mouseEndPos;
         mouseEndPos = Input.mousePosition;
@@ -149,7 +149,9 @@ public class CameraController : MonoBehaviour
             }
             cam.transform.position = Vector3.SmoothDamp(cam.transform.position, targetPos, ref velocity, soothtime);
             cam.transform.LookAt(lockTarget.transform.position);
-        }      
+            
+        }
+        CullWhileOcclude();
     }
 
     public void LockOn()
@@ -178,7 +180,8 @@ public class CameraController : MonoBehaviour
         Vector3 camFoward = Vector3.ProjectOnPlane(cam.transform.forward, Vector3.up).normalized;
         float halfDistance = Vector3.Distance(lookAtPoint.position, cam.transform.position) / 2;
         float angle = Vector3.Angle(cam.transform.position - lookAtPoint.position, camFoward);
-        Collider[] colliders = RotaryHeart.Lib.PhysicsExtension.Physics.OverlapBox(middlePos, new Vector3(1, 1, halfDistance), cam.transform.rotation,1<< 8,RotaryHeart.Lib.PhysicsExtension.PreviewCondition.Both);
+        //Collider[] colliders = RotaryHeart.Lib.PhysicsExtension.Physics.OverlapBox(middlePos, new Vector3(1, 1, halfDistance), cam.transform.rotation,1<< 8,RotaryHeart.Lib.PhysicsExtension.PreviewCondition.Both);
+        Collider[] colliders = Physics.OverlapBox(middlePos, new Vector3(1, 1, halfDistance), cam.transform.rotation, 1 << 8);
         if (cullBuffer.Count > 0)
         {
             foreach(var i in cullBuffer)
