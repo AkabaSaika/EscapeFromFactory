@@ -37,7 +37,7 @@ public class CameraController : MonoBehaviour
 
 
     [SerializeField]
-    private const float MAX_VERTICAL_ANGLE = 80.0f;
+    private const float MAX_VERTICAL_ANGLE = 20.0f;
     [SerializeField]
     private const float MIN_VERTICAL_ANGLE = 1.0f;
     [SerializeField]
