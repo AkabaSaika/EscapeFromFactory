@@ -55,9 +55,9 @@ GameObject:
   - component: {fileID: 4850925591949124561}
   - component: {fileID: 4850925591948157201}
   - component: {fileID: 65000903110457238}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pallet Variation 01
-  m_TagString: Untagged
+  m_TagString: Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -150,8 +150,12 @@ PrefabInstance:
       value: Barrel (2)
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 7b44d744f6c37d441952d043e70b584c, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 7b44d744f6c37d441952d043e70b584c, type: 3}
       propertyPath: m_TagString
-      value: Environment
+      value: Object
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 7b44d744f6c37d441952d043e70b584c, type: 3}
       propertyPath: m_RootOrder
@@ -223,8 +227,12 @@ PrefabInstance:
       value: Crate Short
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: ce65141939545d440ac8591812208a12, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: ce65141939545d440ac8591812208a12, type: 3}
       propertyPath: m_TagString
-      value: Environment
+      value: Object
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: ce65141939545d440ac8591812208a12, type: 3}
       propertyPath: m_RootOrder

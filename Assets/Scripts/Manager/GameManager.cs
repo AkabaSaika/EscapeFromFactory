@@ -115,6 +115,7 @@ public class GameManager : MonoSingleton<GameManager>
     private void Pause()
     {
         gameState = GameState.pause;
+        Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
         Time.timeScale = 0;
         pausePanel.SetActive(true);

@@ -108,7 +108,7 @@ public class PlayerController : MonoBehaviour
         cameraController = mainCamera.GetComponent<CameraController>();
         angleX = mainCamera.eulerAngles.x;
         Cursor.visible = false;
-        //Cursor.lockState = CursorLockMode.Locked;
+        Cursor.lockState = CursorLockMode.Confined;
         isGrounded = groundState;   
     }
 

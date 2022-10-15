@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 4243399199385344}
   - component: {fileID: 33771606799425080}
   - component: {fileID: 64390314123442690}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Collider 2
-  m_TagString: Environment
+  m_TagString: Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -65,9 +65,9 @@ GameObject:
   - component: {fileID: 4422933654118406}
   - component: {fileID: 33710236286381306}
   - component: {fileID: 23954375305632200}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Base1
-  m_TagString: Environment
+  m_TagString: Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -144,9 +144,9 @@ GameObject:
   - component: {fileID: 4940480631406776}
   - component: {fileID: 33735852916855408}
   - component: {fileID: 64262842550120390}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Collider 1
-  m_TagString: Environment
+  m_TagString: Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -196,9 +196,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4212771881742316}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ConcreteTubes
-  m_TagString: Untagged
+  m_TagString: Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -236,9 +236,9 @@ GameObject:
   - component: {fileID: 4865256006394328}
   - component: {fileID: 33104580950981028}
   - component: {fileID: 23017503249573978}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Holder1
-  m_TagString: Environment
+  m_TagString: Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -315,9 +315,9 @@ GameObject:
   - component: {fileID: 4558128905968068}
   - component: {fileID: 33202974212629630}
   - component: {fileID: 23068124183059966}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe1
-  m_TagString: Untagged
+  m_TagString: Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -396,9 +396,9 @@ GameObject:
   - component: {fileID: 4091564904461068}
   - component: {fileID: 33148141711888566}
   - component: {fileID: 64287176115221402}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Collider
-  m_TagString: Environment
+  m_TagString: Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -450,9 +450,9 @@ GameObject:
   - component: {fileID: 4824213881123898}
   - component: {fileID: 33846319236711310}
   - component: {fileID: 23293986320462464}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe3
-  m_TagString: Untagged
+  m_TagString: Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -531,9 +531,9 @@ GameObject:
   - component: {fileID: 4854293444928448}
   - component: {fileID: 33842472941156372}
   - component: {fileID: 23330371832931972}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Base3
-  m_TagString: Environment
+  m_TagString: Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -610,9 +610,9 @@ GameObject:
   - component: {fileID: 4809978577220618}
   - component: {fileID: 33860784677839196}
   - component: {fileID: 23430134407951302}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Base
-  m_TagString: Environment
+  m_TagString: Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -689,9 +689,9 @@ GameObject:
   - component: {fileID: 4799716106622826}
   - component: {fileID: 33335212459246848}
   - component: {fileID: 23936228214695886}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pipe2
-  m_TagString: Untagged
+  m_TagString: Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -770,9 +770,9 @@ GameObject:
   - component: {fileID: 4740978941437704}
   - component: {fileID: 33705443152363166}
   - component: {fileID: 23099940455764814}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Holder2
-  m_TagString: Environment
+  m_TagString: Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295

@@ -25,9 +25,9 @@ GameObject:
   - component: {fileID: 5786055057232659190}
   - component: {fileID: 5786055057231691830}
   - component: {fileID: 7731862758566718806}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pallet Variation 03
-  m_TagString: Untagged
+  m_TagString: Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -147,8 +147,12 @@ PrefabInstance:
       value: Duct Vent
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 46032e2b9d73a4c46b7c0a8cfda58d57, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 46032e2b9d73a4c46b7c0a8cfda58d57, type: 3}
       propertyPath: m_TagString
-      value: Environment
+      value: Object
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 46032e2b9d73a4c46b7c0a8cfda58d57, type: 3}
       propertyPath: m_RootOrder
@@ -220,8 +224,12 @@ PrefabInstance:
       value: Crate Short (2)
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: ce65141939545d440ac8591812208a12, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: ce65141939545d440ac8591812208a12, type: 3}
       propertyPath: m_TagString
-      value: Environment
+      value: Object
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: ce65141939545d440ac8591812208a12, type: 3}
       propertyPath: m_RootOrder
@@ -293,8 +301,12 @@ PrefabInstance:
       value: Crate Short (3)
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: ce65141939545d440ac8591812208a12, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: ce65141939545d440ac8591812208a12, type: 3}
       propertyPath: m_TagString
-      value: Environment
+      value: Object
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: ce65141939545d440ac8591812208a12, type: 3}
       propertyPath: m_RootOrder

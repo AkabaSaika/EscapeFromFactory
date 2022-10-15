@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 3661837105200448618}
   - component: {fileID: 4018292230637802010}
   - component: {fileID: 7885999330289234042}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Container
-  m_TagString: Untagged
+  m_TagString: Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -102,9 +102,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7529270650308226363}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Container
-  m_TagString: Environment
+  m_TagString: Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
