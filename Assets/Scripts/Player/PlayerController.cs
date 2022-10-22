@@ -9,7 +9,6 @@ public class PlayerParameter
 {
     private float maxHp;
     private float maxStamina;
-    //private float defendPoint = 10.0f;
     private float walkSpeed;
     private float runSpeed;
     private float jumpSpeed;
@@ -18,7 +17,6 @@ public class PlayerParameter
 
     public float MaxHp { get => maxHp; set => maxHp = value; }
     public float MaxStamina { get => maxStamina; set => maxStamina = value; }
-    //public float DefendPoint { get => defendPoint; set => defendPoint = value; }
     public float WalkSpeed { get => walkSpeed; set => walkSpeed = value; }
     public float RunSpeed { get => runSpeed; set => runSpeed = value; }
     public float JumpSpeed { get => jumpSpeed; set => jumpSpeed = value; }
@@ -27,62 +25,53 @@ public class PlayerParameter
 
 public class PlayerController : MonoBehaviour
 {
+    //プレイヤーパラメータのオブジェクト
     public PlayerParameter parameter = new PlayerParameter();
+    //シリアス化されたパラメータ数値を格納するオブジェクト
     private cfg.character.Character playerParameterData;
+    //プレイヤーの移動速度
     [SerializeField]
     private float speed;
+    //プレイヤー現在のライフポイント
     [SerializeField]
     private float currentHp;
-    [SerializeField]
-    private float jumpSpeed;
+    //プレイヤー現在の強靭度
     [SerializeField]
     private float currentTenacity;
-    private float mouseSensiticity;
-    private float angleY;
-    private float angleX;
-    [SerializeField]
-    private bool groundState = false;
-    private bool isDead = false;
-    private Vector3 camFoward;
-
+    //方向入力の水平軸
     private float h;
+    //方向入力の垂直軸
     private float v;
-
+    //プレイヤー移動状態のフラッグ
     private bool isMoving;
-
-    private CharacterController cc;
+    //プレイヤー死亡状態のフラッグ
+    private bool isDead = false;
+    //メインカメラのTransform
     private Transform mainCamera;
+    //カメラの前方向
+    private Vector3 camFoward;
+    //メインカメラのコントローラーのコムポーネント
     private CameraController cameraController;
+    //プレイヤーのアニメーターのコムポーネント
+    private Animator anim;
 
-    private CollisionFlags cf;
- 
-    [SerializeField]
-    private bool isGrounded;
-    private bool canCancel = false;
-
-
-    private int speedZID = Animator.StringToHash("SpeedZ");
-    private int speedRotateID = Animator.StringToHash("SpeedRotate");
     private int speedHID = Animator.StringToHash("SpeedH");
     private int speedVID = Animator.StringToHash("SpeedV");
     private int hitId = Animator.StringToHash("Hit");
     private int deadId = Animator.StringToHash("IsDead");
-    private int JumpId = Animator.StringToHash("Jump");
-    private int LandId = Animator.StringToHash("Land");
     private int blowId = Animator.StringToHash("Blow");
     private int normalId = Animator.StringToHash("Normal");
     private int greatSwordId = Animator.StringToHash("GreatSword");
     private int katanaId = Animator.StringToHash("Katana");
     private int sheathingId = Animator.StringToHash("Sheathing");
     
-    private Animator anim;
+    
     [SerializeField]
     private WarriorAnimsFREE.IKHands IKHands;
 
     public float CurrentHp { get => currentHp; set => currentHp = value; }
 
-    [TextArea]
-    public string currentState;
+
 
     private void Awake()
     {
@@ -99,17 +88,11 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         anim = gameObject.GetComponent<Animator>();
-        cc = GetComponent<CharacterController>();
-
         speed = parameter.WalkSpeed;
-        mouseSensiticity = 2.4f;
-        angleY = transform.eulerAngles.y;
         mainCamera = Camera.main.transform;
         cameraController = mainCamera.GetComponent<CameraController>();
-        angleX = mainCamera.eulerAngles.x;
         Cursor.visible = false;
         //Cursor.lockState = CursorLockMode.Locked;
-        isGrounded = groundState;   
     }
 
     private void FixedUpdate()
@@ -124,13 +107,12 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        currentState = anim.GetCurrentAnimatorStateInfo(0).IsName("Great Sword").ToString();
         if(!isDead)
         {
-            SwitchWeapon();
-            camFoward = Vector3.ProjectOnPlane(mainCamera.forward, Vector3.up);
             
-            if(Input.GetKeyDown(KeyCode.Space))
+            camFoward = Vector3.ProjectOnPlane(mainCamera.forward, Vector3.up);
+            SwitchWeapon();
+            if (Input.GetKeyDown(KeyCode.Space))
             {
                 cameraController.LockOn();
             }
@@ -157,16 +139,7 @@ public class PlayerController : MonoBehaviour
                     IKHands.SetIKOn();
                 }
             }
-
-            //ゲームクリアの判定処理
-            //RaycastHit hit;
-            //if(Physics.Linecast(gameObject.transform.position,gameObject.transform.position+new Vector3(0,-0.5f,0),out hit,1<<10))
-            //{
-            //    if(hit.collider.gameObject.name=="GameClear")
-            //    {
-            //        GameManager.Instance.gameClearHandler.Invoke();
-            //    }
-            //}   
+  
             if(currentTenacity<parameter.MaxTenacity)
             {
                 StartCoroutine("RecoverTenacity");
@@ -177,74 +150,68 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-
+    /// <summary>
+    /// 移動処理
+    /// </summary>
     private void Move()
     {
+        //入力に応じてキャラクターの向きを調整する
         Vector3 lookAtPoint = new Vector3(h, 0, v);
+        //走る状態に応じてspeed値を決める
         speed = Input.GetButton("Run") ? parameter.RunSpeed : parameter.WalkSpeed;
+        //speed値をアニメーターに渡す
         anim.SetFloat(speedVID, Convert.ToSingle(isMoving) * speed);
     }
-
+    /// <summary>
+    /// 敵をロックオンしている場合の移動処理
+    /// </summary>
     private void MoveWhileLock()
     {
         speed = Input.GetButton("Run") ? parameter.RunSpeed : parameter.WalkSpeed;
         anim.SetFloat(speedHID, h * speed);
         anim.SetFloat(speedVID, v * speed);
     }
-
-    private void Jump()
-    {
-        if (Input.GetButton("Jump") && isGrounded)
-        {
-            Debug.Log(Input.GetButton("Jump"));
-            jumpSpeed = parameter.JumpSpeed;
-            isGrounded = false;
-            anim.SetTrigger(JumpId);
-        }
-        if (!isGrounded)
-        {
-            jumpSpeed -= 10 * Time.deltaTime;
-            Vector3 jump = new Vector3(0, jumpSpeed * Time.deltaTime, 0);
-            cf = cc.Move(jump);
-            if (cf == CollisionFlags.Below)
-            {
-                anim.SetTrigger(LandId);
-                jumpSpeed = 0;
-                isGrounded = true;   
-            }
-        }
-        if (isGrounded && cf == CollisionFlags.None)
-        {
-            isGrounded = false;
-        }
-    }
-
+    /// <summary>
+    /// ダメージを受けた場合の処理
+    /// </summary>
+    /// <param name="hitEvent">ダメージの元から渡されたHitEventオブジェクト</param>
     public void Damaged(HitEvent hitEvent)
     {
-        
-        CurrentHp -= hitEvent.Damage; //ライフポイントを更新
+        //ライフポイントを更新
+        CurrentHp -= hitEvent.Damage; 
+        //強靭度を減る
         currentTenacity -= 15;
+        //死亡時の処理
         if (CurrentHp<=0)
         {
-            AudioManager.Instance.EffectPlay("Audio/Voice/univ1077",false); //死亡ボイスを再生
-
+            //死亡ボイスを再生
+            AudioManager.Instance.EffectPlay("Audio/Voice/univ1077",false); 
+            //キャラクターを操作不可にする
             gameObject.GetComponent<CharacterController>().enabled = false;
+            //死亡フラグをtrueにする
             isDead = true;
+            //死亡アニメーションを再生
             anim.SetTrigger(deadId);
         }
+        //死亡していない場合の処理
         else
         {
-            //受撃ボイスを再生
+            //ランダムに受撃ボイスを再生
             int i = UnityEngine.Random.Range(0, 4);
             string path = "Audio/Voice/univ" + (1091 + i).ToString();
             AudioManager.Instance.EffectPlay(path, false);
+            //爆発に飛ばされた時の処理
             if(hitEvent.SkillName=="Explosion")
             {
+                //飛ばされたアニメーションを再生
                 anim.SetTrigger(blowId);
             }
+            //通常攻撃を受け、強靭度が0以下になる場合の処理
             else if(currentTenacity<=0)
             {
+                //受撃アニメーションを再生
                 anim.SetTrigger(hitId);
+                //強靭度を最大値に回復する
                 currentTenacity = parameter.MaxTenacity;
             }
         }
@@ -281,7 +248,7 @@ public class PlayerController : MonoBehaviour
     }
 
     /// <summary>
-    /// ロックオンしていない場合
+    /// ロックオンしていない場合の転向処理
     /// </summary>
     public void Turn()
     {
@@ -319,6 +286,10 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 足のIK処理
+    /// </summary>
+    /// <param name="layerIndex"></param>
     private void OnAnimatorIK(int layerIndex)
     {
         anim.SetIKPositionWeight(AvatarIKGoal.LeftFoot,1.0f);
@@ -326,15 +297,15 @@ public class PlayerController : MonoBehaviour
         anim.SetIKRotationWeight(AvatarIKGoal.LeftFoot, 1.0f);
         anim.SetIKRotationWeight(AvatarIKGoal.RightFoot, 1.0f);
     }
-
+    /// <summary>
+    /// 武器スイッチの処理
+    /// </summary>
     private void SwitchWeapon()
     {
         if(Input.GetKeyDown(KeyCode.Alpha1) && !gameObject.GetComponent<HeavyFullMetalSword>()&&!gameObject.GetComponent<WarriorAnimsFREE.IKHands>())
         {
             IKHands = gameObject.AddComponent<WarriorAnimsFREE.IKHands>();
             IKHands.canBeUsed = true;
-            //gameObject.AddComponent<HeavyFullMetalSword>();
-            //Destroy(gameObject.GetComponent<Katana>());
             anim.SetTrigger(sheathingId);
             anim.SetBool(greatSwordId,true);
             anim.SetBool(katanaId, false);
@@ -343,8 +314,6 @@ public class PlayerController : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Alpha3))
         {
             Destroy(gameObject.GetComponent<WarriorAnimsFREE.IKHands>());
-            //Destroy(gameObject.GetComponent<HeavyFullMetalSword>());
-            //Destroy(gameObject.GetComponent<Katana>());
             anim.SetTrigger(sheathingId);
             anim.SetBool(greatSwordId, false);
             anim.SetBool(katanaId, false);
@@ -353,15 +322,16 @@ public class PlayerController : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Alpha2)&&!gameObject.GetComponent<Katana>())
         {
             Destroy(gameObject.GetComponent<WarriorAnimsFREE.IKHands>());
-            //Destroy(gameObject.GetComponent<HeavyFullMetalSword>());
-            //gameObject.AddComponent<Katana>();
             anim.SetTrigger(sheathingId);
             anim.SetBool(greatSwordId, false);
             anim.SetBool(normalId, false);
             anim.SetBool(katanaId, true);
         }
     }
-
+    /// <summary>
+    /// 強靭度が自動的に回復する
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator RecoverTenacity()
     {
         currentTenacity += 0.01f;

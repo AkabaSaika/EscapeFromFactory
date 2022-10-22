@@ -63,30 +63,34 @@ public class SkillParam
 
 public class Skill : MonoBehaviour
 {
+    //スキルのパラメータ数値を格納するオブジェクト
     public SkillParam sp = new SkillParam();
+    //ヒットされたオブジェクトを格納するリスト
     [SerializeField]
     private List<GameObject> m_hitObject = new List<GameObject>();
-    public bool isAttacking;
+    //モーションをキャンセルするタイミングを決めるフラグ
     private int cancelID = Animator.StringToHash("CanCancel");
-    private GameObject weapon;
-    private AnimationClip m_clip;
+    //アニメーターのコムポーネント
     private Animator m_anim;
-    private Animation animation;
+    //現在のAnimatorStateのオブジェクト
     private AnimatorStateInfo stateInfo;
-    [SerializeField]
+    //アニメーション再生終了時に呼び出されるアクション
     private UnityAction action;
+    //攻撃命中時のアクション
     private UnityAction<string> soundAction;
+    //アニメーション再生速度の倍率
     private int speedMultiplierId = Animator.StringToHash("SpeedMultiplier");
-
 
     public UnityAction Action { get => action; set => action = value; }
    
 
     private void Update()
     {
+        //アニメーション終了時のコールバック関数を呼び出す
         OnAnimationEnd(Action);
-        
+        //現在のAnimatorState
         stateInfo = m_anim.GetCurrentAnimatorStateInfo(0);
+        //攻撃モーション中に攻撃判定を生成する
         if(stateInfo.normalizedTime>=sp.AttackAnimationNormalizedStartTime&&stateInfo.normalizedTime<=sp.AttackAnimationNormalizedEndTime)
         {
             foreach (var hp in sp.Hps)
@@ -96,8 +100,7 @@ public class Skill : MonoBehaviour
         }
         if(stateInfo.normalizedTime>sp.AttackAnimationNormalizedEndTime)
         {
-                //StopCoroutine(DrawLineFixed(hp));
-                StopAllCoroutines();
+            StopAllCoroutines();
         }
     }
 
@@ -107,11 +110,13 @@ public class Skill : MonoBehaviour
         if (sp.Owner.tag == "Player")
         {
             stateInfo = m_anim.GetCurrentAnimatorStateInfo(0);
+            //準備モーションと攻撃モーションの間で転向可能なタイミングを作る
             if (stateInfo.normalizedTime >= sp.AttackPointNormalizedEndTime && stateInfo.normalizedTime <= sp.AttackAnimationNormalizedStartTime)
             {
                 m_anim.SetFloat(speedMultiplierId, sp.MotionSpeedDuringAttack);
                 sp.Owner.GetComponent<PlayerController>().Turn();
             }
+            //他の場合はRootMotionが適用される
             else
             {
                 m_anim.ApplyBuiltinRootMotion();
@@ -129,7 +134,6 @@ public class Skill : MonoBehaviour
         Skill skill = parent.AddComponent<Skill>() as Skill;
         skill.sp.Owner = parent;
         skill.m_anim = parent.GetComponent<Animator>();
-        skill.animation = parent.GetComponent<Animation>();
         skill.sp.AttackAnimationEndTime = skillParam.AttackAnimationEndTime;
         skill.sp.AttackAnimationStartTime = skillParam.AttackAnimationStartTime;
         skill.sp.AttackPointEndTime = skillParam.AttackPointEndTime;
@@ -143,7 +147,6 @@ public class Skill : MonoBehaviour
         skill.sp.ClipName = skillParam.SkillName;
         skill.sp.Power = skillParam.Power;
         skill.Action += skill.ClearHitObjectList;
-        //skill.Action += skill.ClearHitPoint;
         skill.soundAction += skill.PlayEffect;
         skill.sp.VoicePath = skillParam.Voice;
         skill.sp.Hps = hitPoints;
@@ -155,29 +158,6 @@ public class Skill : MonoBehaviour
     }
     
     /// <summary>
-    /// 攻撃判定を生成する 
-    /// </summary>
-    /// <param name="clipName"></param>
-    /// <param name="startTime"></param>
-    /// <param name="endTime"></param>
-    /// <param name="hitPoint"></param>
-    private void DrawHit(string clipName,float startTime,float endTime,GameObject hitPoint,Animator anim)
-    {
-        AnimationClip[] clips = anim.runtimeAnimatorController.animationClips;
-        
-        foreach (var clip in clips)
-        {
-            
-            if (string.Equals(clip.name, clipName))
-            {
-                AnimationEvent events = new AnimationEvent();
-                events.functionName = "ResetHit";
-                events.time = 0.01f;
-                clip.AddEvent(events);
-            }
-        }
-    }
-    /// <summary>
     /// 攻撃モーション修了後に攻撃したオブジェクトをクリアする
     /// </summary>
     private void ResetHit()
@@ -186,7 +166,7 @@ public class Skill : MonoBehaviour
     }
 
     /// <summary>
-    /// 動画の再生速度を調整する
+    /// アニメーションの速度を調整する
     /// </summary>
     /// <param name="anim"></param>
     /// <param name="speed"></param>
@@ -195,51 +175,17 @@ public class Skill : MonoBehaviour
         anim.speed = speed;
     }
 
+    /// <summary>
+    /// アニメーションの速度を元に戻す
+    /// </summary>
     private void AnimPlay()
     {
         m_anim.speed = 1;
     }
 
-    /// <summary>
-    /// ヒット可能な状態に戻る関数を呼び出す
-    /// </summary>
-    private void CallResetCanHit()
-    {
-        //foreach(var i in m_hitObject)
-        //{
-        //    i.SendMessage("SetCanHit");
-        //}
-    }
-
     public void AddAnimationEvent(GameObject[] hitPoints,string clipName)
     {
-        foreach (var hp in hitPoints)
-        {
-            DrawHit(clipName, sp.AttackAnimationStartTime, sp.AttackAnimationEndTime, hp, m_anim);
-        }
-
-
-        SetCancel(sp.BackswingStartTime);
         ResetHit(sp.BackswingStartTime);
-    }
-
-    /// <summary>
-    /// キャンセル可能なタイミングを設定する
-    /// </summary>
-    /// <param name="backswingStartTime"></param>
-    private void SetCancel(float backswingStartTime)
-    {
-        AnimationClip[] clips = m_anim.runtimeAnimatorController.animationClips;
-        foreach (var clip in clips)
-        {
-            if (string.Equals(clip.name, sp.ClipName))
-            {
-                AnimationEvent events = new AnimationEvent();
-                events.functionName = "CallResetCanHit";
-                events.time = backswingStartTime;
-                clip.AddEvent(events);
-            }
-        }
     }
 
     private void ResetHit(float backswingStartTime)
@@ -263,23 +209,17 @@ public class Skill : MonoBehaviour
         anim.SetBool(cancelID, true);
     }
 
-    private void DisableRootMotion()
-    {
-        m_anim.applyRootMotion = false;
-    }
-
-    private Animator SetAnimationController(GameObject owner)
-    {
-        Animator anim;
-        anim = owner.GetComponent<Animator>();
-        return anim;
-    }
-
+    /// <summary>
+    /// ヒットしたゲームオブジェクトを格納するリストをクリアする
+    /// </summary>
     public void ClearHitObjectList()
     {
         m_hitObject.Clear();
     }
-
+    /// <summary>
+    /// アニメーション終了時点でコールバック関数を呼び出す
+    /// </summary>
+    /// <param name="callback">コールバック関数を格納するAction</param>
     private void OnAnimationEnd(UnityAction callback)
     {
         stateInfo = m_anim.GetCurrentAnimatorStateInfo(0);
@@ -289,19 +229,30 @@ public class Skill : MonoBehaviour
             callback.Invoke();
         }
     }
-
+    /// <summary>
+    /// エフェクトを再生する
+    /// </summary>
+    /// <param name="path"></param>
     private void PlayEffect(string path)
     {
         AudioManager.Instance.EffectPlay(path, false);
     }
-
+    /// <summary>
+    /// モーションの速度をリセットする
+    /// </summary>
     private void ResetSpeedMultipiler()
     {
         m_anim.SetFloat(speedMultiplierId, 1);
     }
 
+    /// <summary>
+    /// 攻撃判定を生成する
+    /// </summary>
+    /// <param name="hitPoint"></param>
+    /// <returns></returns>
     IEnumerator DrawLineFixed(GameObject hitPoint)
     {
+        //PlayerとEnemyレイヤーだけが攻撃される
         int layerMask = (1 << 11) | (1 << 12);
 
         //Debug.DrawLine(sp.Hps[0].transform.position, sp.Hps[1].transform.position, Color.red, 60);
@@ -311,6 +262,7 @@ public class Skill : MonoBehaviour
 //#if UNITY_EDITOR
         //if (RotaryHeart.Lib.PhysicsExtension.Physics.SphereCast(sp.Hps[0].transform.position, 0.1f, (sp.Hps[1].transform.position-sp.Hps[0].transform.position).normalized,  out hit, Vector3.Distance(sp.Hps[0].transform.position, sp.Hps[1].transform.position), layerMask, RotaryHeart.Lib.PhysicsExtension.PreviewCondition.Editor)/*|| Physics.SphereCast(sp.Hps[1].transform.position, 0.1f, (sp.Hps[0].transform.position-sp.Hps[1].transform.position).normalized,  out hit, Vector3.Distance(sp.Hps[1].transform.position, sp.Hps[0].transform.position), layerMask)*/)
 //#else
+        //
         if(Physics.SphereCast(sp.Hps[0].transform.position, 0.1f, (sp.Hps[1].transform.position - sp.Hps[0].transform.position).normalized, out hit, Vector3.Distance(sp.Hps[0].transform.position, sp.Hps[1].transform.position), layerMask))
 //#endif
         {

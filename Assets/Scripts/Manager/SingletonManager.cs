@@ -5,7 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class SingletonManager : MonoBehaviour
 {
-    // Start is called before the first frame update
+    /// <summary>
+    /// プログラム開始の時点で各Managerを初期化する
+    /// </summary>
     void Start()
     {
         AudioManager.Instance.Init();
