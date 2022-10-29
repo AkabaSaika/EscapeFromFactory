@@ -12,10 +12,10 @@ public class ExplosionController : MonoBehaviour
 
     private int damage = 30;
     [SerializeField]
-    private float damageRadius = 3;
+    private float damageRadius = 1.5f;
     private string damageName = "Explosion";
     [SerializeField]
-    private float countdownTime = 0.5f;
+    private float countdownTime = 2;
     private string soundEffectPath = "Audio/Grenade1Short";
 
     [SerializeField]
@@ -37,7 +37,7 @@ public class ExplosionController : MonoBehaviour
     public void Explosion()
     {
         AudioManager.Instance.EffectPlay(soundEffectPath,false);
-        HitEvent he = new HitEvent(damageName, damage);
+        HitEvent he = new HitEvent(damageName, damage,new Vector3(0,0,0));
         explosionEffect.SetActive(true);
         Collider[] colliders = Physics.OverlapSphere(transform.position, damageRadius,1<<11);
         foreach(var i in colliders)
@@ -45,13 +45,13 @@ public class ExplosionController : MonoBehaviour
             Debug.Log(i.gameObject.name);
             i.SendMessage("Damaged", he);
         }
-        Camera.main.transform.DOShakePosition(1, new Vector3(2, 2, 0));
+        //Camera.main.transform.DOShakePosition(1, new Vector3(2, 2, 0));
     }
 
     public void ExplosionCountDown()
     {
         countdown.SetActive(true);
         Invoke("Explosion", countdownTime);
-        countdown.transform.DOScale(0, countdownTime);
+        countdown.transform.DOScale(1.5f, countdownTime);
     }
 }

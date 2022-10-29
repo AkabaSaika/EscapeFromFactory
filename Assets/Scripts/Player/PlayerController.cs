@@ -187,7 +187,8 @@ public class PlayerController : MonoBehaviour
             //死亡ボイスを再生
             AudioManager.Instance.EffectPlay("Audio/Voice/univ1077",false); 
             //キャラクターを操作不可にする
-            gameObject.GetComponent<CharacterController>().enabled = false;
+            gameObject.GetComponent<Rigidbody>().useGravity=false;
+            gameObject.GetComponent<CapsuleCollider>().enabled = false;
             //死亡フラグをtrueにする
             isDead = true;
             //死亡アニメーションを再生
@@ -228,7 +229,6 @@ public class PlayerController : MonoBehaviour
             dc.doorChange(dc.door);
             
         }
-        //Debug.Log(other.name);
     }
 
     private void OnTriggerExit(Collider other)

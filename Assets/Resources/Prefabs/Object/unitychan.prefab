@@ -6139,14 +6139,15 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6291632744110266429}
-  - component: {fileID: 6291632744110654171}
   - component: {fileID: 6291632744110654175}
   - component: {fileID: 6291632744110654170}
   - component: {fileID: 6399705181867190041}
   - component: {fileID: 6399705181867190046}
   - component: {fileID: 6399705181867190047}
+  - component: {fileID: 471353381415830772}
+  - component: {fileID: 884643805925134378}
   m_Layer: 11
-  m_Name: unitychan 1
+  m_Name: unitychan
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6170,24 +6171,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!143 &6291632744110654171
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6291632744110687709}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Height: 1.6
-  m_Radius: 0.24
-  m_SlopeLimit: 45
-  m_StepOffset: 0.4
-  m_SkinWidth: 0.015
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.79, z: 0}
 --- !u!95 &6291632744110654175
 Animator:
   serializedVersion: 3
@@ -6221,11 +6204,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 0
   currentHp: 0
-  jumpSpeed: 0
-  groundState: 0
-  isGrounded: 0
-  canTurn: 0
-  currentState: 
+  currentTenacity: 0
+  IKHands: {fileID: 0}
 --- !u!114 &6399705181867190041
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6275,6 +6255,36 @@ MonoBehaviour:
   canBeUsed: 1
   leftHandPositionWeight: 0.629
   leftHandRotationWeight: 0.596
+--- !u!54 &471353381415830772
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6291632744110687709}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
+--- !u!136 &884643805925134378
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6291632744110687709}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.19455743
+  m_Height: 1.6407083
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.81914943, z: 0.0063979626}
 --- !u!1 &6291632744110687711
 GameObject:
   m_ObjectHideFlags: 0

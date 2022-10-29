@@ -115,7 +115,7 @@ public class CameraController : MonoBehaviour
     {
         Vector3 targetPos;
         Vector3 velocity =new Vector3(0,0,0);
-        float soothtime = 0.1f;
+        float soothtime = 0.05f;
 
         if (lockTarget == null)
         {

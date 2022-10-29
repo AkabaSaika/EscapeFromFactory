@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
+using DG.Tweening;
 
 public enum StateType
 {
@@ -132,6 +133,7 @@ public class FSM : MonoBehaviour,Observer
         }
         else
         {
+            //transform.DOMove(parameter.player.TransformPoint(parameter.player.localPosition+hitEvent.m_hitOffset),0.5f).SetRelative(true);
             TransitionState(StateType.Damage);
         }
     }
@@ -162,11 +164,11 @@ public class FSM : MonoBehaviour,Observer
     }
 
 
-    private void OnGUI()
-    {
-#if UNITY_EDITOR
-        GUI.Box(new Rect(Camera.main.WorldToScreenPoint(transform.position).x, Camera.main.WorldToScreenPoint(transform.position).y, 100, 30), currentState.ToString());
-#endif
-    }
+   // private void OnGUI()
+   // {
+//#if UNITY_EDITOR
+     //   GUI.Box(new Rect(Camera.main.WorldToScreenPoint(transform.position).x, Camera.main.WorldToScreenPoint(transform.position).y, 100, 30), currentState.ToString());
+//#endif
+   // }
 
 }

@@ -5,16 +5,19 @@
     "power": 10,
     "attackPointEndTime": 0.4,
     "attackPointNormalizedEndTime": 0.39,
-    "attackAnimationStartTime": 0.4,
     "attackAnimationNormalizedStartTime": 0.4,
-    "attackAnimationEndTime": 0.8,
     "attackAnimationNormalizedEndTime": 0.596,
     "backswingStartTime": 0.8,
     "owner": "Player",
     "voice": "univ1101",
-    "motionSpeedBeforeAttack": 0.8,
-    "motionSpeedDuringAttack": 1.5,
-    "motionSpeedWhileHit": 0.3
+    "motionSpeedBeforeAttack": 1.7,
+    "motionSpeedDuringAttack": 1.7,
+    "motionSpeedWhileHit": 0.3,
+    "hitOffset": {
+      "x": 0,
+      "y": 0,
+      "z": 0.001
+    }
   },
   {
     "id": 1002,
@@ -22,16 +25,19 @@
     "power": 17,
     "attackPointEndTime": 0.2,
     "attackPointNormalizedEndTime": 0.361,
-    "attackAnimationStartTime": 0.2,
     "attackAnimationNormalizedStartTime": 0.371,
-    "attackAnimationEndTime": 1.07,
     "attackAnimationNormalizedEndTime": 0.679,
     "backswingStartTime": 1.07,
     "owner": "Player",
     "voice": "univ0002",
-    "motionSpeedBeforeAttack": 0.8,
-    "motionSpeedDuringAttack": 1.4,
-    "motionSpeedWhileHit": 0.2
+    "motionSpeedBeforeAttack": 1.7,
+    "motionSpeedDuringAttack": 1.7,
+    "motionSpeedWhileHit": 0.2,
+    "hitOffset": {
+      "x": 0,
+      "y": 0,
+      "z": 0.001
+    }
   },
   {
     "id": 1003,
@@ -39,16 +45,19 @@
     "power": 20,
     "attackPointEndTime": 0.14,
     "attackPointNormalizedEndTime": 0.244,
-    "attackAnimationStartTime": 0.14,
     "attackAnimationNormalizedStartTime": 0.254,
-    "attackAnimationEndTime": 1.07,
     "attackAnimationNormalizedEndTime": 0.663,
     "backswingStartTime": 1.23,
     "owner": "Player",
     "voice": "univ1102",
-    "motionSpeedBeforeAttack": 0.7,
-    "motionSpeedDuringAttack": 1.2,
-    "motionSpeedWhileHit": 0.2
+    "motionSpeedBeforeAttack": 1.5,
+    "motionSpeedDuringAttack": 1.5,
+    "motionSpeedWhileHit": 0.2,
+    "hitOffset": {
+      "x": 0,
+      "y": 0,
+      "z": 0.001
+    }
   },
   {
     "id": 1004,
@@ -56,16 +65,19 @@
     "power": 10,
     "attackPointEndTime": 0.3,
     "attackPointNormalizedEndTime": 0.282,
-    "attackAnimationStartTime": 0.3,
     "attackAnimationNormalizedStartTime": 0.292,
-    "attackAnimationEndTime": 0.6,
     "attackAnimationNormalizedEndTime": 0.483,
     "backswingStartTime": 0.6,
     "owner": "Enemy",
     "voice": "",
-    "motionSpeedBeforeAttack": 0.7,
-    "motionSpeedDuringAttack": 1.2,
-    "motionSpeedWhileHit": 1
+    "motionSpeedBeforeAttack": 2,
+    "motionSpeedDuringAttack": 2,
+    "motionSpeedWhileHit": 1,
+    "hitOffset": {
+      "x": 0,
+      "y": 0,
+      "z": 0.001
+    }
   },
   {
     "id": 1005,
@@ -73,16 +85,19 @@
     "power": 10,
     "attackPointEndTime": 0.14,
     "attackPointNormalizedEndTime": 0.273,
-    "attackAnimationStartTime": 0.14,
     "attackAnimationNormalizedStartTime": 0.283,
-    "attackAnimationEndTime": 0.4,
     "attackAnimationNormalizedEndTime": 0.488,
     "backswingStartTime": 0.4,
     "owner": "Enemy",
     "voice": "",
-    "motionSpeedBeforeAttack": 0.7,
-    "motionSpeedDuringAttack": 1.2,
-    "motionSpeedWhileHit": 1
+    "motionSpeedBeforeAttack": 2,
+    "motionSpeedDuringAttack": 2,
+    "motionSpeedWhileHit": 1,
+    "hitOffset": {
+      "x": 0,
+      "y": 0,
+      "z": 0.001
+    }
   },
   {
     "id": 1006,
@@ -90,16 +105,19 @@
     "power": 7,
     "attackPointEndTime": 0.36,
     "attackPointNormalizedEndTime": 0.298,
-    "attackAnimationStartTime": 0.37,
     "attackAnimationNormalizedStartTime": 0.31,
-    "attackAnimationEndTime": 0.59,
     "attackAnimationNormalizedEndTime": 0.49,
     "backswingStartTime": 1,
     "owner": "Player",
     "voice": "univ1101",
-    "motionSpeedBeforeAttack": 1.5,
-    "motionSpeedDuringAttack": 1.5,
-    "motionSpeedWhileHit": 0.8
+    "motionSpeedBeforeAttack": 2,
+    "motionSpeedDuringAttack": 2,
+    "motionSpeedWhileHit": 0.8,
+    "hitOffset": {
+      "x": 0,
+      "y": 0,
+      "z": 0.001
+    }
   },
   {
     "id": 1007,
@@ -107,16 +125,19 @@
     "power": 10,
     "attackPointEndTime": 0.59,
     "attackPointNormalizedEndTime": 0.449,
-    "attackAnimationStartTime": 0.6,
     "attackAnimationNormalizedStartTime": 0.457,
-    "attackAnimationEndTime": 1.3,
     "attackAnimationNormalizedEndTime": 0.686,
     "backswingStartTime": 1.31,
     "owner": "Player",
     "voice": "univ0002",
-    "motionSpeedBeforeAttack": 1.5,
-    "motionSpeedDuringAttack": 1.5,
-    "motionSpeedWhileHit": 0.8
+    "motionSpeedBeforeAttack": 2,
+    "motionSpeedDuringAttack": 2,
+    "motionSpeedWhileHit": 0.8,
+    "hitOffset": {
+      "x": 0,
+      "y": 0,
+      "z": 0.001
+    }
   },
   {
     "id": 1008,
@@ -124,15 +145,18 @@
     "power": 12,
     "attackPointEndTime": 0.29,
     "attackPointNormalizedEndTime": 0.247,
-    "attackAnimationStartTime": 0.3,
     "attackAnimationNormalizedStartTime": 0.259,
-    "attackAnimationEndTime": 0.38,
     "attackAnimationNormalizedEndTime": 0.539,
     "backswingStartTime": 0.551,
     "owner": "Player",
     "voice": "univ1102",
-    "motionSpeedBeforeAttack": 1.7,
-    "motionSpeedDuringAttack": 1.7,
-    "motionSpeedWhileHit": 0.5
+    "motionSpeedBeforeAttack": 2,
+    "motionSpeedDuringAttack": 2,
+    "motionSpeedWhileHit": 0.5,
+    "hitOffset": {
+      "x": 0,
+      "y": 0,
+      "z": 0.001
+    }
   }
 ]

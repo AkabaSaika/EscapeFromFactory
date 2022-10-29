@@ -29,7 +29,7 @@ public class GameManager : MonoSingleton<GameManager>
 
     public UnityAction gameClearHandler;//ゲームクリアのイベントを受け取る
 
-    private string screenshotDirPath = "Screenshots\\";
+    private string screenshotDirPath = "Screenshots/";
     public bool GameClearState { get => gameClearState;}
 
     /// <summary>
@@ -105,7 +105,7 @@ public class GameManager : MonoSingleton<GameManager>
             }
             
         }
-        if(Input.GetKeyDown(KeyCode.SysReq))
+        if(Input.GetKeyDown(KeyCode.F12))
         {
             ScreenShot();
         }
@@ -158,11 +158,11 @@ public class GameManager : MonoSingleton<GameManager>
         if(!screenshotDirInfo.Exists)
         {
             Directory.CreateDirectory(screenshotDirPath);
-            ScreenCapture.CaptureScreenshot(screenshotDirPath + "screenshot" + System.DateTime.Now.ToString("yyyymmddhhmmss") + ".png");
+            ScreenCapture.CaptureScreenshot(screenshotDirPath+"/" + "screenshot" + System.DateTime.Now.ToString("yyyymmddhhmmss") + ".png");
         }
         else
         {
-            ScreenCapture.CaptureScreenshot(screenshotDirPath + "screenshot" + System.DateTime.Now.ToString("yyyymmddhhmmss") + ".png");
+            ScreenCapture.CaptureScreenshot(screenshotDirPath+"/" + "screenshot" + System.DateTime.Now.ToString("yyyymmddhhmmss") + ".png");
         }
         
     }

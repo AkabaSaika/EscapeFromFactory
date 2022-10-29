@@ -6074,6 +6074,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6291632744110654175, guid: 2dc97d55d092dfc48959a5303ff185e8,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: d2f9ceb0fb76ac14ca48499a6922fdbc, type: 2}
     - target: {fileID: 6291632744110687709, guid: 2dc97d55d092dfc48959a5303ff185e8,
         type: 3}
       propertyPath: m_Name
@@ -6638,7 +6643,7 @@ PrefabInstance:
     - target: {fileID: 5777687223480781229, guid: c62f305a4c42e5c4f9cd6d882861410c,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -70.67
+      value: -68.69
       objectReference: {fileID: 0}
     - target: {fileID: 5777687223480781229, guid: c62f305a4c42e5c4f9cd6d882861410c,
         type: 3}
@@ -6648,7 +6653,7 @@ PrefabInstance:
     - target: {fileID: 5777687223480781229, guid: c62f305a4c42e5c4f9cd6d882861410c,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 15.42
+      value: 14.11
       objectReference: {fileID: 0}
     - target: {fileID: 5777687223480781229, guid: c62f305a4c42e5c4f9cd6d882861410c,
         type: 3}
@@ -6689,6 +6694,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: NavmeshDebugger
+      objectReference: {fileID: 0}
+    - target: {fileID: 9165982797698470487, guid: c62f305a4c42e5c4f9cd6d882861410c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c62f305a4c42e5c4f9cd6d882861410c, type: 3}

@@ -354,7 +354,7 @@ public class DeadState :IState
     public void OnEnter()
     {
         parameter.anim.Play("Falling Back Death");
-        parameter.thisTansform.gameObject.GetComponent<CharacterController>().enabled = false;
+        parameter.thisTansform.gameObject.GetComponent<CapsuleCollider>().enabled = false;
 #if UNITY_EDITOR
         Debug.Log(manager.gameObject.name + " Enter Dead");
 #endif

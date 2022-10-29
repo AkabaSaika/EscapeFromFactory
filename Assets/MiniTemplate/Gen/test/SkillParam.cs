@@ -23,9 +23,7 @@ public sealed partial class SkillParam :  Bright.Config.BeanBase
         { if(!_json["power"].IsNumber) { throw new SerializationException(); }  Power = _json["power"]; }
         { if(!_json["attackPointEndTime"].IsNumber) { throw new SerializationException(); }  AttackPointEndTime = _json["attackPointEndTime"]; }
         { if(!_json["attackPointNormalizedEndTime"].IsNumber) { throw new SerializationException(); }  AttackPointNormalizedEndTime = _json["attackPointNormalizedEndTime"]; }
-        { if(!_json["attackAnimationStartTime"].IsNumber) { throw new SerializationException(); }  AttackAnimationStartTime = _json["attackAnimationStartTime"]; }
         { if(!_json["attackAnimationNormalizedStartTime"].IsNumber) { throw new SerializationException(); }  AttackAnimationNormalizedStartTime = _json["attackAnimationNormalizedStartTime"]; }
-        { if(!_json["attackAnimationEndTime"].IsNumber) { throw new SerializationException(); }  AttackAnimationEndTime = _json["attackAnimationEndTime"]; }
         { if(!_json["attackAnimationNormalizedEndTime"].IsNumber) { throw new SerializationException(); }  AttackAnimationNormalizedEndTime = _json["attackAnimationNormalizedEndTime"]; }
         { if(!_json["backswingStartTime"].IsNumber) { throw new SerializationException(); }  BackswingStartTime = _json["backswingStartTime"]; }
         { if(!_json["owner"].IsString) { throw new SerializationException(); }  Owner = _json["owner"]; }
@@ -33,19 +31,18 @@ public sealed partial class SkillParam :  Bright.Config.BeanBase
         { if(!_json["motionSpeedBeforeAttack"].IsNumber) { throw new SerializationException(); }  MotionSpeedBeforeAttack = _json["motionSpeedBeforeAttack"]; }
         { if(!_json["motionSpeedDuringAttack"].IsNumber) { throw new SerializationException(); }  MotionSpeedDuringAttack = _json["motionSpeedDuringAttack"]; }
         { if(!_json["motionSpeedWhileHit"].IsNumber) { throw new SerializationException(); }  MotionSpeedWhileHit = _json["motionSpeedWhileHit"]; }
+        { var _json2 = _json["hitOffset"]; if(!_json2.IsObject) { throw new SerializationException(); } float __x; { if(!_json2["x"].IsNumber) { throw new SerializationException(); }  __x = _json2["x"]; } float __y; { if(!_json2["y"].IsNumber) { throw new SerializationException(); }  __y = _json2["y"]; } float __z; { if(!_json2["z"].IsNumber) { throw new SerializationException(); }  __z = _json2["z"]; }  HitOffset = new UnityEngine.Vector3(__x, __y,__z); }
         PostInit();
     }
 
-    public SkillParam(int id, string skillName, int power, float attackPointEndTime, float attackPointNormalizedEndTime, float attackAnimationStartTime, float attackAnimationNormalizedStartTime, float attackAnimationEndTime, float attackAnimationNormalizedEndTime, float backswingStartTime, string owner, string voice, float motionSpeedBeforeAttack, float motionSpeedDuringAttack, float motionSpeedWhileHit ) 
+    public SkillParam(int id, string skillName, int power, float attackPointEndTime, float attackPointNormalizedEndTime, float attackAnimationNormalizedStartTime, float attackAnimationNormalizedEndTime, float backswingStartTime, string owner, string voice, float motionSpeedBeforeAttack, float motionSpeedDuringAttack, float motionSpeedWhileHit, UnityEngine.Vector3 hitOffset ) 
     {
         this.Id = id;
         this.SkillName = skillName;
         this.Power = power;
         this.AttackPointEndTime = attackPointEndTime;
         this.AttackPointNormalizedEndTime = attackPointNormalizedEndTime;
-        this.AttackAnimationStartTime = attackAnimationStartTime;
         this.AttackAnimationNormalizedStartTime = attackAnimationNormalizedStartTime;
-        this.AttackAnimationEndTime = attackAnimationEndTime;
         this.AttackAnimationNormalizedEndTime = attackAnimationNormalizedEndTime;
         this.BackswingStartTime = backswingStartTime;
         this.Owner = owner;
@@ -53,6 +50,7 @@ public sealed partial class SkillParam :  Bright.Config.BeanBase
         this.MotionSpeedBeforeAttack = motionSpeedBeforeAttack;
         this.MotionSpeedDuringAttack = motionSpeedDuringAttack;
         this.MotionSpeedWhileHit = motionSpeedWhileHit;
+        this.HitOffset = hitOffset;
         PostInit();
     }
 
@@ -75,15 +73,7 @@ public sealed partial class SkillParam :  Bright.Config.BeanBase
     /// </summary>
     public float AttackPointEndTime { get; private set; }
     public float AttackPointNormalizedEndTime { get; private set; }
-    /// <summary>
-    /// アタックモーションの開始時間
-    /// </summary>
-    public float AttackAnimationStartTime { get; private set; }
     public float AttackAnimationNormalizedStartTime { get; private set; }
-    /// <summary>
-    /// アタックモーションの終了時間
-    /// </summary>
-    public float AttackAnimationEndTime { get; private set; }
     public float AttackAnimationNormalizedEndTime { get; private set; }
     public float BackswingStartTime { get; private set; }
     public string Owner { get; private set; }
@@ -91,6 +81,7 @@ public sealed partial class SkillParam :  Bright.Config.BeanBase
     public float MotionSpeedBeforeAttack { get; private set; }
     public float MotionSpeedDuringAttack { get; private set; }
     public float MotionSpeedWhileHit { get; private set; }
+    public UnityEngine.Vector3 HitOffset { get; private set; }
 
     public const int __ID__ = 203861944;
     public override int GetTypeId() => __ID__;
@@ -112,9 +103,7 @@ public sealed partial class SkillParam :  Bright.Config.BeanBase
         + "Power:" + Power + ","
         + "AttackPointEndTime:" + AttackPointEndTime + ","
         + "AttackPointNormalizedEndTime:" + AttackPointNormalizedEndTime + ","
-        + "AttackAnimationStartTime:" + AttackAnimationStartTime + ","
         + "AttackAnimationNormalizedStartTime:" + AttackAnimationNormalizedStartTime + ","
-        + "AttackAnimationEndTime:" + AttackAnimationEndTime + ","
         + "AttackAnimationNormalizedEndTime:" + AttackAnimationNormalizedEndTime + ","
         + "BackswingStartTime:" + BackswingStartTime + ","
         + "Owner:" + Owner + ","
@@ -122,6 +111,7 @@ public sealed partial class SkillParam :  Bright.Config.BeanBase
         + "MotionSpeedBeforeAttack:" + MotionSpeedBeforeAttack + ","
         + "MotionSpeedDuringAttack:" + MotionSpeedDuringAttack + ","
         + "MotionSpeedWhileHit:" + MotionSpeedWhileHit + ","
+        + "HitOffset:" + HitOffset + ","
         + "}";
     }
     
