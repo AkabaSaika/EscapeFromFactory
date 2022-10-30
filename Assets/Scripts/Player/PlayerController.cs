@@ -323,5 +323,9 @@ public class PlayerController : MonoBehaviour
         GUI.Box(new Rect(100, 100, 50, 30), anim.speed.ToString());
 #endif
     }
-
+    public void GetHeal(int healPoint)
+    {
+        currentHp+=healPoint;
+        currentHp=currentHp>parameter.MaxHp?parameter.MaxHp:currentHp;
+    }
 }

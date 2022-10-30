@@ -10,21 +10,21 @@ using UnityEditor;
 public class SkillParam
 {
     [SerializeField]
-    private float m_backswingStartTime;//锟斤拷锟斤拷锟矫ワ拷锟斤拷`锟斤拷锟斤拷锟轿バッワ拷锟斤拷锟斤拷锟襟グわ拷锟絖始锟絩锟絞
+    private float m_backswingStartTime;//バックスイング開始のタイミング
     [SerializeField]
-    private float m_attackPointNormalizedEndTime;//锟斤拷锟斤拷锟矫ワ拷锟斤拷`锟斤拷锟斤拷锟轿準傦拷锟絗锟斤拷锟斤拷锟斤拷锟斤拷規锟斤拷锟終锟剿時锟絞
+    private float m_attackPointNormalizedEndTime;//準備モーション終了のタイミング
     [SerializeField]
-    private float m_attackAnimationNormalizedStartTime;//锟斤拷锟斤拷锟矫ワ拷锟斤拷`锟斤拷锟斤拷锟斤拷锟斤拷規锟斤拷锟絖始锟絩锟絞
+    private float m_attackAnimationNormalizedStartTime;//攻撃モーション開始のタイミング
     [SerializeField]
-    private float m_attackAnimationNormalizedEndTime;//锟斤拷锟斤拷锟矫ワ拷锟斤拷`锟斤拷锟斤拷锟斤拷锟斤拷規锟斤拷锟終锟剿時锟絞
+    private float m_attackAnimationNormalizedEndTime;//攻撃モーション終了のタイミング
     [SerializeField]
-    private float m_motionSpeedBeforeAttack;
+    private float m_motionSpeedBeforeAttack;//準備モーションの再生速度
     [SerializeField]
-    private float m_motionSpeedDuringAttack;
+    private float m_motionSpeedDuringAttack;//攻撃モーションの再生速度
     [SerializeField]
-    private float m_motionSpeedWhileHit;
+    private float m_motionSpeedWhileHit;//命中時のモーション速度
     [SerializeField]
-    private int m_power;//锟斤拷锟斤拷锟斤拷
+    private int m_power;//攻撃力
     [SerializeField]
     private GameObject m_Owner;
     [SerializeField]
@@ -82,7 +82,7 @@ public class Skill : MonoBehaviour
         OnAnimationEnd(Action);
         //現在のAnimatorState
         stateInfo = m_anim.GetCurrentAnimatorStateInfo(0);
-        //锟斤拷锟侥ワ拷`锟斤拷锟斤拷锟斤拷肖斯锟斤拷锟斤拷卸锟斤拷锟斤拷锟斤拷嗓锟斤拷锟�
+        //攻撃判定を生成する
         if(stateInfo.normalizedTime>=sp.AttackAnimationNormalizedStartTime&&stateInfo.normalizedTime<=sp.AttackAnimationNormalizedEndTime)
         {
             foreach (var hp in sp.Hps)
@@ -102,13 +102,13 @@ public class Skill : MonoBehaviour
         if (sp.Owner.tag == "Player")
         {
             stateInfo = m_anim.GetCurrentAnimatorStateInfo(0);
-            //锟绞傦拷锟絗锟斤拷锟斤拷锟饺癸拷锟侥ワ拷`锟斤拷锟斤拷锟斤拷锟絞锟斤拷転锟斤拷锟斤拷埭圣锟斤拷锟斤拷撺螗挨锟斤拷锟斤拷锟�
+            //準備モーションと攻撃モーションの間に転向可能なタイミングを設定する
             if (stateInfo.normalizedTime >= sp.AttackPointNormalizedEndTime && stateInfo.normalizedTime <= sp.AttackAnimationNormalizedStartTime)
             {
                 m_anim.SetFloat(speedMultiplierId, sp.MotionSpeedDuringAttack);
                 sp.Owner.GetComponent<PlayerController>().Turn();
             }
-            //锟斤拷锟轿堬拷锟较わ拷RootMotion锟斤拷锟絤锟矫わ拷锟斤拷锟�
+            //それ以外はRootMotionのみ
             else
             {
                 m_anim.ApplyBuiltinRootMotion();

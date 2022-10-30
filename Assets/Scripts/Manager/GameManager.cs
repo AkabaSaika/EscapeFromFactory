@@ -24,6 +24,7 @@ public class GameManager : MonoSingleton<GameManager>
     private GameObject player;
     [SerializeField]
     private bool gameClearState;
+    public GameObject lastCheckPoint;//最後に訪ねたチェックポイント
     int count = 0;
     public GameState gameState;
 
