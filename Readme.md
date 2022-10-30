@@ -1,35 +1,29 @@
-基本
-===
-- [x] 移動
-- [x] カメラワーク
+# Escape From Factory
 
-戦闘システム
-===
-- [x] 攻撃判定
-- [x] フィードバック
-- [x] 敵処理
+人類抵抗運動のエージェント・ユニティちゃんが人類救うために、ロボットの自立工場に潜入し、機密情報を抜き出した。しかし彼女の帰り道に待ち受けているのは．．．無数のロボット兵士と罠！ユニティちゃんと運命、そして人類の運命は救われるのか？すべては君で決まる！
 
-敵AI
-===
-- [x] Idle
-- [x] Chase
-- [x] Battle
-- [x] Attack
-- [x] Damaged
-- [x] Dead
+## Install
 
-UI
-===
-- [x] Status Bar
-- [x] Start Menu
+最新バージョンは[こちら](https://github.com/AkabaSaika/EscapeFromFactory/tags)からダウンロードできます。
 
-音
-===
-- [x] 走行音
-- [x] 打撃音
-- [x] かけ声
-- [x] UI音
+## Require
 
-次のタスク
-- [] クリア判定
-- [] AIのバグ
+リリース版を実行する場合：
+```sh
+Windows10
+```
+
+UnityEditorで実行する場合：
+```sh
+Unity2019.4.17f1
+Allow unsafe codeを有効にしてください
+```
+## Usage
+
+zipファイルを解凍する後、`EscapeFromFactory.exe`を実行してください。
+
+
+## License
+
+[MIT](license) © AkabaSaika
+
