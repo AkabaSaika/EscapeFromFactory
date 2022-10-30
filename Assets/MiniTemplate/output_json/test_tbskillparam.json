@@ -2,7 +2,7 @@
   {
     "id": 1001,
     "skillName": "great sword slash",
-    "power": 10,
+    "power": 20,
     "attackPointEndTime": 0.4,
     "attackPointNormalizedEndTime": 0.39,
     "attackAnimationNormalizedStartTime": 0.4,
@@ -22,7 +22,7 @@
   {
     "id": 1002,
     "skillName": "great sword slash 2",
-    "power": 17,
+    "power": 40,
     "attackPointEndTime": 0.2,
     "attackPointNormalizedEndTime": 0.361,
     "attackAnimationNormalizedStartTime": 0.371,
@@ -42,7 +42,7 @@
   {
     "id": 1003,
     "skillName": "great sword slash 3",
-    "power": 20,
+    "power": 40,
     "attackPointEndTime": 0.14,
     "attackPointNormalizedEndTime": 0.244,
     "attackAnimationNormalizedStartTime": 0.254,
@@ -102,7 +102,7 @@
   {
     "id": 1006,
     "skillName": "KatanaAttack1",
-    "power": 7,
+    "power": 15,
     "attackPointEndTime": 0.36,
     "attackPointNormalizedEndTime": 0.298,
     "attackAnimationNormalizedStartTime": 0.31,
@@ -122,7 +122,7 @@
   {
     "id": 1007,
     "skillName": "KatanaAttack2",
-    "power": 10,
+    "power": 20,
     "attackPointEndTime": 0.59,
     "attackPointNormalizedEndTime": 0.449,
     "attackAnimationNormalizedStartTime": 0.457,
@@ -142,7 +142,7 @@
   {
     "id": 1008,
     "skillName": "KatanaAttack3",
-    "power": 12,
+    "power": 25,
     "attackPointEndTime": 0.29,
     "attackPointNormalizedEndTime": 0.247,
     "attackAnimationNormalizedStartTime": 0.259,
