@@ -29,6 +29,7 @@ public class CameraController : MonoBehaviour
     private float cameraHeightWhileLockon;
 
     private float boxCenter;
+    [SerializeField]
     private GameObject lockTarget;
     [SerializeField]
     private Image lockOnIcon;
@@ -48,7 +49,7 @@ public class CameraController : MonoBehaviour
     [SerializeField]
     private const float MAX_LOCKON_DINSTANCE = 10.0f;
     [SerializeField]
-    private const float MAX_LOCKON_CAMERA_HEIGHT = 11.0f;
+    private const float MAX_LOCKON_CAMERA_HEIGHT = 5.0f;
     [SerializeField]
     private const float MIN_LOCKON_CAMERA_HEIGHT = 1.0f;
     private const float ANGLE_CONVERTER = Mathf.PI / 180;
@@ -130,6 +131,7 @@ public class CameraController : MonoBehaviour
             else targetPos = lookAtPoint.position + offsetVector;
             cam.transform.position = Vector3.SmoothDamp(cam.transform.position, targetPos, ref velocity, soothtime);
             cam.transform.LookAt(lookAtPoint);
+
         }
         else
         {
@@ -149,18 +151,28 @@ public class CameraController : MonoBehaviour
             }
             cam.transform.position = Vector3.SmoothDamp(cam.transform.position, targetPos, ref velocity, soothtime);
             cam.transform.LookAt(lockTarget.transform.position);
-            
+            //ロックオン自動解除
+            if(lockTarget.GetComponentInParent<FSM>().parameter.anim.GetCurrentAnimatorStateInfo(0).IsName("Falling Back Death"))
+            {
+                isLockOn=false;
+                lockTarget=null;
+                lockOnIcon.enabled = false;
+            }
         }
+        
         CullWhileOcclude();
     }
 
+    //敵をロックオンする
     public void LockOn()
     {
         Vector3 tmpPlayerCenter = player.transform.position + Vector3.up;
         Vector3 tmpBoxCenter = tmpPlayerCenter + player.transform.forward * boxCenter;
+        //OverlapBoxで敵を検知する
         Collider[] colliders = Physics.OverlapBox(tmpBoxCenter, new Vector3(1.0f, 1.0f, 5.0f), player.transform.rotation,1<<12);
         if(colliders.Length!=0&&lockTarget==null)
         {
+            //一番近い敵をロックオンする
             lockTarget = colliders[0].gameObject;
             lockOnIcon.enabled = true;
             lockOnIcon.rectTransform.position = cam.WorldToScreenPoint(lockTarget.transform.position + Vector3.up);
@@ -173,7 +185,8 @@ public class CameraController : MonoBehaviour
             isLockOn = false;
         }
     }
-
+    
+    //プレイヤーとカメラの間で物体がある場合物体を透明化する
     private void CullWhileOcclude()
     {
         Vector3 middlePos = cam.transform.position + (lookAtPoint.position - cam.transform.position) / 2;

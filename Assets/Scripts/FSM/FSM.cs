@@ -40,7 +40,7 @@ public class FSM : MonoBehaviour,Observer
 {
     public Parameter parameter;
     public IState currentState;
-    private Dictionary<StateType, IState> states = new Dictionary<StateType, IState>();
+    public Dictionary<StateType, IState> states = new Dictionary<StateType, IState>();
     private SkillParameter skillParameter;
     private PlayerController player;
     private Animator playerAnim;

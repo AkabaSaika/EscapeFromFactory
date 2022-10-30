@@ -299,14 +299,14 @@ public class Skill : MonoBehaviour
             
         }
     }
-
+#if UNITY_EDITOR
     private void OnGUI() {
        if(m_hitObject.Count>0)
        {
            GUI.Box(new Rect(transform.position.x,transform.position.y,500,100),m_hitObject[0].name);
        }
     }
-
+#endif
     private GameObject NearestObject(Collider[] colliders)
     {
         float tmpShortestDistance=float.MaxValue;

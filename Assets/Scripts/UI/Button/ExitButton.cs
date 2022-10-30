@@ -6,9 +6,8 @@ public class ExitButton : ButtonBase
 {
     protected override void PushDownAction(GameObject currPanel,GameObject nextPanel)
     {
-        if(currPanel!=null)
-        {
+
             Application.Quit();    
-        }
+
     }
 }
