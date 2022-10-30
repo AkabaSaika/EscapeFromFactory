@@ -220,28 +220,6 @@ public class PlayerController : MonoBehaviour
         Debug.Log("hit by" + hitEvent.SkillName);
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Door"))
-        {
-            DoorController dc = other.GetComponentInParent<DoorController>();
-            dc.doorChange += delegate { DoorController.OpenDoor(dc.door); };
-            dc.doorChange(dc.door);
-            
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Door"))
-        {
-            DoorController dc = other.GetComponentInParent<DoorController>();
-            dc.doorChange += delegate { DoorController.CloseDoor(dc.door); };
-            dc.doorChange(dc.door);
-
-        }
-    }
-
     private void PickUp(int id)
     {
         

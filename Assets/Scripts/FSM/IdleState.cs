@@ -308,6 +308,7 @@ public class DamageState :IState
     public void OnEnter()
     {
         parameter.anim.Play("Big Hit To Head");
+        
 #if UNITY_EDITOR
         Debug.Log(manager.gameObject.name + " Enter Damage");
 #endif
@@ -315,6 +316,7 @@ public class DamageState :IState
 
     public void OnUpdate()
     {
+        parameter.rb.AddForce(new Vector3(0,0,-10),ForceMode.Impulse);
         if(parameter.anim.GetCurrentAnimatorStateInfo(0).normalizedTime>1.0f)
         {
             if (parameter.health <= 0)

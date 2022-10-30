@@ -21,7 +21,7 @@ D:/Unity/UnityChanAction/Assets/MiniTemplate/Datas/item.xlsx,3989F18A322E1F5A45D
 D:/Unity/UnityChanAction/Assets/MiniTemplate/Datas/mainStageRespawn.xlsx,66C93B64BDE2166B41352FE42BA36E6,9908,1665756930490
 D:/Unity/UnityChanAction/Assets/MiniTemplate/Datas/SkillParam.xlsx,9618DE530FCEF1098452E504AA4F0C2,10350,1666459942879
 D:/Unity/UnityChanAction/Assets/MiniTemplate/Datas/testStageRespawn.xlsx,99BFD859DAD64DA5EBFCD28B9A42DE44,9094,1663929100038
-D:/Unity/UnityChanAction/Assets/MiniTemplate/Datas/weapon.xlsx,7E9DE6473858285E4BE9671DD87225,9863,1666459965674
+D:/Unity/UnityChanAction/Assets/MiniTemplate/Datas/weapon.xlsx,97B1C8D022F43A305CD64BFAC9CB3A2,9864,1667104455246
 D:/Unity/UnityChanAction/Assets/MiniTemplate/Gen/character/Character.cs,1D753AF51BD417BE1FFEA23FA3458F4,3548,1665846348198
 D:/Unity/UnityChanAction/Assets/MiniTemplate/Gen/character/TbCharacter.cs,5E9A2722AE6A2144901F39239D6C35C,1847,1659612991747
 D:/Unity/UnityChanAction/Assets/MiniTemplate/Gen/item/EQuality.cs,D469AF2D604BE28BF39A41F491FC2B9A,763,1655800156471
@@ -43,4 +43,4 @@ D:/Unity/UnityChanAction/Assets/MiniTemplate/output_json/item_tbitem.json,7352E6
 D:/Unity/UnityChanAction/Assets/MiniTemplate/output_json/stage_tbrespawnpoints.json,C194148F3E6FCDFD45686C1A292C5E8,3885,1665756930629
 D:/Unity/UnityChanAction/Assets/MiniTemplate/output_json/test_tbrespawnponts.json,8593FE6B49F2A64743B27D3A93C20,807,1663929100040
 D:/Unity/UnityChanAction/Assets/MiniTemplate/output_json/test_tbskillparam.json,90134F3BB52852E15676CF35F974FF4,4130,1666457588004
-D:/Unity/UnityChanAction/Assets/MiniTemplate/output_json/weapon_tbweapon.json,A8A3199715F49F3ED6B5BD9F258DDCEC,3278,1666459977762
+D:/Unity/UnityChanAction/Assets/MiniTemplate/output_json/weapon_tbweapon.json,DDBDF39DB95E6579EF31AC08FA80F8,3280,1667104505262

@@ -24,7 +24,7 @@ public class Parameter
     public Transform[] chasePoints;
     public Animator anim;
     public Transform respawnPoint;
-    //public Rigidbody rb;
+    public Rigidbody rb;
 
     public float idleTimer;
     public NavMeshAgent agent;
@@ -61,7 +61,7 @@ public class FSM : MonoBehaviour,Observer
         parameter.player = GameObject.FindGameObjectWithTag("Player").transform;
         parameter.anim = GetComponent<Animator>();
         parameter.agent = GetComponent<NavMeshAgent>();
-        //parameter.rb = GetComponent<Rigidbody>();
+        parameter.rb = GetComponent<Rigidbody>();
         TransitionState(StateType.Idle);
         skillParameter=GameObject.Find("Game").GetComponent<SkillParameter>();
         player=GetComponent<PlayerController>();
