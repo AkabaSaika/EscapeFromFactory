@@ -23,6 +23,6 @@ public class RightPunch : Weapon
             }
         }
         WeaponTrans = InitRightHandWeapon(1002);
-        weaponBehaviour = new GreatSwordBehaviour();
+        weaponBehaviour = null;
     }
 }

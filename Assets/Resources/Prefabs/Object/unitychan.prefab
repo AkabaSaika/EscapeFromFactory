@@ -6141,9 +6141,7 @@ GameObject:
   - component: {fileID: 6291632744110266429}
   - component: {fileID: 6291632744110654175}
   - component: {fileID: 6291632744110654170}
-  - component: {fileID: 6399705181867190041}
   - component: {fileID: 6399705181867190046}
-  - component: {fileID: 6399705181867190047}
   - component: {fileID: 471353381415830772}
   - component: {fileID: 884643805925134378}
   m_Layer: 11
@@ -6206,26 +6204,6 @@ MonoBehaviour:
   currentHp: 0
   currentTenacity: 0
   IKHands: {fileID: 0}
---- !u!114 &6399705181867190041
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6291632744110687709}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 114dd53b78126fd4da2edc336788342e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  castType: 3
-  preview: 1
-  castDrawType: 0
-  drawDuration: 0
-  hitColor: {r: 0, g: 1, b: 0, a: 1}
-  noHitColor: {r: 1, g: 0, b: 0, a: 1}
-  useRay: 0
-  distance: 5
 --- !u!114 &6399705181867190046
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6238,23 +6216,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f03935d223f0bc48a84ff222c2a57ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &6399705181867190047
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6291632744110687709}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23f93422e3e033e4aa4d80c9c8d0d939, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  leftHandObj: {fileID: 0}
-  attachLeft: {fileID: 0}
-  canBeUsed: 1
-  leftHandPositionWeight: 0.629
-  leftHandRotationWeight: 0.596
 --- !u!54 &471353381415830772
 Rigidbody:
   m_ObjectHideFlags: 0

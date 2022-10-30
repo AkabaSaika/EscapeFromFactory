@@ -223,5 +223,21 @@
       }
     ],
     "maxChaseDistance": 20
+  },
+  {
+    "id": 3013,
+    "prefabName": "unitychan",
+    "respawnPoint": {
+      "x": 5.631,
+      "y": 0.022,
+      "z": -3.05
+    },
+    "rotation": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "patrolPoints": [],
+    "maxChaseDistance": 0
   }
 ]

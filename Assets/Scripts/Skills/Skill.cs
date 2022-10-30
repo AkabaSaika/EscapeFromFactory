@@ -96,7 +96,7 @@ public class Skill : MonoBehaviour
         }
     }
 
-
+    
     private void OnAnimatorMove()
     {
         if (sp.Owner.tag == "Player")

@@ -8,6 +8,7 @@ public class RestartButton : ButtonBase
     protected override void PushDownAction(GameObject currPanel, GameObject nextPanel)
     {
         //AudioManager.Instance.MusicStop("Musics/FutureWorld_Dark_Loop_02");
+        GameManager.Instance.isRespawnFromCheckPoint=false;
         AudioManager.Instance.MusicClear();
         AudioManager.Instance.EffectClear();
         Time.timeScale = 1.0f;

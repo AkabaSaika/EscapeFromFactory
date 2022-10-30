@@ -25,6 +25,8 @@ public class GameManager : MonoSingleton<GameManager>
     [SerializeField]
     private bool gameClearState;
     public GameObject lastCheckPoint;//最後に訪ねたチェックポイント
+    public Vector3 checkPointRespawnPos;
+    public bool isRespawnFromCheckPoint = false;
     int count = 0;
     public GameState gameState;
 
@@ -42,7 +44,7 @@ public class GameManager : MonoSingleton<GameManager>
         if(SceneManager.GetActiveScene().buildIndex>1)
         {
             //敵を初期化する
-            StageManager.Instance.InitStage();
+            StageManager.Instance.InitStage(isRespawnFromCheckPoint);
             gameClearState = false;
 
             //UIの初期化

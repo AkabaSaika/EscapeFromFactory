@@ -89,8 +89,10 @@ public class Weapon : MonoBehaviour
     }
 
     private void Update() {
-        Attack();
-        //skillBehaviour.ManageSkill();
+        if(gameObject.CompareTag("Player"))
+        {
+            Attack();
+        }  
     }
 
     private GameObject[] InitHitPoints(Vector3[] hitPointPos, Transform parent)

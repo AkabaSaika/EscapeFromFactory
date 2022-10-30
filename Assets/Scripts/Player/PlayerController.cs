@@ -325,6 +325,10 @@ public class PlayerController : MonoBehaviour
     }
     public void GetHeal(int healPoint)
     {
+        if(currentHp<parameter.MaxHp-0.1)
+        {
+            AudioManager.Instance.EffectPlay("Audio/Voice/univ0006",false);
+        }
         currentHp+=healPoint;
         currentHp=currentHp>parameter.MaxHp?parameter.MaxHp:currentHp;
     }

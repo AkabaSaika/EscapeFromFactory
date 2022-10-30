@@ -19,6 +19,6 @@ public class LeftPunch : Weapon
             }
         }
         WeaponTrans = InitLeftHandWeapon(1003);
-        weaponBehaviour = new GreatSwordBehaviour();
+        weaponBehaviour = null;
     }
 }
